@@ -97,7 +97,7 @@ void CBrick::ChangeAlienDirection()
 	if (moveSpeed < 0)
 	{
 		moveSpeed = 0.5f;
-		m_pSprite->updateSprite(IDB_BULLETSPRITE, IDB_BULLETMASK);
+		//m_pSprite->updateSprite(IDB_BULLETSPRITE, IDB_BULLETMASK);
 	}
 
 	else

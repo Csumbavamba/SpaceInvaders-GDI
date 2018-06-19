@@ -78,20 +78,20 @@ CSprite::Initialise(int _iSpriteResourceID, int _iMaskResourceID)
 
 void CSprite::updateSprite(int _iSpriteResourceID, int _iMaskResourceID)
 {
-	HINSTANCE hInstance = CGame::GetInstance().GetAppInstance();
+	//HINSTANCE hInstance = CGame::GetInstance().GetAppInstance();
 
-	if (!s_hSharedSpriteDC)
-	{
-		s_hSharedSpriteDC = CreateCompatibleDC(NULL);
-	}
+	//if (!s_hSharedSpriteDC)
+	//{
+	//	s_hSharedSpriteDC = CreateCompatibleDC(NULL);
+	//}
 
-	m_hSprite = LoadBitmap(hInstance, MAKEINTRESOURCE(_iSpriteResourceID));
-	//VALIDATE(m_hSprite);
-	m_hMask = LoadBitmap(hInstance, MAKEINTRESOURCE(_iMaskResourceID));
-	//VALIDATE(m_hMask);
+	//m_hSprite = LoadBitmap(hInstance, MAKEINTRESOURCE(_iSpriteResourceID));
+	////VALIDATE(m_hSprite);
+	//m_hMask = LoadBitmap(hInstance, MAKEINTRESOURCE(_iMaskResourceID));
+	////VALIDATE(m_hMask);
 
-	GetObject(m_hSprite, sizeof(BITMAP), &m_bitmapSprite);
-	GetObject(m_hMask, sizeof(BITMAP), &m_bitmapMask);
+	//GetObject(m_hSprite, sizeof(BITMAP), &m_bitmapSprite);
+	//GetObject(m_hMask, sizeof(BITMAP), &m_bitmapMask);
 }
 
 void

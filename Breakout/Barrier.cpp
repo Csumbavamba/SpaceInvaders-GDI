@@ -1,5 +1,7 @@
 #include "Barrier.h"
-
+#include "resource.h"
+#include "utils.h"
+#include "sprite.h"
 
 
 Barrier::Barrier()
@@ -13,6 +15,13 @@ Barrier::Barrier()
 
 Barrier::~Barrier()
 {
+}
+
+bool Barrier::Initialise()
+{
+	VALIDATE(CEntity::Initialise(IDB_ALIEN1SPRITE, IDB_ALIEN1MASK));
+	return (true);
+	
 }
 
 void Barrier::SetHealth(int _Health)

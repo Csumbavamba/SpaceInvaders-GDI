@@ -24,6 +24,7 @@
 #include "framecounter.h"
 #include "background.h"
 #include "sprite.h"
+#include "Barrier.h"
 
 #include <vector>
 #include <algorithm>
@@ -114,10 +115,15 @@ CLevel::Initialise(int _iWidth, int _iHeight)
     const int kiNumBricks = 33;
     const int kiStartX = 200;
     const int kiGap = 10;
+	const int numberOfBarriers = 4;
 
     int iCurrentX = kiStartX;
     int iCurrentY = 50;
 
+	for (int i = 0; i < kiNumBricks; ++i)
+	{
+		Barrier* Barrier = new Barrier();
+	}
     for (int i = 0; i < kiNumBricks; ++i)
     {
         CBrick* alien = new CBrick();

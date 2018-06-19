@@ -168,5 +168,11 @@
     <Image Include="Sprites\BackgroundSpaceSprite.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Sprites\Barricade.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="sprites\bitmap1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

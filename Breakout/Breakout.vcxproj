@@ -184,6 +184,8 @@
     <Image Include="Sprites\BackgroundSpaceSprite.bmp" />
     <Image Include="Sprites\BallMask.bmp" />
     <Image Include="Sprites\BallSprite.bmp" />
+    <Image Include="Sprites\Barricade.bmp" />
+    <Image Include="sprites\bitmap1.bmp" />
     <Image Include="sprites\BulletMask.bmp" />
     <Image Include="Sprites\BulletSprite.bmp" />
     <Image Include="Sprites\BonusAlienMask.bmp" />

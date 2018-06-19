@@ -78,6 +78,7 @@ protected:
 
 private:
 
+
 };
 
 #endif    // __SPRITE_H__
