@@ -171,7 +171,7 @@
     <Image Include="Sprites\Barricade.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="sprites\bitmap1.bmp">
+    <Image Include="Sprites\BarricadeMask.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
