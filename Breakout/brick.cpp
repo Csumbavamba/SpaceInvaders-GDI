@@ -28,9 +28,9 @@
 // Implementation
 
 CBrick::CBrick()
-: m_bHit(false)
+: isHit(false)
 {
-
+	moveSpeed = 0.5f;
 }
 
 CBrick::~CBrick()
@@ -59,7 +59,7 @@ float CBrick::GetY() const
 void
 CBrick::Draw()
 {
-    if (!m_bHit)
+    if (!isHit)
     {
         CEntity::Draw();
     }
@@ -68,7 +68,7 @@ CBrick::Draw()
 void
 CBrick::Process(float _fDeltaTick)
 {
-    if (!m_bHit)
+    if (!isHit)
     {
         CEntity::Process(_fDeltaTick);
     }
@@ -78,25 +78,40 @@ CBrick::Process(float _fDeltaTick)
 	}
 }
 
+void CBrick::ChangeAlienDirection()
+{
+	if (moveSpeed < 0)
+	{
+		moveSpeed = 0.5f;
+	}
+
+	else
+	{
+		moveSpeed = -0.5f;
+	}
+
+
+}
+
 void
 CBrick::SetHit(bool _b)
 {
-    m_bHit = _b;
+    isHit = _b;
 }
 
 bool
 CBrick::IsHit() const
 {
-    return (m_bHit);
+    return (isHit);
 }
 
-void CBrick::MoveSideWays(float movementSpeed)
+void CBrick::MoveSideWays()
 {
-	m_fX += movementSpeed;
+	m_fX += moveSpeed;
 }
 
-void CBrick::MoveDown(float downSpeed)
+void CBrick::MoveDown()
 {
-	m_fY += downSpeed;
+	m_fY += 20;
 }
 

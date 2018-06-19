@@ -188,6 +188,27 @@ CLevel::Process(float _fDeltaTick)
 {
 	m_pBackground->Process(_fDeltaTick);
 
+	for (unsigned int i = 0; i < aliens.size(); ++i)
+	{
+		if (aliens[i]->IsHit() == false)
+		{
+			aliens[i]->Process(_fDeltaTick);
+			
+			if (largestXAlien->IsHit())
+			{
+				largestXAlien = GetAlienWithLargestX();
+			}
+			if (smallestXAlien->IsHit())
+			{
+				smallestXAlien = GetAlienWithSmallestX();
+			}
+		}
+		// If the brick with the highest X value reaches the wall turn back
+
+	}
+	MoveAliens();
+
+
 	if (GetAsyncKeyState(VK_SPACE) & 0x8000)
 	{
 		isShooting = true;
@@ -229,24 +250,7 @@ CLevel::Process(float _fDeltaTick)
     ProcessCheckForWin();
 	
 
-    for (unsigned int i = 0; i < aliens.size(); ++i)
-    {
-		if (aliens[i]->IsHit() == false)
-		{
-			aliens[i]->Process(_fDeltaTick);
-			MoveAliens();
-			if (largestXAlien->IsHit())
-			{
-				largestXAlien = GetAlienWithLargestX();
-			}
-			if (smallestXAlien->IsHit())
-			{
-				smallestXAlien = GetAlienWithSmallestX();
-			}
-		}
-		// If the brick with the highest X value reaches the wall turn back
-
-    }
+    
 	
    
     
@@ -451,29 +455,32 @@ CLevel::DrawFPS()
 
 void CLevel::MoveAliens()
 {
+	// If they hit the right wall
 	if (largestXAlien->GetX() >= width - 10)
 	{
-		alienSpeed = -0.01f;
-		for (CBrick * alien : aliens)
+		// Move down and turn them back
+		for (int i = 0; i < aliens.size(); ++i)
 		{
-			alien->MoveDown(20);
-		}
-		
+			aliens.at(i)->MoveDown();
+			aliens.at(i)->ChangeAlienDirection();
+		}	
 	}
+	// If they hit the left wall
 	else if (smallestXAlien->GetX() <= 10)
 	{
-		alienSpeed = 0.01f;
-		for (CBrick * alien : aliens)
+		// Move down and turn them back
+		for (int i = 0; i < aliens.size(); ++i)
 		{
-			alien->MoveDown(20);
+			aliens.at(i)->MoveDown();
+			aliens.at(i)->ChangeAlienDirection();
 		}
 	}
 
-	for (CBrick * alien : aliens)
+	// Make every alien move sideways
+	for (int i = 0; i < aliens.size(); ++i)
 	{
-		alien->MoveSideWays(alienSpeed);
+		aliens.at(i)->MoveSideWays();
 	}
-	
 }
 
 CBrick * CLevel::GetAlienWithLargestX()

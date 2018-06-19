@@ -91,7 +91,6 @@ protected:
 
     int width;
     int height;
-	float alienSpeed = 0.01f;
 
     int aliensRemaining;
     std::string m_strScore;
