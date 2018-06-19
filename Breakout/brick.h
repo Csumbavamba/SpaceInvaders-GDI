@@ -42,11 +42,12 @@ public:
 
     virtual void Draw();
     virtual void Process(float _fDeltaTick);
+	void ChangeAlienDirection();
 
     void SetHit(bool _b);
     bool IsHit() const;
-	void MoveSideWays(float movementSpeed);
-	void MoveDown(float downSpeed);
+	void MoveSideWays();
+	void MoveDown();
 
 protected:
 
@@ -58,7 +59,8 @@ private:
 public:
 
 protected:
-    bool m_bHit;
+    bool isHit;
+	float moveSpeed;
 
 private:
 
