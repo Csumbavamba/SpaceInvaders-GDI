@@ -53,8 +53,8 @@ public:
 protected:
     void ProcessBallWallCollision();
 	void ProcessPaddleWallCollison();
-    void ProcessBallPaddleCollision();
-    void ProcessBallBrickCollision();
+    //void ProcessBallPaddleCollision();
+    void ProcessShipBulletAlienCollision();
     void ProcessCheckForWin();
     void ProcessBallBounds();
 
