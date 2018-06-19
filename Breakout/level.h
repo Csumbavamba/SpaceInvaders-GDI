@@ -54,21 +54,25 @@ public:
 protected:
     void ProcessBallWallCollision();
 	void ProcessPaddleWallCollison();
-    //void ProcessBallPaddleCollision();
     void ProcessShipBulletAlienCollision();
     void ProcessCheckForWin();
     void ProcessBallBounds();
+	void CheckAlienBulletCollisions();
+	bool IsPlayerDead();
 
     void UpdateScoreText();
     void DrawScore();
 	void DrawFPS();
 
-	void MoveAliens();
+	
 	CBrick * GetAlienWithLargestX();
 	CBrick * GetAlienWithSmallestX();
 	void RemoveAlienFromVector(CBrick * alien);
 	void RemoveAlienBulletFromVector(AlienBullet * alienBullet);
 
+	void MoveAliens();
+	void MakeAliensShoot();
+	CBrick * GetRandomAlien();
     void SetBricksRemaining(int _i);
 
 private:
@@ -81,13 +85,15 @@ public:
 protected:
 	CBackGround* m_pBackground;
     CBall* bullet = nullptr;
-    CPaddle* m_pPaddle = nullptr;
+    CPaddle* player = nullptr;
     std::vector<CBrick*> aliens;
 	CFPSCounter* m_fpsCounter;
 	std::vector<AlienBullet*> alienBullets;
 
 	bool isShooting = false;
 	bool canShoot = true;
+	int alienShootDelay = 300;
+	int hitPoints;
 
 	CBrick * largestXAlien = nullptr;
 	CBrick * smallestXAlien = nullptr;

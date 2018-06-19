@@ -11,7 +11,6 @@ public:
 	virtual ~AlienBullet();
 
 	virtual bool Initialise(float positionX, float positionY);
-
 	virtual void Draw();
 	virtual void Process(float deltaTick);
 
@@ -19,5 +18,6 @@ public:
 
 private:
 	const float velocityY = 500.0f;
+	bool isDestroyed = false;
 };
 

@@ -11,6 +11,7 @@ AlienBullet::AlienBullet()
 
 AlienBullet::~AlienBullet()
 {
+	isDestroyed = true;
 }
 
 bool AlienBullet::Initialise(float positionX, float positionY)
@@ -25,14 +26,22 @@ bool AlienBullet::Initialise(float positionX, float positionY)
 
 void AlienBullet::Draw()
 {
-	CEntity::Draw();
+	if (!isDestroyed)
+	{
+		CEntity::Draw();
+	}
+	
 }
 
 void AlienBullet::Process(float deltaTick)
 {
-	m_fY += velocityY * deltaTick;
+	if (!isDestroyed)
+	{
+		m_fY += velocityY * deltaTick;
 
-	CEntity::Process(deltaTick);
+		CEntity::Process(deltaTick);
+	}
+	
 }
 
 float AlienBullet::GetRadius() const
