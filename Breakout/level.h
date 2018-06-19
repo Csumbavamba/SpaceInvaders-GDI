@@ -97,7 +97,7 @@ protected:
 	bool isShooting = false;
 	bool canShoot = true;
 	int alienShootDelay = 300;
-	int hitPoints;
+	int hitPoints = 3;
 
 	CBrick * largestXAlien = nullptr;
 	CBrick * smallestXAlien = nullptr;

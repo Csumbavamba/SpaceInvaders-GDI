@@ -447,29 +447,35 @@ void CLevel::CheckAlienBulletCollisions()
 			}
 
 
-			float alienTop = alienBullet->GetY() - alienBullet->GetRadius();
-			float alienBottom = alienBullet->GetY() + alienBullet->GetRadius();
+			// Bullet dimensions
+			float bulletTop = alienBullet->GetY() - alienBullet->GetRadius();
+			float bulletBottom = alienBullet->GetY() + alienBullet->GetRadius();
+			float bulletRight = alienBullet->GetX() + alienBullet->GetRadius();
+			float bulletLeft = alienBullet->GetX() - alienBullet->GetRadius();
 
-			float playerTop = player->GetHeight() + player->GetHeight() / 2;
+			// Player dimensions
+			float playerTop = player->GetY() - (player->GetHeight() / 2);
+			float playerBottom = player->GetY() + (player->GetHeight() / 2);
+			float playerRight = player->GetX() + player->GetWidth() / 2;
+			float playerLeft = player->GetX() - player->GetWidth() / 2;
 
-			// Collision with the player
-			/*(alienBullet->GetX() + alienBullet->GetRadius() > player->GetX() - player->GetWidth() / 2) &&
-			(alienBullet->GetX() - alienBullet->GetRadius() < player->GetX() + player->GetWidth() / 2) &&*/
 
-			//if ((alienBullet->GetY() - 100 > player->GetHeight() + player->GetHeight() / 2) &&
-			//	(alienBullet->GetY() + 100 < player->GetHeight() - player->GetHeight() / 2))
-			//{
-			//	// Decrease HP
-			//	CGame::GetInstance().GameOverLost();
-			//	hitPoints--;
-			//	RemoveAlienBulletFromVector(alienBullet);
-			//	delete alienBullet;
-			//	// Check if Game is Lost
-			//	if (IsPlayerDead())
-			//	{
-			//		CGame::GetInstance().GameOverLost();
-			//	}
-			//}
+			// Bullet Collision with the player
+			if ((bulletBottom > playerTop) &&
+				(bulletTop < playerBottom) &&
+				(bulletRight > playerLeft) &&
+				(bulletLeft < playerRight))
+			{
+				// Decrease HP
+				RemoveAlienBulletFromVector(alienBullet);
+				delete alienBullet;
+				hitPoints--;
+				// Check if Game is Lost
+				if (IsPlayerDead())
+				{
+					CGame::GetInstance().GameOverLost();
+				}
+			}
 		}
 	}
 }
