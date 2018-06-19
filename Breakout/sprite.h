@@ -50,6 +50,8 @@ public:
     void TranslateRelative(int _iX, int _iY);
     void TranslateAbsolute(int _iX, int _iY);
 
+	void updateSprite(int _iSpriteResourceID, int _iMaskResourceID);
+
 protected:
 
 
@@ -75,6 +77,7 @@ protected:
     static int s_iRefCount;
 
 private:
+
 
 };
 
