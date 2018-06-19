@@ -31,6 +31,7 @@
 class CBall;
 class CPaddle;
 class CBrick;
+class Barrier;
 class CFPSCounter;
 class CBackGround;
 
@@ -66,8 +67,10 @@ protected:
 	CBrick * GetAlienWithLargestX();
 	CBrick * GetAlienWithSmallestX();
 	void RemoveAlienFromVector(CBrick * alien);
+	void RemoveBarrierFromVector(Barrier* barrier);
 
     void SetBricksRemaining(int _i);
+	void SetBarriersRemaining(int _i);
 
 private:
     CLevel(const CLevel& _kr);
@@ -81,6 +84,7 @@ protected:
     CBall* bullet = nullptr;
     CPaddle* m_pPaddle = nullptr;
     std::vector<CBrick*> aliens;
+	std::vector<Barrier*> barriers;
 	CFPSCounter* m_fpsCounter;
 
 	bool isShooting = false;
@@ -91,8 +95,11 @@ protected:
 
     int width;
     int height;
+	int barrierX;
+	int barrierY;
 
     int aliensRemaining;
+	int barriersRemaining;
     std::string m_strScore;
 
 private:
