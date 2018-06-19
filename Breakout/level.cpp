@@ -22,6 +22,7 @@
 #include "utils.h"
 #include "backbuffer.h"
 #include "framecounter.h"
+#include "AlienBullet.h"
 #include "background.h"
 
 #include <vector>
@@ -176,6 +177,13 @@ CLevel::Draw()
 		bullet->Draw();
 	}
 	
+	if (!alienBullets.empty())
+	{
+		for (AlienBullet * alienBullet : alienBullets)
+		{
+			alienBullet->Draw();
+		}
+	}
 
 	
 
@@ -208,10 +216,23 @@ CLevel::Process(float _fDeltaTick)
 	}
 	MoveAliens();
 
+	if (!alienBullets.empty())
+	{
+		for (AlienBullet * alienBullet : alienBullets)
+		{
+			alienBullet->Process(_fDeltaTick);
+		}
+	}
 
 	if (GetAsyncKeyState(VK_SPACE) & 0x8000)
 	{
 		isShooting = true;
+		// Test shooting
+		aliens[0]->Shoot();
+		if (aliens[0]->GetBullet() != nullptr)
+		{
+			alienBullets.push_back(aliens[0]->GetBullet());
+		}	
 	}
 	else
 	{
@@ -266,22 +287,22 @@ CLevel::GetPaddle() const
 void 
 CLevel::ProcessBallWallCollision()
 {
-    float fBallX = bullet->GetX();
-    float fBallY = bullet->GetY();
-    float fBallW = bullet->GetWidth();
-    float fBallH = bullet->GetHeight();
+	float fBallX = bullet->GetX();
+	float fBallY = bullet->GetY();
+	float fBallW = bullet->GetWidth();
+	float fBallH = bullet->GetHeight();
 
-    float fHalfBallW = fBallW / 2;
+	float fHalfBallW = fBallW / 2;
 	float fHalfBallH = fBallH / 2;
 
-    if (fBallX < fHalfBallW) //represents the situation when the ball has hit the left wall
-    {
-        bullet->SetVelocityX(bullet->GetVelocityX() * -1); //reverse the ball's x velocity
-    }
-    else if (fBallX > width - fHalfBallW) //represents the situation when the ball has hit the right wall
-    {
-        bullet->SetVelocityX(bullet->GetVelocityX() * -1); //reverse the ball's x velocity direction
-    }
+	if (fBallX < fHalfBallW) //represents the situation when the ball has hit the left wall
+	{
+		bullet->SetVelocityX(bullet->GetVelocityX() * -1); //reverse the ball's x velocity
+	}
+	else if (fBallX > width - fHalfBallW) //represents the situation when the ball has hit the right wall
+	{
+		bullet->SetVelocityX(bullet->GetVelocityX() * -1); //reverse the ball's x velocity direction
+	}
 
 	if (fBallY < fHalfBallH) //represents the situation when the ball has hit the top wall
 	{
@@ -289,44 +310,11 @@ CLevel::ProcessBallWallCollision()
 		//delete bullet;
 		//bullet = nullptr;
 		//bullet = new CBall();
-		
+
 		/*m_pBall->Initialise(m_pPaddle);*/
 	}
 
-//#ifdef CHEAT_BOUNCE_ON_BACK_WALL
-//	if (fBallY  > m_iHeight - fHalfBallH)  //represents the situation when the ball has hit the bottom wall
-//    {
-//        m_pBall->SetVelocityY(m_pBall->GetVelocityY() * -1); //reverse the ball's y velocity
-//    }
-//#endif //CHEAT_BOUNCE_ON_BACK_WALL
 }
-
-
-
-
-//void
-//CLevel::ProcessBallPaddleCollision()
-//{
-//    float fBallR = bullet->GetRadius();
-//
-//    float fBallX = bullet->GetX();
-//    float fBallY = bullet->GetY(); 
-//
-//    float fPaddleX = m_pPaddle->GetX();
-//    float fPaddleY = m_pPaddle->GetY();
-//
-//    float fPaddleH = m_pPaddle->GetHeight();
-//    float fPaddleW = m_pPaddle->GetWidth();
-//
-//    if ((fBallX + fBallR > fPaddleX - fPaddleW / 2) && //ball.right > paddle.left
-//        (fBallX - fBallR < fPaddleX + fPaddleW / 2) && //ball.left < paddle.right
-//        (fBallY + fBallR > fPaddleY - fPaddleH / 2) && //ball.bottom > paddle.top
-//        (fBallY - fBallR < fPaddleY + fPaddleH / 2))  //ball.top < paddle.bottom
-//    {
-//        bullet->SetY((fPaddleY - fPaddleH / 2) - fBallR);  //Set the ball.bottom = paddle.top; to prevent the ball from going through the paddle!
-//        //m_pBall->SetVelocityY(m_pBall->GetVelocityY() * -1); //Reverse ball's Y direction
-//    }
-//}
 
 void
 CLevel::ProcessShipBulletAlienCollision()
@@ -512,4 +500,8 @@ CBrick * CLevel::GetAlienWithSmallestX()
 void CLevel::RemoveAlienFromVector(CBrick * alien)
 {
 	aliens.erase(std::remove(aliens.begin(), aliens.end(), alien), aliens.end());
+}
+
+void CLevel::RemoveAlienBulletFromVector(AlienBullet * alienBullet)
+{
 }

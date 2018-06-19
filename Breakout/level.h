@@ -33,6 +33,7 @@ class CPaddle;
 class CBrick;
 class CFPSCounter;
 class CBackGround;
+class AlienBullet;
 
 class CLevel
 {
@@ -66,6 +67,7 @@ protected:
 	CBrick * GetAlienWithLargestX();
 	CBrick * GetAlienWithSmallestX();
 	void RemoveAlienFromVector(CBrick * alien);
+	void RemoveAlienBulletFromVector(AlienBullet * alienBullet);
 
     void SetBricksRemaining(int _i);
 
@@ -82,6 +84,7 @@ protected:
     CPaddle* m_pPaddle = nullptr;
     std::vector<CBrick*> aliens;
 	CFPSCounter* m_fpsCounter;
+	std::vector<AlienBullet*> alienBullets;
 
 	bool isShooting = false;
 	bool canShoot = true;

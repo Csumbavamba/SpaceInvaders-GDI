@@ -27,6 +27,7 @@
 // Constants
 
 // Prototypes
+class AlienBullet;
 
 class CBrick : public CEntity
 {
@@ -48,6 +49,8 @@ public:
     bool IsHit() const;
 	void MoveSideWays();
 	void MoveDown();
+	void Shoot();
+	AlienBullet * GetBullet() const;
 
 protected:
 
@@ -61,6 +64,7 @@ public:
 protected:
     bool isHit;
 	float moveSpeed;
+	AlienBullet * bullet = nullptr;
 
 private:
 

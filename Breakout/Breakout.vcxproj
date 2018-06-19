@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AlienBullet.cpp" />
     <ClCompile Include="backbuffer.cpp" />
     <ClCompile Include="background.cpp" />
     <ClCompile Include="ball.cpp" />
@@ -153,6 +154,7 @@
     <ClCompile Include="sprite.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AlienBullet.h" />
     <ClInclude Include="backbuffer.h" />
     <ClInclude Include="background.h" />
     <ClInclude Include="ball.h" />
