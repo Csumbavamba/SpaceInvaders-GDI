@@ -1,4 +1,7 @@
 #pragma once
+
+#include "sprite.h"
+
 class Barrier
 {
 public:
@@ -12,7 +15,7 @@ public:
 private:
 
 	int barrierHealth; 
-	int maxBarrierHealth;
+	static int maxBarrierHealth;
 	bool isDestroyed;
 
 };

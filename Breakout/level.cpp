@@ -23,6 +23,7 @@
 #include "backbuffer.h"
 #include "framecounter.h"
 #include "background.h"
+#include "sprite.h"
 
 #include <vector>
 #include <algorithm>

@@ -17,6 +17,7 @@
 // Local Includes
 #include "resource.h"
 #include "utils.h"
+#include "sprite.h"
 
 // This Include
 #include "Brick.h"
@@ -96,6 +97,7 @@ void CBrick::ChangeAlienDirection()
 	if (moveSpeed < 0)
 	{
 		moveSpeed = 0.5f;
+		m_pSprite->updateSprite(IDB_BULLETSPRITE, IDB_BULLETMASK);
 	}
 
 	else

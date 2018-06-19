@@ -61,6 +61,7 @@ public:
 protected:
     bool isHit;
 	float moveSpeed;
+	CSprite* m_pSprite;
 
 
 private:
