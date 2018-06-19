@@ -210,10 +210,10 @@ CLevel::Process(float _fDeltaTick)
 		bullet->Process(_fDeltaTick);
 	if (bullet != nullptr && !canShoot)
 		ProcessBallWallCollision();
+	//if (bullet != nullptr && !canShoot)
+		//ProcessBallPaddleCollision();
 	if (bullet != nullptr && !canShoot)
-		ProcessBallPaddleCollision();
-	if (bullet != nullptr && !canShoot)
-		ProcessBallBrickCollision();
+		ProcessShipBulletAlienCollision();
 	if (bullet != nullptr && !canShoot)
 		ProcessBallBounds();
 
@@ -300,32 +300,32 @@ CLevel::ProcessBallWallCollision()
 
 
 
+//void
+//CLevel::ProcessBallPaddleCollision()
+//{
+//    float fBallR = bullet->GetRadius();
+//
+//    float fBallX = bullet->GetX();
+//    float fBallY = bullet->GetY(); 
+//
+//    float fPaddleX = m_pPaddle->GetX();
+//    float fPaddleY = m_pPaddle->GetY();
+//
+//    float fPaddleH = m_pPaddle->GetHeight();
+//    float fPaddleW = m_pPaddle->GetWidth();
+//
+//    if ((fBallX + fBallR > fPaddleX - fPaddleW / 2) && //ball.right > paddle.left
+//        (fBallX - fBallR < fPaddleX + fPaddleW / 2) && //ball.left < paddle.right
+//        (fBallY + fBallR > fPaddleY - fPaddleH / 2) && //ball.bottom > paddle.top
+//        (fBallY - fBallR < fPaddleY + fPaddleH / 2))  //ball.top < paddle.bottom
+//    {
+//        bullet->SetY((fPaddleY - fPaddleH / 2) - fBallR);  //Set the ball.bottom = paddle.top; to prevent the ball from going through the paddle!
+//        //m_pBall->SetVelocityY(m_pBall->GetVelocityY() * -1); //Reverse ball's Y direction
+//    }
+//}
+
 void
-CLevel::ProcessBallPaddleCollision()
-{
-    float fBallR = bullet->GetRadius();
-
-    float fBallX = bullet->GetX();
-    float fBallY = bullet->GetY(); 
-
-    float fPaddleX = m_pPaddle->GetX();
-    float fPaddleY = m_pPaddle->GetY();
-
-    float fPaddleH = m_pPaddle->GetHeight();
-    float fPaddleW = m_pPaddle->GetWidth();
-
-    if ((fBallX + fBallR > fPaddleX - fPaddleW / 2) && //ball.right > paddle.left
-        (fBallX - fBallR < fPaddleX + fPaddleW / 2) && //ball.left < paddle.right
-        (fBallY + fBallR > fPaddleY - fPaddleH / 2) && //ball.bottom > paddle.top
-        (fBallY - fBallR < fPaddleY + fPaddleH / 2))  //ball.top < paddle.bottom
-    {
-        bullet->SetY((fPaddleY - fPaddleH / 2) - fBallR);  //Set the ball.bottom = paddle.top; to prevent the ball from going through the paddle!
-        //m_pBall->SetVelocityY(m_pBall->GetVelocityY() * -1); //Reverse ball's Y direction
-    }
-}
-
-void
-CLevel::ProcessBallBrickCollision()
+CLevel::ProcessShipBulletAlienCollision()
 {
     for (unsigned int i = 0; i < aliens.size(); ++i)
     {
