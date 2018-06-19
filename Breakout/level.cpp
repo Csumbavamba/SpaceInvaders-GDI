@@ -414,12 +414,17 @@ void CLevel::CheckAlienBulletCollisions()
 			}
 
 
+			float alienTop = alienBullet->GetY() - alienBullet->GetRadius();
+			float alienBottom = alienBullet->GetY + alienBullet->GetRadius();
+
+			float playerTop = player->GetHeight() + player->GetHeight() / 2;
+
 			// Collision with the player
 			/*(alienBullet->GetX() + alienBullet->GetRadius() > player->GetX() - player->GetWidth() / 2) &&
 			(alienBullet->GetX() - alienBullet->GetRadius() < player->GetX() + player->GetWidth() / 2) &&*/
 
-			if ((alienBullet->GetY() + alienBullet->GetRadius() > player->GetHeight() - player->GetHeight() / 2) &&
-				(alienBullet->GetY() - alienBullet->GetRadius() < player->GetHeight() + player->GetHeight() / 2))
+			if ((alienBullet->GetY() - 100 > player->GetHeight() + player->GetHeight() / 2) &&
+				(alienBullet->GetY() + 100 < player->GetHeight() - player->GetHeight() / 2))
 			{
 				// Decrease HP
 				CGame::GetInstance().GameOverLost();
