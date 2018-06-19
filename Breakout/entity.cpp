@@ -28,14 +28,14 @@
 
 // Implementation
 
-CEntity::CEntity()
+Entity::Entity()
 : m_fX(0.0f)
 , m_fY(0.0f)
 {
 
 }
 
-CEntity::~CEntity()
+Entity::~Entity()
 {
 	if (m_pSprite != nullptr)
 	{
@@ -46,22 +46,22 @@ CEntity::~CEntity()
 }
 
 bool
-CEntity::Initialise(const int _kiSpriteID, const int _kiMaskID)
+Entity::Initialise(const int _kiSpriteID, const int _kiMaskID)
 {
-    m_pSprite = new CSprite();
+    m_pSprite = new Sprite();
     VALIDATE(m_pSprite->Initialise(_kiSpriteID, _kiMaskID));
 
     return (true);
 }
 
 void
-CEntity::Draw()
+Entity::Draw()
 {
     m_pSprite->Draw();
 }
 
 void
-CEntity::Process(float _fDeltaTick)
+Entity::Process(float _fDeltaTick)
 {
     m_pSprite->SetX(static_cast<int>(m_fX));
     m_pSprite->SetY(static_cast<int>(m_fY));
@@ -71,37 +71,37 @@ CEntity::Process(float _fDeltaTick)
 
 float 
 
-CEntity::GetX() const
+Entity::GetX() const
 {
     return (m_fX);
 }
 
 float 
-CEntity::GetY() const
+Entity::GetY() const
 {
     return (m_fY);
 }
 
 float 
-CEntity::GetWidth() const
+Entity::GetWidth() const
 {
     return (static_cast<float>(m_pSprite->GetWidth()));
 }
 
 float 
-CEntity::GetHeight() const
+Entity::GetHeight() const
 {
     return (static_cast<float>(m_pSprite->GetHeight()));
 }
 
 void
-CEntity::SetX(float _f)
+Entity::SetX(float _f)
 {
     m_fX = _f;
 }
 
 void
-CEntity::SetY(float _f)
+Entity::SetY(float _f)
 {
     m_fY = _f;
 }

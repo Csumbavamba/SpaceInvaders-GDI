@@ -27,17 +27,17 @@
 // Constants
 
 // Prototypes
-class CSprite;
-class CPaddle;
+class Sprite;
+class Player;
 
-class CBall : public CEntity
+class PlayerBullet : public Entity
 {
     // Member Functions
 public:
-    CBall();
-    virtual ~CBall();
+    PlayerBullet();
+    virtual ~PlayerBullet();
 
-    virtual bool Initialise(CPaddle * paddle);
+    virtual bool Initialise(Player * paddle);
 
     virtual void Draw();
     virtual void Process(float _fDeltaTick);
@@ -51,8 +51,8 @@ public:
 protected:
 
 private:
-    CBall(const CBall& _kr);
-    CBall& operator= (const CBall& _kr);
+    PlayerBullet(const PlayerBullet& _kr);
+    PlayerBullet& operator= (const PlayerBullet& _kr);
 
     // Member Variables
 public:

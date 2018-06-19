@@ -27,12 +27,12 @@
 // Constants
 
 // Prototypes
-class backBuffer
+class BackBuffer
 {
     // Member Functions
 public:
-	backBuffer();
-    ~backBuffer();
+	BackBuffer();
+    ~BackBuffer();
 
     bool Initialise(HWND _hWnd, int _iWidth, int _iHeight);
 
@@ -47,8 +47,8 @@ public:
 protected:
 
 private:
-	backBuffer(const backBuffer& _kr);
-	backBuffer& operator= (const backBuffer& _kr);
+	BackBuffer(const BackBuffer& _kr);
+	BackBuffer& operator= (const BackBuffer& _kr);
 
     // Member Variables
 public:

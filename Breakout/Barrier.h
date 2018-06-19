@@ -4,7 +4,7 @@
 #include "entity.h"
 
 
-class Barrier : public CEntity
+class Barrier : public Entity
 {
 public:
 	Barrier();

@@ -20,7 +20,7 @@
 #include "sprite.h"
 
 // This Include
-#include "Brick.h"
+#include "Alien.h"
 #include "AlienBullet.h"
 
 // Static Variables
@@ -29,63 +29,63 @@
 
 // Implementation
 
-CBrick::CBrick()
+Alien::Alien()
 : isHit(false)
 {
 	moveSpeed = 0.5f;
 }
 
-CBrick::~CBrick()
+Alien::~Alien()
 {
 
 }
 
 bool
-CBrick::Initialise(int _alienCount)
+Alien::Initialise(int _alienCount)
 {
 	if (_alienCount < 11)
 	{
-		VALIDATE(CEntity::Initialise(IDB_ALIEN1SPRITE, IDB_ALIEN1MASK));
+		VALIDATE(Entity::Initialise(IDB_ALIEN1SPRITE, IDB_ALIEN1MASK));
 	}
 
 	if ((_alienCount >= 11) && (_alienCount < 22))
 	{
-		VALIDATE(CEntity::Initialise(IDB_ALIEN2SPRITE, IDB_ALIEN2MASK));
+		VALIDATE(Entity::Initialise(IDB_ALIEN2SPRITE, IDB_ALIEN2MASK));
 	}
 
 	if (_alienCount >= 22)
 	{
-		VALIDATE(CEntity::Initialise(IDB_ALIEN3SPRITE, IDB_ALIEN3MASK));
+		VALIDATE(Entity::Initialise(IDB_ALIEN3SPRITE, IDB_ALIEN3MASK));
 	}
   
     return (true);
 }
 
-float CBrick::GetX() const
+float Alien::GetX() const
 {
 	return m_fX;
 }
 
-float CBrick::GetY() const
+float Alien::GetY() const
 {
 	return m_fY;
 }
 
 void
-CBrick::Draw()
+Alien::Draw()
 {
     if (!isHit)
     {
-        CEntity::Draw();
+        Entity::Draw();
     }
 }
 
 void
-CBrick::Process(float _fDeltaTick)
+Alien::Process(float _fDeltaTick)
 {
     if (!isHit)
     {
-        CEntity::Process(_fDeltaTick);
+        Entity::Process(_fDeltaTick);
     }
 	else
 	{
@@ -93,7 +93,7 @@ CBrick::Process(float _fDeltaTick)
 	}
 }
 
-void CBrick::ChangeAlienDirection()
+void Alien::ChangeAlienDirection()
 {
 	if (moveSpeed < 0)
 	{
@@ -110,34 +110,34 @@ void CBrick::ChangeAlienDirection()
 }
 
 void
-CBrick::SetHit(bool _b)
+Alien::SetHit(bool _b)
 {
     isHit = _b;
 }
 
 bool
-CBrick::IsHit() const
+Alien::IsHit() const
 {
     return (isHit);
 }
 
-void CBrick::MoveSideWays()
+void Alien::MoveSideWays()
 {
 	m_fX += moveSpeed;
 }
 
-void CBrick::MoveDown()
+void Alien::MoveDown()
 {
 	m_fY += 20;
 }
 
-void CBrick::Shoot()
+void Alien::Shoot()
 {
 	bullet = new AlienBullet();
 	bullet->Initialise(m_fX, m_fY);
 }
 
-AlienBullet * CBrick::GetBullet() const
+AlienBullet * Alien::GetBullet() const
 {
 	return bullet;
 }

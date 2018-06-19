@@ -29,12 +29,12 @@
 // Prototypes
 class AlienBullet;
 
-class CBrick : public CEntity
+class Alien : public Entity
 {
     // Member Functions
 public:
-    CBrick();
-    virtual ~CBrick();
+    Alien();
+    virtual ~Alien();
 
     virtual bool Initialise(int _alienCount);
 
@@ -55,8 +55,8 @@ public:
 protected:
 
 private:
-    CBrick(const CBrick& _kr);
-    CBrick& operator= (const CBrick& _kr);
+    Alien(const Alien& _kr);
+    Alien& operator= (const Alien& _kr);
 
     // Member Variables
 public:
@@ -64,7 +64,7 @@ public:
 protected:
     bool isHit;
 	float moveSpeed;
-	CSprite* m_pSprite;
+	Sprite* m_pSprite;
 	AlienBullet * bullet = nullptr;
 
 

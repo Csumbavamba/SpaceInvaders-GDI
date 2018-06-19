@@ -16,9 +16,9 @@
 
 // Local Includes
 #include "Game.h"
-#include "Paddle.h"
-#include "Brick.h"
-#include "Ball.h"
+#include "Player.h"
+#include "Alien.h"
+#include "PlayerBullet.h"
 #include "utils.h"
 #include "backbuffer.h"
 #include "framecounter.h"
@@ -43,7 +43,7 @@
 
 #define CHEAT_BOUNCE_ON_BACK_WALL
 
-CLevel::CLevel()
+Level::Level()
 : aliensRemaining(0)
 , player(0)
 , bullet(0)
@@ -56,11 +56,11 @@ CLevel::CLevel()
 
 }
 
-CLevel::~CLevel()
+Level::~Level()
 {
     while (aliens.size() > 0)
     {
-        CBrick* pBrick = aliens[aliens.size() - 1];
+        Alien* pBrick = aliens[aliens.size() - 1];
 
         aliens.pop_back();
 
@@ -94,7 +94,7 @@ CLevel::~CLevel()
 }
 
 bool
-CLevel::Initialise(int _iWidth, int _iHeight)
+Level::Initialise(int _iWidth, int _iHeight)
 {
     width = _iWidth;
     height = _iHeight;
@@ -104,14 +104,14 @@ CLevel::Initialise(int _iWidth, int _iHeight)
     // const float fBallVelX = 200.0f;
     // const float fBallVelY = 75.0f;
 
-	m_pBackground = new CBackGround();
+	m_pBackground = new BackGround();
 	VALIDATE(m_pBackground->Initialise());
 	//Set the background position to start from {0,0}
 	m_pBackground->SetX((float)width / 2);
 	m_pBackground->SetY((float)height / 2);
 
 
-    player = new CPaddle();
+    player = new Player();
     VALIDATE(player->Initialise());
 
 	
@@ -123,7 +123,7 @@ CLevel::Initialise(int _iWidth, int _iHeight)
     player->SetY(_iHeight - ( 1.5f * player->GetHeight()));
 
 
-	bullet = new CBall();
+	bullet = new PlayerBullet();
 
 	/*m_pBall = new CBall();
 	VALIDATE(m_pBall->Initialise(fBallVelY, m_pPaddle));*/
@@ -155,7 +155,7 @@ CLevel::Initialise(int _iWidth, int _iHeight)
 
     for (int i = 0; i < kiNumBricks; ++i)
     {
-        CBrick* alien = new CBrick();
+        Alien* alien = new Alien();
         VALIDATE(alien->Initialise(i));
 
 		
@@ -189,14 +189,14 @@ CLevel::Initialise(int _iWidth, int _iHeight)
 	
 
     SetBricksRemaining(kiNumBricks);
-	m_fpsCounter = new CFPSCounter();
+	m_fpsCounter = new FPSCounter();
 	VALIDATE(m_fpsCounter->Initialise());
 
     return (true);
 }
 
 void
-CLevel::Draw()
+Level::Draw()
 {
 	m_pBackground->Draw();
 	for (unsigned int i = 0; i < aliens.size(); ++i)
@@ -231,7 +231,7 @@ CLevel::Draw()
 }
 
 void
-CLevel::Process(float _fDeltaTick)
+Level::Process(float _fDeltaTick)
 {
 	m_pBackground->Process(_fDeltaTick);
 
@@ -316,14 +316,14 @@ CLevel::Process(float _fDeltaTick)
 	m_fpsCounter->CountFramesPerSecond(_fDeltaTick);
 }
 
-CPaddle* 
-CLevel::GetPaddle() const
+Player* 
+Level::GetPaddle() const
 {
     return (player);
 }
 
 void 
-CLevel::ProcessBallWallCollision()
+Level::ProcessBallWallCollision()
 {
 	float fBallX = bullet->GetX();
 	float fBallY = bullet->GetY();
@@ -350,7 +350,7 @@ CLevel::ProcessBallWallCollision()
 }
 
 void
-CLevel::ProcessShipBulletAlienCollision()
+Level::ProcessShipBulletAlienCollision()
 {
     for (unsigned int i = 0; i < aliens.size(); ++i)
     {
@@ -392,7 +392,7 @@ CLevel::ProcessShipBulletAlienCollision()
 }
 
 void
-CLevel::ProcessCheckForWin()
+Level::ProcessCheckForWin()
 {
     for (unsigned int i = 0; i < aliens.size(); ++i)
     {
@@ -402,11 +402,11 @@ CLevel::ProcessCheckForWin()
         }
     }
 
-    CGame::GetInstance().GameOverWon();
+    Game::GetInstance().GameOverWon();
 }
 
 void
-CLevel::ProcessBallBounds()
+Level::ProcessBallBounds()
 {
 	if (bullet->GetX() < 0)
     {
@@ -423,12 +423,12 @@ CLevel::ProcessBallBounds()
     }
     else if (aliens.back()->GetY() > height - 200)
     {
-        CGame::GetInstance().GameOverLost();
+        Game::GetInstance().GameOverLost();
         //m_pBall->SetY(static_cast<float>(m_iHeight));
     }
 }
 
-void CLevel::CheckAlienBulletCollisions()
+void Level::CheckAlienBulletCollisions()
 {
 	if (!alienBullets.empty())
 	{
@@ -473,14 +473,14 @@ void CLevel::CheckAlienBulletCollisions()
 				// Check if Game is Lost
 				if (IsPlayerDead())
 				{
-					CGame::GetInstance().GameOverLost();
+					Game::GetInstance().GameOverLost();
 				}
 			}
 		}
 	}
 }
 
-bool CLevel::IsPlayerDead()
+bool Level::IsPlayerDead()
 {
 	if (hitPoints <= 0)
 		return true;
@@ -488,28 +488,28 @@ bool CLevel::IsPlayerDead()
 }
 
 int 
-CLevel::GetBricksRemaining() const
+Level::GetBricksRemaining() const
 {
     return (aliensRemaining);
 }
 
 
 void 
-CLevel::SetBricksRemaining(int _i)
+Level::SetBricksRemaining(int _i)
 {
     aliensRemaining = _i;
     UpdateScoreText();
 }
 
-void CLevel::SetBarriersRemaining(int _i)
+void Level::SetBarriersRemaining(int _i)
 {
 	barriersRemaining - _i;
 }
 
 void
-CLevel::DrawScore()
+Level::DrawScore()
 {
-    HDC hdc = CGame::GetInstance().GetBackBuffer()->GetBFDC();
+    HDC hdc = Game::GetInstance().GetBackBuffer()->GetBFDC();
 
     const int kiX = 0;
     const int kiY = height - 14;
@@ -521,7 +521,7 @@ CLevel::DrawScore()
 
 
 void 
-CLevel::UpdateScoreText()
+Level::UpdateScoreText()
 {
     m_strScore = "Aliens Remaining: ";
 
@@ -530,15 +530,15 @@ CLevel::UpdateScoreText()
 
 
 void 
-CLevel::DrawFPS()
+Level::DrawFPS()
 {
-	HDC hdc = CGame::GetInstance().GetBackBuffer()->GetBFDC(); 
+	HDC hdc = Game::GetInstance().GetBackBuffer()->GetBFDC(); 
 
 	m_fpsCounter->DrawFPSText(hdc, width, height);
 
 }
 
-void CLevel::MoveAliens()
+void Level::MoveAliens()
 {
 	// If they hit the right wall
 	if (largestXAlien->GetX() >= width - 10)
@@ -568,9 +568,9 @@ void CLevel::MoveAliens()
 	}
 }
 
-CBrick * CLevel::GetAlienWithLargestX()
+Alien * Level::GetAlienWithLargestX()
 {
-	for (CBrick * alien : aliens)
+	for (Alien * alien : aliens)
 	{
 		if (alien->GetX() > largestXAlien->GetX())
 		{
@@ -581,9 +581,9 @@ CBrick * CLevel::GetAlienWithLargestX()
 	return largestXAlien;
 }
 
-CBrick * CLevel::GetAlienWithSmallestX()
+Alien * Level::GetAlienWithSmallestX()
 {
-	for (CBrick * alien : aliens)
+	for (Alien * alien : aliens)
 	{
 		if (alien->GetX() < smallestXAlien->GetX())
 		{
@@ -594,27 +594,27 @@ CBrick * CLevel::GetAlienWithSmallestX()
 	return smallestXAlien;
 }
 
-void CLevel::RemoveAlienFromVector(CBrick * alien)
+void Level::RemoveAlienFromVector(Alien * alien)
 {
 	aliens.erase(std::remove(aliens.begin(), aliens.end(), alien), aliens.end());
 }
 
-void CLevel::RemoveBarrierFromVector(Barrier * barrier)
+void Level::RemoveBarrierFromVector(Barrier * barrier)
 {
 	barriers.erase(std::remove(barriers.begin(), barriers.end(), barrier), barriers.end());
 }
 
-void CLevel::RemoveAlienBulletFromVector(AlienBullet * alienBullet)
+void Level::RemoveAlienBulletFromVector(AlienBullet * alienBullet)
 {
 	alienBullets.erase(std::remove(alienBullets.begin(), alienBullets.end(), alienBullet), alienBullets.end());
 }
 
-void CLevel::MakeAliensShoot()
+void Level::MakeAliensShoot()
 {
 	// Select the next enemy to shoot and then make him Shoot
 	if (alienShootDelay == 0)
 	{
-		CBrick * alienToShoot = GetRandomAlien();
+		Alien * alienToShoot = GetRandomAlien();
 		if (alienToShoot != nullptr)
 		{
 			alienToShoot->Shoot();
@@ -624,9 +624,9 @@ void CLevel::MakeAliensShoot()
 	}
 }
 
-CBrick * CLevel::GetRandomAlien()
+Alien * Level::GetRandomAlien()
 {
-	CBrick * randomAlien = nullptr;
+	Alien * randomAlien = nullptr;
 
 	std::random_shuffle(aliens.begin(), aliens.end());
 

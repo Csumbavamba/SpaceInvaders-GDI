@@ -22,18 +22,18 @@
 // Local Includes
 #include "entity.h"
 #include "Sprite.h"
-#include "ball.h"
+#include "PlayerBullet.h"
 // Types
 
 // Constants
 
 // Prototypes
-class CPaddle : public CEntity
+class Player : public Entity
 {
     // Member Functions
 public:
-    CPaddle();
-    virtual ~CPaddle();
+    Player();
+    virtual ~Player();
 
     virtual bool Initialise();
 
@@ -44,8 +44,8 @@ public:
 protected:
 
 private:
-    CPaddle(const CPaddle& _kr);
-    CPaddle& operator= (const CPaddle& _kr);
+    Player(const Player& _kr);
+    Player& operator= (const Player& _kr);
 
 
     // Member Variables

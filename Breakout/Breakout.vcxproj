@@ -142,31 +142,31 @@
     <ClCompile Include="AlienBullet.cpp" />
     <ClCompile Include="backbuffer.cpp" />
     <ClCompile Include="background.cpp" />
-    <ClCompile Include="ball.cpp" />
+    <ClCompile Include="PlayerBullet.cpp" />
     <ClCompile Include="Barrier.cpp" />
-    <ClCompile Include="brick.cpp" />
+    <ClCompile Include="Alien.cpp" />
     <ClCompile Include="clock.cpp" />
     <ClCompile Include="entity.cpp" />
     <ClCompile Include="framecounter.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="level.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="paddle.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="sprite.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AlienBullet.h" />
     <ClInclude Include="backbuffer.h" />
     <ClInclude Include="background.h" />
-    <ClInclude Include="ball.h" />
+    <ClInclude Include="PlayerBullet.h" />
     <ClInclude Include="Barrier.h" />
-    <ClInclude Include="brick.h" />
+    <ClInclude Include="Alien.h" />
     <ClInclude Include="clock.h" />
     <ClInclude Include="entity.h" />
     <ClInclude Include="framecounter.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="level.h" />
-    <ClInclude Include="paddle.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="sprite.h" />
     <ClInclude Include="utils.h" />

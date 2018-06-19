@@ -23,21 +23,21 @@
 #include "Sprite.h"
 
 // Static Variables
-HDC CSprite::s_hSharedSpriteDC = 0;
-int CSprite::s_iRefCount = 0;
+HDC Sprite::s_hSharedSpriteDC = 0;
+int Sprite::s_iRefCount = 0;
 
 // Static Function Prototypes
 
 // Implementation
 
-CSprite::CSprite()
+Sprite::Sprite()
 : m_iX(0)
 , m_iY(0)
 {
     ++s_iRefCount;
 }
 
-CSprite::~CSprite()
+Sprite::~Sprite()
 {
 
 	// TODO only allow deletion if existing
@@ -55,9 +55,9 @@ CSprite::~CSprite()
 }
 
 bool
-CSprite::Initialise(int _iSpriteResourceID, int _iMaskResourceID)
+Sprite::Initialise(int _iSpriteResourceID, int _iMaskResourceID)
 {
-    HINSTANCE hInstance = CGame::GetInstance().GetAppInstance();
+    HINSTANCE hInstance = Game::GetInstance().GetAppInstance();
 
     if (!s_hSharedSpriteDC)
     {
@@ -76,7 +76,7 @@ CSprite::Initialise(int _iSpriteResourceID, int _iMaskResourceID)
 }
 
 
-void CSprite::updateSprite(int _iSpriteResourceID, int _iMaskResourceID)
+void Sprite::updateSprite(int _iSpriteResourceID, int _iMaskResourceID)
 {
 	//HINSTANCE hInstance = CGame::GetInstance().GetAppInstance();
 
@@ -95,7 +95,7 @@ void CSprite::updateSprite(int _iSpriteResourceID, int _iMaskResourceID)
 }
 
 void
-CSprite::Draw()
+Sprite::Draw()
 {
     int iW = GetWidth();
     int iH = GetHeight();
@@ -103,7 +103,7 @@ CSprite::Draw()
     int iX = m_iX - (iW / 2);
     int iY = m_iY - (iH / 2);
 
-	backBuffer* pBackBuffer = CGame::GetInstance().GetBackBuffer();
+	BackBuffer* pBackBuffer = Game::GetInstance().GetBackBuffer();
 
     HGDIOBJ hOldObj = SelectObject(s_hSharedSpriteDC, m_hMask);
 
@@ -117,56 +117,56 @@ CSprite::Draw()
 }
 
 void
-CSprite::Process(float _fDeltaTick)
+Sprite::Process(float _fDeltaTick)
 {
 
 }
 
 int
-CSprite::GetWidth() const
+Sprite::GetWidth() const
 {
     return (m_bitmapSprite.bmWidth);
 }
 
 int
-CSprite::GetHeight() const
+Sprite::GetHeight() const
 {
     return (m_bitmapSprite.bmHeight);
 }
 
 int 
-CSprite::GetX() const
+Sprite::GetX() const
 {
     return (m_iX);
 }
 
 int 
-CSprite::GetY() const
+Sprite::GetY() const
 {
     return (m_iY);
 }
 
 void 
-CSprite::SetX(int _i)
+Sprite::SetX(int _i)
 {
     m_iX = _i;
 }
 
 void 
-CSprite::SetY(int _i)
+Sprite::SetY(int _i)
 {
     m_iY = _i;
 }
 
 void 
-CSprite::TranslateRelative(int _iX, int _iY)
+Sprite::TranslateRelative(int _iX, int _iY)
 {
     m_iX += _iX;
     m_iY += _iY;
 }
 
 void 
-CSprite::TranslateAbsolute(int _iX, int _iY)
+Sprite::TranslateAbsolute(int _iX, int _iY)
 {
     m_iX = _iX;
     m_iY = _iY;

@@ -16,7 +16,7 @@ AlienBullet::~AlienBullet()
 
 bool AlienBullet::Initialise(float positionX, float positionY)
 {
-	VALIDATE(CEntity::Initialise(IDB_BULLETSPRITE, IDB_BULLETMASK));
+	VALIDATE(Entity::Initialise(IDB_BULLETSPRITE, IDB_BULLETMASK));
 
 	m_fX = positionX;
 	m_fY = positionY;
@@ -28,7 +28,7 @@ void AlienBullet::Draw()
 {
 	if (!isDestroyed)
 	{
-		CEntity::Draw();
+		Entity::Draw();
 	}
 	
 }
@@ -39,7 +39,7 @@ void AlienBullet::Process(float deltaTick)
 	{
 		m_fY += velocityY * deltaTick;
 
-		CEntity::Process(deltaTick);
+		Entity::Process(deltaTick);
 	}
 	
 }

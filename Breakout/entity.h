@@ -26,14 +26,14 @@
 // Constants
 
 // Prototypes
-class CSprite;
+class Sprite;
 
-class CEntity
+class Entity
 {
 	// Member Functions
 public:
-	CEntity();
-	virtual ~CEntity();
+	Entity();
+	virtual ~Entity();
 
 	virtual bool Initialise(const int _kiSpriteID, const int _kiMaskID);
 
@@ -52,14 +52,14 @@ public:
 protected:
 
 private:
-	CEntity(const CEntity& _kr);
-	CEntity& operator= (const CEntity& _kr);
+	Entity(const Entity& _kr);
+	Entity& operator= (const Entity& _kr);
 
 	// Member Variables
 public:
 
 protected:
-	CSprite* m_pSprite;
+	Sprite* m_pSprite;
 	
 	float m_fX;
 	float m_fY;

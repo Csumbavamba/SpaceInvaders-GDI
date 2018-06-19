@@ -1,10 +1,10 @@
 #pragma once
 #include "entity.h"
 
-class CSprite;
-class CBrick;
+class Sprite;
+class Alien;
 
-class AlienBullet : public CEntity
+class AlienBullet : public Entity
 {
 public:
 	AlienBullet();

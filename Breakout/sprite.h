@@ -27,12 +27,12 @@
 // Constants
 
 // Prototypes
-class CSprite
+class Sprite
 {
     // Member Functions
 public:
-    CSprite();
-    ~CSprite();
+    Sprite();
+    ~Sprite();
 
     bool Initialise(int _iResourceID, int _iMaskResourceID);
 
@@ -56,8 +56,8 @@ protected:
 
 
 private:
-    CSprite(const CSprite& _kr);
-    CSprite& operator= (const CSprite& _kr);
+    Sprite(const Sprite& _kr);
+    Sprite& operator= (const Sprite& _kr);
 
     // Member Variables
 public:

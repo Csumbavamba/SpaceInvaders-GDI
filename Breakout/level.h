@@ -28,27 +28,27 @@
 // Constants
 
 // Prototypes
-class CBall;
-class CPaddle;
-class CBrick;
+class PlayerBullet;
+class Player;
+class Alien;
 class Barrier;
-class CFPSCounter;
-class CBackGround;
+class FPSCounter;
+class BackGround;
 class AlienBullet;
 
-class CLevel
+class Level
 {
     // Member Functions
 public:
-    CLevel();
-    virtual ~CLevel();
+    Level();
+    virtual ~Level();
 
     virtual bool Initialise(int _iWidth, int _iHeight);
 
     virtual void Draw();
     virtual void Process(float _fDeltaTick);
 
-    CPaddle* GetPaddle() const;
+    Player* GetPaddle() const;
 
     int GetBricksRemaining() const;
 
@@ -66,32 +66,32 @@ protected:
 	void DrawFPS();
 
 	
-	CBrick * GetAlienWithLargestX();
-	CBrick * GetAlienWithSmallestX();
-	void RemoveAlienFromVector(CBrick * alien);
+	Alien * GetAlienWithLargestX();
+	Alien * GetAlienWithSmallestX();
+	void RemoveAlienFromVector(Alien * alien);
 	void RemoveBarrierFromVector(Barrier* barrier);
 	void RemoveAlienBulletFromVector(AlienBullet * alienBullet);
 
 	void MoveAliens();
 	void MakeAliensShoot();
-	CBrick * GetRandomAlien();
+	Alien * GetRandomAlien();
     void SetBricksRemaining(int _i);
 	void SetBarriersRemaining(int _i);
 
 private:
-    CLevel(const CLevel& _kr);
-    CLevel& operator= (const CLevel& _kr);
+    Level(const Level& _kr);
+    Level& operator= (const Level& _kr);
 
     // Member Variables
 public:
 
 protected:
-	CBackGround* m_pBackground;
-    CBall* bullet = nullptr;
-    CPaddle* player = nullptr;
-    std::vector<CBrick*> aliens;
+	BackGround* m_pBackground;
+    PlayerBullet* bullet = nullptr;
+    Player* player = nullptr;
+    std::vector<Alien*> aliens;
 	std::vector<Barrier*> barriers;
-	CFPSCounter* m_fpsCounter;
+	FPSCounter* m_fpsCounter;
 	std::vector<AlienBullet*> alienBullets;
 
 	bool isShooting = false;
@@ -99,8 +99,8 @@ protected:
 	int alienShootDelay = 300;
 	int hitPoints = 3;
 
-	CBrick * largestXAlien = nullptr;
-	CBrick * smallestXAlien = nullptr;
+	Alien * largestXAlien = nullptr;
+	Alien * smallestXAlien = nullptr;
 
     int width;
     int height;

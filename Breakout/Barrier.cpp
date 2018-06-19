@@ -21,7 +21,7 @@ Barrier::~Barrier()
 
 bool Barrier::Initialise()
 {
-	VALIDATE(CEntity::Initialise(IDB_BARRICADESPRITE, IDB_BARRICADEMASK));
+	VALIDATE(Entity::Initialise(IDB_BARRICADESPRITE, IDB_BARRICADEMASK));
 	return (true);	
 }
 
@@ -37,12 +37,12 @@ int Barrier::GetY() const
 
 void Barrier::Draw()
 {
-	CEntity::Draw();
+	Entity::Draw();
 }
 
 void Barrier::Process(float _fDeltaTick)
 {
-	CEntity::Process(_fDeltaTick);
+	Entity::Process(_fDeltaTick);
 }
 
 void Barrier::SetHealth(int _Health)
