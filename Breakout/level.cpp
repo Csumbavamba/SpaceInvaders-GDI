@@ -120,7 +120,7 @@ CLevel::Initialise(int _iWidth, int _iHeight)
     for (int i = 0; i < kiNumBricks; ++i)
     {
         CBrick* alien = new CBrick();
-        VALIDATE(alien->Initialise());
+        VALIDATE(alien->Initialise(i));
 
 		
 
