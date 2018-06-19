@@ -21,6 +21,7 @@
 
 // This Include
 #include "Brick.h"
+#include "AlienBullet.h"
 
 // Static Variables
 
@@ -128,5 +129,16 @@ void CBrick::MoveSideWays()
 void CBrick::MoveDown()
 {
 	m_fY += 20;
+}
+
+void CBrick::Shoot()
+{
+	bullet = new AlienBullet();
+	bullet->Initialise(m_fX, m_fY);
+}
+
+AlienBullet * CBrick::GetBullet() const
+{
+	return bullet;
 }
 
