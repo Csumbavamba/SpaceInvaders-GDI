@@ -24,6 +24,8 @@
 #include "framecounter.h"
 #include "AlienBullet.h"
 #include "background.h"
+#include "sprite.h"
+#include "Barrier.h"
 
 #include <vector>
 #include <algorithm>
@@ -48,6 +50,8 @@ CLevel::CLevel()
 , width(0)
 , height(0)
 , m_fpsCounter(0)
+,barrierX(0)
+,barrierY(700)
 {
 
 }
@@ -65,6 +69,17 @@ CLevel::~CLevel()
 
     delete player;
     player = 0;
+	while (barriers.size() > 0)
+	{
+		Barrier * pBarrier = barriers[barriers.size() - 1];
+
+		barriers.pop_back();
+
+		delete pBarrier;
+	}
+
+    delete m_pPaddle;
+    m_pPaddle = 0;
 
 	if (bullet != nullptr)
 	{
@@ -119,13 +134,31 @@ CLevel::Initialise(int _iWidth, int _iHeight)
     const int kiStartX = 200;
     const int kiGap = 10;
 
+	const int numberOfBarriers = 4;
+
     int iCurrentX = kiStartX;
     int iCurrentY = 50;
+
+	for (int i = 0; i < numberOfBarriers; ++i)
+	{
+		Barrier* barrier = new Barrier();
+		barrierX += 200;
+		barrierY = 550;
+
+		barrier->SetX(barrierX);
+		barrier->SetY(barrierY);
+
+		VALIDATE(barrier->Initialise());
+		
+		
+
+		barriers.push_back(barrier);
+	}
 
     for (int i = 0; i < kiNumBricks; ++i)
     {
         CBrick* alien = new CBrick();
-        VALIDATE(alien->Initialise());
+        VALIDATE(alien->Initialise(i));
 
 		
 
@@ -175,6 +208,13 @@ CLevel::Draw()
     }
 
     player->Draw();
+	for (unsigned int i = 0; i < barriers.size(); ++i)
+	{
+		barriers[i]->Draw();
+	}
+
+
+    m_pPaddle->Draw();
 
 	if (bullet != nullptr && !canShoot)
 	{
@@ -230,6 +270,12 @@ CLevel::Process(float _fDeltaTick)
 			alienBullet->Process(_fDeltaTick);
 		}
 	}
+	for (unsigned int i = 0; i < barriers.size(); ++i)
+	{
+		barriers[i]->Process(_fDeltaTick);
+	}
+
+
 
 	if (GetAsyncKeyState(VK_SPACE) & 0x8000)
 	{
@@ -462,6 +508,11 @@ CLevel::SetBricksRemaining(int _i)
     UpdateScoreText();
 }
 
+void CLevel::SetBarriersRemaining(int _i)
+{
+	barriersRemaining - _i;
+}
+
 void
 CLevel::DrawScore()
 {
@@ -553,6 +604,11 @@ CBrick * CLevel::GetAlienWithSmallestX()
 void CLevel::RemoveAlienFromVector(CBrick * alien)
 {
 	aliens.erase(std::remove(aliens.begin(), aliens.end(), alien), aliens.end());
+}
+
+void CLevel::RemoveBarrierFromVector(Barrier * barrier)
+{
+	barriers.erase(std::remove(barriers.begin(), barriers.end(), barrier), barriers.end());
 }
 
 void CLevel::RemoveAlienBulletFromVector(AlienBullet * alienBullet)

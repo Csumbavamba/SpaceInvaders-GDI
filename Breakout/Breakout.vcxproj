@@ -143,6 +143,7 @@
     <ClCompile Include="backbuffer.cpp" />
     <ClCompile Include="background.cpp" />
     <ClCompile Include="ball.cpp" />
+    <ClCompile Include="Barrier.cpp" />
     <ClCompile Include="brick.cpp" />
     <ClCompile Include="clock.cpp" />
     <ClCompile Include="entity.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="backbuffer.h" />
     <ClInclude Include="background.h" />
     <ClInclude Include="ball.h" />
+    <ClInclude Include="Barrier.h" />
     <ClInclude Include="brick.h" />
     <ClInclude Include="clock.h" />
     <ClInclude Include="entity.h" />
@@ -184,6 +186,8 @@
     <Image Include="Sprites\BackgroundSpaceSprite.bmp" />
     <Image Include="Sprites\BallMask.bmp" />
     <Image Include="Sprites\BallSprite.bmp" />
+    <Image Include="Sprites\Barricade.bmp" />
+    <Image Include="Sprites\BarricadeMask.bmp" />
     <Image Include="sprites\BulletMask.bmp" />
     <Image Include="Sprites\BulletSprite.bmp" />
     <Image Include="Sprites\BonusAlienMask.bmp" />

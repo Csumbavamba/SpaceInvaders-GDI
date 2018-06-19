@@ -17,6 +17,7 @@
 // Local Includes
 #include "resource.h"
 #include "utils.h"
+#include "sprite.h"
 
 // This Include
 #include "Brick.h"
@@ -40,10 +41,23 @@ CBrick::~CBrick()
 }
 
 bool
-CBrick::Initialise()
+CBrick::Initialise(int _alienCount)
 {
-    VALIDATE(CEntity::Initialise(IDB_ALIEN1SPRITE, IDB_ALIEN1MASK));
+	if (_alienCount < 11)
+	{
+		VALIDATE(CEntity::Initialise(IDB_ALIEN1SPRITE, IDB_ALIEN1MASK));
+	}
 
+	if ((_alienCount >= 11) && (_alienCount < 22))
+	{
+		VALIDATE(CEntity::Initialise(IDB_ALIEN2SPRITE, IDB_ALIEN2MASK));
+	}
+
+	if (_alienCount >= 22)
+	{
+		VALIDATE(CEntity::Initialise(IDB_ALIEN3SPRITE, IDB_ALIEN3MASK));
+	}
+  
     return (true);
 }
 
@@ -84,6 +98,7 @@ void CBrick::ChangeAlienDirection()
 	if (moveSpeed < 0)
 	{
 		moveSpeed = 0.5f;
+		//m_pSprite->updateSprite(IDB_BULLETSPRITE, IDB_BULLETMASK);
 	}
 
 	else

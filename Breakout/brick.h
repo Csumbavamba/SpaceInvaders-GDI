@@ -36,7 +36,7 @@ public:
     CBrick();
     virtual ~CBrick();
 
-    virtual bool Initialise();
+    virtual bool Initialise(int _alienCount);
 
 	float GetX() const;
 	float GetY() const;
@@ -64,7 +64,9 @@ public:
 protected:
     bool isHit;
 	float moveSpeed;
+	CSprite* m_pSprite;
 	AlienBullet * bullet = nullptr;
+
 
 private:
 
