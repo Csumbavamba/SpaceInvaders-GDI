@@ -78,8 +78,6 @@ CLevel::~CLevel()
 		delete pBarrier;
 	}
 
-    delete m_pPaddle;
-    m_pPaddle = 0;
 
 	if (bullet != nullptr)
 	{
@@ -213,9 +211,6 @@ CLevel::Draw()
 		barriers[i]->Draw();
 	}
 
-
-    m_pPaddle->Draw();
-
 	if (bullet != nullptr && !canShoot)
 	{
 		bullet->Draw();
@@ -280,12 +275,6 @@ CLevel::Process(float _fDeltaTick)
 	if (GetAsyncKeyState(VK_SPACE) & 0x8000)
 	{
 		isShooting = true;
-		// Test shooting
-		/*aliens[0]->Shoot();
-		if (aliens[0]->GetBullet() != nullptr)
-		{
-			alienBullets.push_back(aliens[0]->GetBullet());
-		}	*/
 	}
 	else
 	{
@@ -294,8 +283,6 @@ CLevel::Process(float _fDeltaTick)
 
 	if (isShooting && canShoot == true)
 	{
-		// m_pBall = new CBall();
-		// VALIDATE()
 		bullet->Initialise(player);
 		canShoot = false;
 		isShooting = false;
@@ -461,7 +448,7 @@ void CLevel::CheckAlienBulletCollisions()
 
 
 			float alienTop = alienBullet->GetY() - alienBullet->GetRadius();
-			float alienBottom = alienBullet->GetY + alienBullet->GetRadius();
+			float alienBottom = alienBullet->GetY() + alienBullet->GetRadius();
 
 			float playerTop = player->GetHeight() + player->GetHeight() / 2;
 
@@ -469,20 +456,20 @@ void CLevel::CheckAlienBulletCollisions()
 			/*(alienBullet->GetX() + alienBullet->GetRadius() > player->GetX() - player->GetWidth() / 2) &&
 			(alienBullet->GetX() - alienBullet->GetRadius() < player->GetX() + player->GetWidth() / 2) &&*/
 
-			if ((alienBullet->GetY() - 100 > player->GetHeight() + player->GetHeight() / 2) &&
-				(alienBullet->GetY() + 100 < player->GetHeight() - player->GetHeight() / 2))
-			{
-				// Decrease HP
-				CGame::GetInstance().GameOverLost();
-				hitPoints--;
-				RemoveAlienBulletFromVector(alienBullet);
-				delete alienBullet;
-				// Check if Game is Lost
-				if (IsPlayerDead())
-				{
-					CGame::GetInstance().GameOverLost();
-				}
-			}
+			//if ((alienBullet->GetY() - 100 > player->GetHeight() + player->GetHeight() / 2) &&
+			//	(alienBullet->GetY() + 100 < player->GetHeight() - player->GetHeight() / 2))
+			//{
+			//	// Decrease HP
+			//	CGame::GetInstance().GameOverLost();
+			//	hitPoints--;
+			//	RemoveAlienBulletFromVector(alienBullet);
+			//	delete alienBullet;
+			//	// Check if Game is Lost
+			//	if (IsPlayerDead())
+			//	{
+			//		CGame::GetInstance().GameOverLost();
+			//	}
+			//}
 		}
 	}
 }
