@@ -145,6 +145,7 @@ Level::Initialise(int _iWidth, int _iHeight)
 
 		barrier->SetX(barrierX);
 		barrier->SetY(barrierY);
+		barrier->SetBarrierLife(3);
 
 		VALIDATE(barrier->Initialise());
 		
@@ -438,14 +439,13 @@ void Level::CheckAlienBulletCollisions()
 			float bulletHalfHeight = alienBullet->GetHeight() / 2;
 
 
-			// Colliding with the bottom wall
+			// Colliding with the bottom edge of screen
 			if ((alienBullet->GetY() + alienBullet->GetHeight() / 2) > height)
 			{
 				RemoveAlienBulletFromVector(alienBullet);
 				delete alienBullet;
 				return;
 			}
-
 
 			// Bullet dimensions
 			float bulletTop = alienBullet->GetY() - alienBullet->GetRadius();
@@ -459,6 +459,45 @@ void Level::CheckAlienBulletCollisions()
 			float playerRight = player->GetX() + player->GetWidth() / 2;
 			float playerLeft = player->GetX() - player->GetWidth() / 2;
 
+			for (Barrier * barrier : barriers)
+			{
+				// Player dimensions
+				float barrierTop = barrier->GetY() - (barrier->GetHeight() / 2);
+				float barrierBottom = barrier->GetY() + (barrier->GetHeight() / 2);
+				float barrierRight = barrier->GetX() + barrier->GetWidth() / 2;
+				float barrierLeft = barrier->GetX() - barrier->GetWidth() / 2;
+
+				
+
+				if ((bulletBottom > barrierTop) &&
+					(bulletTop < barrierBottom) &&
+					(bulletRight > barrierLeft) &&
+					(bulletLeft < barrierRight))
+				{
+					RemoveAlienBulletFromVector(alienBullet);
+					delete alienBullet;
+					barrier->BarrierLooseLife();
+					if ((barrier->GetBarrierLife()) <= 0)
+					{
+						RemoveBarrierFromVector(barrier);
+						delete barrier;
+					}
+
+
+
+				}
+				/*if (alienBullet->GetY() + alienBullet->GetRadius() >= barrier->GetY())
+				{
+					if (alienBullet->GetX() + alienBullet->GetRadius() >= barrier->GetX() + barrier->GetRadius() &&
+						alienBullet->GetX() + alienBullet->GetRadius() <= barrier->GetX() + barrier->GetRadius() + 40)
+					{
+						RemoveAlienBulletFromVector(alienBullet);
+						delete alienBullet;
+						return;
+					}
+
+				}*/
+			}
 
 			// Bullet Collision with the player
 			if ((bulletBottom > playerTop) &&
