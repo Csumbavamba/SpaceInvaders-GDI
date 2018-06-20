@@ -183,6 +183,7 @@
     <Image Include="Sprites\Alien3Sprite.bmp" />
     <Image Include="Sprites\Background.bmp" />
     <Image Include="Sprites\BackgroundMask.bmp" />
+    <Image Include="Sprites\BackgroundSpaceMask.bmp" />
     <Image Include="Sprites\BackgroundSpaceSprite.bmp" />
     <Image Include="Sprites\BallMask.bmp" />
     <Image Include="Sprites\BallSprite.bmp" />
@@ -198,6 +199,20 @@
     <Image Include="Sprites\PaddleSprite.bmp" />
     <Image Include="Sprites\PlayerMask.bmp" />
     <Image Include="Sprites\PlayerSprite.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="sprites\sound1.bin" />
+    <None Include="sprites\sound2.bin" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="audio\AlienDeath.wav" />
+    <Media Include="audio\BackgroundMusic.wav" />
+    <Media Include="audio\BarrierHit.wav" />
+    <Media Include="audio\BonusAlienDeath.wav" />
+    <Media Include="audio\BossHit.wav" />
+    <Media Include="audio\GameOverSound.wav" />
+    <Media Include="audio\PlayerDeath.wav" />
+    <Media Include="audio\VictorySound.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
