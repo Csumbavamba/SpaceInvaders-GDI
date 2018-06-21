@@ -142,6 +142,8 @@
     <ClCompile Include="AlienBullet.cpp" />
     <ClCompile Include="backbuffer.cpp" />
     <ClCompile Include="background.cpp" />
+    <ClCompile Include="MotherShip.cpp" />
+    <ClCompile Include="MotherShipBullet.cpp" />
     <ClCompile Include="PlayerBullet.cpp" />
     <ClCompile Include="Barrier.cpp" />
     <ClCompile Include="Alien.cpp" />
@@ -158,6 +160,8 @@
     <ClInclude Include="AlienBullet.h" />
     <ClInclude Include="backbuffer.h" />
     <ClInclude Include="background.h" />
+    <ClInclude Include="MotherShip.h" />
+    <ClInclude Include="MotherShipBullet.h" />
     <ClInclude Include="PlayerBullet.h" />
     <ClInclude Include="Barrier.h" />
     <ClInclude Include="Alien.h" />
@@ -194,6 +198,8 @@
     <Image Include="Sprites\BonusAlienSprite.bmp" />
     <Image Include="Sprites\BrickMask.bmp" />
     <Image Include="Sprites\BrickSprite.bmp" />
+    <Image Include="Sprites\MotherShipMask.bmp" />
+    <Image Include="Sprites\MotherShipSprite.bmp" />
     <Image Include="Sprites\PaddleMask.bmp" />
     <Image Include="Sprites\PaddleSprite.bmp" />
     <Image Include="Sprites\PlayerMask.bmp" />

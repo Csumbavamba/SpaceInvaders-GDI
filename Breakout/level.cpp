@@ -26,6 +26,8 @@
 #include "background.h"
 #include "sprite.h"
 #include "Barrier.h"
+#include "MotherShip.h"
+#include "MotherShipBullet.h"
 
 #include <vector>
 #include <algorithm>
@@ -52,6 +54,7 @@ Level::Level()
 , m_fpsCounter(0)
 ,barrierX(0)
 ,barrierY(700)
+, mothershipAlive(false)
 {
 
 }
@@ -78,6 +81,28 @@ Level::~Level()
 		delete pBarrier;
 	}
 
+	delete motherShip;
+	motherShip = 0;
+
+	// Delete alien bullets
+	while (alienBullets.size() > 0)
+	{
+		AlienBullet * bullet = alienBullets[alienBullets.size() - 1];
+
+		alienBullets.pop_back();
+
+		delete bullet;
+	}
+
+	// Delete mothership bullet
+	while (motherShipBullets.size() > 0)
+	{
+		MotherShipBullet * bullet = motherShipBullets[motherShipBullets.size() - 1];
+
+		motherShipBullets.pop_back();
+
+		delete bullet;
+	}
 
 	if (bullet != nullptr)
 	{
@@ -186,8 +211,8 @@ Level::Initialise(int _iWidth, int _iHeight)
 		}
     }
 
+	motherShip = new MotherShip();
 	
-
     SetBricksRemaining(kiNumBricks);
 	m_fpsCounter = new FPSCounter();
 	VALIDATE(m_fpsCounter->Initialise());
@@ -215,6 +240,18 @@ Level::Draw()
 	{
 		bullet->Draw();
 	}
+
+	if (motherShip->IsHit() == false)
+	{
+		motherShip->Draw();
+		if (!motherShipBullets.empty())
+		{
+			for (MotherShipBullet * bullet : motherShipBullets)
+			{
+				bullet->Draw();
+			}
+		}
+	}
 	
 	if (!alienBullets.empty())
 	{
@@ -234,6 +271,7 @@ void
 Level::Process(float _fDeltaTick)
 {
 	m_pBackground->Process(_fDeltaTick);
+	
 
 	for (unsigned int i = 0; i < aliens.size(); ++i)
 	{
@@ -253,10 +291,35 @@ Level::Process(float _fDeltaTick)
 		// If the brick with the highest X value reaches the wall turn back
 
 	}
+	if (aliens.size() % 7 == 0 && (mothershipAlive == false))
+	{
+		SpawnMotherShip();
+		mothershipAlive = true;
+	}
+
 	MoveAliens();
 	alienShootDelay--;
 	MakeAliensShoot();
 	CheckAlienBulletCollisions();
+	
+	
+
+	if (mothershipAlive == true)
+	{
+		motherShip->Process(_fDeltaTick);
+		motherShip->MoveSideWays();
+		motherShipShootDelay--;
+		MakeMotherShipShoot();
+		CheckShipBulletMotherShipCollisions();
+
+		if (!motherShipBullets.empty())
+		{
+			for (MotherShipBullet * bullet : motherShipBullets)
+			{
+				bullet->Process(_fDeltaTick);
+			}
+		}
+	}
 
 	if (!alienBullets.empty())
 	{
@@ -480,6 +543,40 @@ void Level::CheckAlienBulletCollisions()
 	}
 }
 
+void Level::CheckShipBulletMotherShipCollisions()
+{
+	if (!motherShip->IsHit() && mothershipAlive)
+	{
+		float bulletRadius = bullet->GetRadius();
+
+		float bulletX = bullet->GetX();
+		float bulletY = bullet->GetY();
+
+		float motherShipX = motherShip->GetX();
+		float motherShipY = motherShip->GetY();
+
+		float motherShipHeight = motherShip->GetHeight();
+		float motherShipWidth = motherShip->GetWidth();
+
+		if ((bulletX + bulletRadius > motherShipX - motherShipWidth / 2) &&
+			(bulletX - bulletRadius < motherShipX + motherShipWidth / 2) &&
+			(bulletY + bulletRadius > motherShipY - motherShipHeight / 2) &&
+			(bulletY - bulletRadius < motherShipY + motherShipHeight / 2))
+		{
+			//Hit the front side of the brick...
+			// bullet->SetY((motherShipY + motherShipHeight / 2.0f) + bulletRadius);
+			/* m_pBall->SetVelocityY(m_pBall->GetVelocityY() * -1);*/
+			motherShip->SetHit(true);
+
+			// TODO make a better respawn for bullet
+			canShoot = true;
+
+			DestroyMotherShip();
+
+		}
+	}
+}
+
 bool Level::IsPlayerDead()
 {
 	if (hitPoints <= 0)
@@ -504,6 +601,34 @@ Level::SetBricksRemaining(int _i)
 void Level::SetBarriersRemaining(int _i)
 {
 	barriersRemaining - _i;
+}
+
+// Mothership functions
+void Level::SpawnMotherShip()
+{
+	// if (aliens.size() % 7 == 0)
+	if (true)
+	{
+		motherShip->Initialise();
+	}
+}
+
+void Level::MakeMotherShipShoot()
+{
+	if (motherShipShootDelay == 0)
+	{
+		motherShip->Shoot();
+		motherShipShootDelay = 150;
+		motherShipBullets.push_back(motherShip->GetMotherShipBullet());
+	}
+}
+
+void Level::DestroyMotherShip()
+{
+	motherShip->SetHit(true);
+	delete motherShip;
+	mothershipAlive = false;
+	motherShip = new MotherShip();
 }
 
 void

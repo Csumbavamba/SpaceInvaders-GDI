@@ -64,7 +64,7 @@ public:
 protected:
     bool isHit;
 	float moveSpeed;
-	Sprite* m_pSprite;
+	Sprite* sprite;
 	AlienBullet * bullet = nullptr;
 
 

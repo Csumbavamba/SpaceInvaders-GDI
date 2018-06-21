@@ -32,7 +32,7 @@
 Alien::Alien()
 : isHit(false)
 {
-	moveSpeed = 0.5f;
+	moveSpeed = 1.0f;
 }
 
 Alien::~Alien()
