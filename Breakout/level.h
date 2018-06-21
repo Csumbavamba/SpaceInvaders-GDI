@@ -91,6 +91,7 @@ protected:
     Player* player = nullptr;
     std::vector<Alien*> aliens;
 	std::vector<Barrier*> barriers;
+	std::vector<Player*> shipLives;
 	FPSCounter* m_fpsCounter;
 	std::vector<AlienBullet*> alienBullets;
 
