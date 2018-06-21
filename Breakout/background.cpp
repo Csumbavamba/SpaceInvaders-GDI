@@ -29,32 +29,32 @@
 
 // Implementation
 
-CBackGround::CBackGround()
+BackGround::BackGround()
 {
 
 }
 
-CBackGround::~CBackGround()
+BackGround::~BackGround()
 {
 
 }
 
 bool
-CBackGround::Initialise()
+BackGround::Initialise()
 {
-	VALIDATE(CEntity::Initialise(IDB_BACKGROUND, IDB_BACKGROUNDMASK));
+	VALIDATE(Entity::Initialise(IDB_BACKGROUND, IDB_BACKGROUNDMASK));
 
 	return (true);
 }
 
 void
-CBackGround::Draw()
+BackGround::Draw()
 {
-	CEntity::Draw();
+	Entity::Draw();
 }
 
 void
-CBackGround::Process(float _fDeltaTick)
+BackGround::Process(float _fDeltaTick)
 {
-	CEntity::Process(_fDeltaTick);
+	Entity::Process(_fDeltaTick);
 }

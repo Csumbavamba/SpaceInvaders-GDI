@@ -24,13 +24,13 @@
 #include "Game.h"
 
 // Static Variables
-CGame* CGame::s_pGame = 0;
+Game* Game::s_pGame = 0;
 
 // Static Function Prototypes
 
 // Implementation
 
-CGame::CGame()
+Game::Game()
 	: m_pLevel(0)
 	, m_pClock(0)
 	, m_hApplicationInstance(0)
@@ -40,7 +40,7 @@ CGame::CGame()
 
 }
 
-CGame::~CGame()
+Game::~Game()
 {
 	delete m_pLevel;
 	m_pLevel = 0;
@@ -53,19 +53,19 @@ CGame::~CGame()
 }
 
 bool
-CGame::Initialise(HINSTANCE _hInstance, HWND _hWnd, int _iWidth, int _iHeight)
+Game::Initialise(HINSTANCE _hInstance, HWND _hWnd, int _iWidth, int _iHeight)
 {
 	m_hApplicationInstance = _hInstance;
 	m_hMainWindow = _hWnd;
 
-	m_pClock = new CClock();
+	m_pClock = new Clock();
 	VALIDATE(m_pClock->Initialise());
 	m_pClock->Process();
 
-	m_pBackBuffer = new backBuffer();
+	m_pBackBuffer = new BackBuffer();
 	VALIDATE(m_pBackBuffer->Initialise(_hWnd, _iWidth, _iHeight));
 
-	m_pLevel = new CLevel();
+	m_pLevel = new Level();
 	VALIDATE(m_pLevel->Initialise(_iWidth, _iHeight));
 
 	ShowCursor(false);
@@ -74,7 +74,7 @@ CGame::Initialise(HINSTANCE _hInstance, HWND _hWnd, int _iWidth, int _iHeight)
 }
 
 void
-CGame::Draw()
+Game::Draw()
 {
 	m_pBackBuffer->Clear();
 
@@ -84,13 +84,13 @@ CGame::Draw()
 }
 
 void
-CGame::Process(float _fDeltaTick)
+Game::Process(float _fDeltaTick)
 {
 	m_pLevel->Process(_fDeltaTick);
 }
 
 void
-CGame::ExecuteOneFrame()
+Game::ExecuteOneFrame()
 {
 	float fDT = m_pClock->GetDeltaTick();
 
@@ -102,58 +102,58 @@ CGame::ExecuteOneFrame()
 	Sleep(1);
 }
 
-CGame&
-CGame::GetInstance()
+Game&
+Game::GetInstance()
 {
 	if (s_pGame == 0)
 	{
-		s_pGame = new CGame();
+		s_pGame = new Game();
 	}
 
 	return (*s_pGame);
 }
 
 void
-CGame::GameOverWon()
+Game::GameOverWon()
 {
 	MessageBox(m_hMainWindow, L"Winner!", L"Game Over", MB_OK);
 	PostQuitMessage(0);
 }
 
 void
-CGame::GameOverLost()
+Game::GameOverLost()
 {
 	MessageBox(m_hMainWindow, L"Loser!", L"Game Over", MB_OK);
 	PostQuitMessage(0);
 }
 
 void
-CGame::DestroyInstance()
+Game::DestroyInstance()
 {
 	delete s_pGame;
 	s_pGame = 0;
 }
 
-backBuffer*
-CGame::GetBackBuffer()
+BackBuffer*
+Game::GetBackBuffer()
 {
 	return (m_pBackBuffer);
 }
 
-CLevel*
-CGame::GetLevel()
+Level*
+Game::GetLevel()
 {
 	return (m_pLevel);
 }
 
 HINSTANCE
-CGame::GetAppInstance()
+Game::GetAppInstance()
 {
 	return (m_hApplicationInstance);
 }
 
 HWND
-CGame::GetWindow()
+Game::GetWindow()
 {
 	return (m_hMainWindow);
 }

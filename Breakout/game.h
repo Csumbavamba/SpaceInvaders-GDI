@@ -29,14 +29,14 @@
 // Constants
 
 // Prototypes
-class CLevel;
-class backBuffer;
+class Level;
+class BackBuffer;
 
-class CGame
+class Game
 {
 	// Member Functions
 public:
-	virtual ~CGame();
+	virtual ~Game();
 
 	virtual bool Initialise(HINSTANCE _hInstance, HWND _hWnd, int _iWidth, int _iHeight);
 
@@ -45,8 +45,8 @@ public:
 
 	void ExecuteOneFrame();
 
-	backBuffer* GetBackBuffer();
-	CLevel* GetLevel();
+	BackBuffer* GetBackBuffer();
+	Level* GetLevel();
 	HINSTANCE GetAppInstance();
 	HWND GetWindow();
 
@@ -54,31 +54,31 @@ public:
 	void GameOverLost();
 
 	// Singleton Methods
-	static CGame& GetInstance();
+	static Game& GetInstance();
 	static void DestroyInstance();
 
 protected:
 
 private:
-	CGame();
-	CGame(const CGame& _kr);
-	CGame& operator= (const CGame& _kr);
+	Game();
+	Game(const Game& _kr);
+	Game& operator= (const Game& _kr);
 
 	// Member Variables
 public:
 
 protected:
-	CClock* m_pClock;
-	CLevel* m_pLevel;
+	Clock* m_pClock;
+	Level* m_pLevel;
 
-	backBuffer* m_pBackBuffer;
+	BackBuffer* m_pBackBuffer;
 
 	//Application data
 	HINSTANCE m_hApplicationInstance;
 	HWND m_hMainWindow;
 
 	// Singleton Instance
-	static CGame* s_pGame;
+	static Game* s_pGame;
 
 private:
 

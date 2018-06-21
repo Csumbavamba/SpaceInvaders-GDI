@@ -28,72 +28,87 @@
 // Constants
 
 // Prototypes
-class CBall;
-class CPaddle;
-class CBrick;
-class CFPSCounter;
-class CBackGround;
+class PlayerBullet;
+class Player;
+class Alien;
+class Barrier;
+class FPSCounter;
+class BackGround;
+class AlienBullet;
 
-class CLevel
+class Level
 {
     // Member Functions
 public:
-    CLevel();
-    virtual ~CLevel();
+    Level();
+    virtual ~Level();
 
     virtual bool Initialise(int _iWidth, int _iHeight);
 
     virtual void Draw();
     virtual void Process(float _fDeltaTick);
 
-    CPaddle* GetPaddle() const;
+    Player* GetPaddle() const;
 
     int GetBricksRemaining() const;
 
 protected:
     void ProcessBallWallCollision();
 	void ProcessPaddleWallCollison();
-    void ProcessBallPaddleCollision();
-    void ProcessBallBrickCollision();
+    void ProcessShipBulletAlienCollision();
     void ProcessCheckForWin();
     void ProcessBallBounds();
+	void CheckAlienBulletCollisions();
+	bool IsPlayerDead();
 
     void UpdateScoreText();
     void DrawScore();
 	void DrawFPS();
 
-	void MoveAliens();
-	CBrick * GetAlienWithLargestX();
-	CBrick * GetAlienWithSmallestX();
-	void RemoveAlienFromVector(CBrick * alien);
+	
+	Alien * GetAlienWithLargestX();
+	Alien * GetAlienWithSmallestX();
+	void RemoveAlienFromVector(Alien * alien);
+	void RemoveBarrierFromVector(Barrier* barrier);
+	void RemoveAlienBulletFromVector(AlienBullet * alienBullet);
 
+	void MoveAliens();
+	void MakeAliensShoot();
+	Alien * GetRandomAlien();
     void SetBricksRemaining(int _i);
+	void SetBarriersRemaining(int _i);
 
 private:
-    CLevel(const CLevel& _kr);
-    CLevel& operator= (const CLevel& _kr);
+    Level(const Level& _kr);
+    Level& operator= (const Level& _kr);
 
     // Member Variables
 public:
 
 protected:
-	CBackGround* m_pBackground;
-    CBall* bullet = nullptr;
-    CPaddle* m_pPaddle = nullptr;
-    std::vector<CBrick*> aliens;
-	CFPSCounter* m_fpsCounter;
+	BackGround* m_pBackground;
+    PlayerBullet* bullet = nullptr;
+    Player* player = nullptr;
+    std::vector<Alien*> aliens;
+	std::vector<Barrier*> barriers;
+	FPSCounter* m_fpsCounter;
+	std::vector<AlienBullet*> alienBullets;
 
 	bool isShooting = false;
 	bool canShoot = true;
+	int alienShootDelay = 300;
+	int hitPoints = 3;
 
-	CBrick * largestXAlien = nullptr;
-	CBrick * smallestXAlien = nullptr;
+	Alien * largestXAlien = nullptr;
+	Alien * smallestXAlien = nullptr;
 
     int width;
     int height;
-	float alienSpeed = 0.01f;
+	int barrierX;
+	int barrierY;
 
     int aliensRemaining;
+	int barriersRemaining;
     std::string m_strScore;
 
 private:

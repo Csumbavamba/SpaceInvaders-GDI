@@ -24,7 +24,7 @@
 // Static Function Prototypes
 
 
-CFPSCounter::CFPSCounter()
+FPSCounter::FPSCounter()
 	:m_fTimeElapsed(0.0f)
 	, m_iFrameCount(0)
 	, m_fFrameRate(0)
@@ -32,21 +32,21 @@ CFPSCounter::CFPSCounter()
 
 }
 
-CFPSCounter::~CFPSCounter()
+FPSCounter::~FPSCounter()
 {
 
 }
 
 
 bool
-CFPSCounter::Initialise()
+FPSCounter::Initialise()
 {
 	return (true);
 }
 
 
 void 
-CFPSCounter::CountFramesPerSecond(float _fDeltaTime)
+FPSCounter::CountFramesPerSecond(float _fDeltaTime)
 {
 	++m_iFrameCount;
 
@@ -61,7 +61,7 @@ CFPSCounter::CountFramesPerSecond(float _fDeltaTime)
 	UpdateFPSText();
 }
 
-void CFPSCounter::UpdateFPSText()
+void FPSCounter::UpdateFPSText()
 {
 	m_strFPS = L"FPS: ";
 	wchar_t wstrTemp[10];
@@ -70,7 +70,7 @@ void CFPSCounter::UpdateFPSText()
 }
 
 
-void CFPSCounter::DrawFPSText(HDC _hdc, int _iWidth, int _iHeight)
+void FPSCounter::DrawFPSText(HDC _hdc, int _iWidth, int _iHeight)
 {
 	const int kiX = _iWidth - 70;
 	const int kiY = _iHeight - 14;

@@ -19,10 +19,10 @@
 // Local Includes
 #include "resource.h"
 #include "utils.h"
-#include "paddle.h"
+#include "Player.h"
 
 // This Includes
-#include "Ball.h"
+#include "PlayerBullet.h"
 
 // Static Variables
 
@@ -32,21 +32,21 @@
 
 
 
-CBall::CBall()
+PlayerBullet::PlayerBullet()
 : m_fVelocityX(0.0f)
 {
 
 }
 
-CBall::~CBall()
+PlayerBullet::~PlayerBullet()
 {
 
 }
 
 bool
-CBall::Initialise(CPaddle * paddle)
+PlayerBullet::Initialise(Player * paddle)
 {
-    VALIDATE(CEntity::Initialise(IDB_BULLETSPRITE, IDB_BULLETMASK));
+    VALIDATE(Entity::Initialise(IDB_BULLETSPRITE, IDB_BULLETMASK));
     
     m_fX = paddle->GetX();
     m_fY = paddle->GetY();
@@ -57,41 +57,41 @@ CBall::Initialise(CPaddle * paddle)
 }
 
 void
-CBall::Draw()
+PlayerBullet::Draw()
 {
-    CEntity::Draw();
+    Entity::Draw();
 }
 
 void
-CBall::Process(float _fDeltaTick)
+PlayerBullet::Process(float _fDeltaTick)
 {
     m_fX += m_fVelocityX * _fDeltaTick;
     m_fY += m_fVelocityY * _fDeltaTick;
 
-    CEntity::Process(_fDeltaTick);
+    Entity::Process(_fDeltaTick);
 }
 
 float 
-CBall::GetVelocityX() const
+PlayerBullet::GetVelocityX() const
 {
     return (m_fVelocityX);
 }
 
 float 
-CBall::GetVelocityY() const
+PlayerBullet::GetVelocityY() const
 {
     return (m_fVelocityY);
 }
 
 void 
-CBall::SetVelocityX(float _fX)
+PlayerBullet::SetVelocityX(float _fX)
 {
     m_fVelocityX = _fX;
 }
 
 
 float 
-CBall::GetRadius() const
+PlayerBullet::GetRadius() const
 {
     return (GetWidth() / 2.0f);
 }

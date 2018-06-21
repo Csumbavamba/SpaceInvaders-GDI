@@ -14,56 +14,48 @@
 
 #pragma once
 
-#if !defined(__BRICK_H__)
-#define __BRICK_H__
+#if !defined(__PADDLE_H__)
+#define __PADDLE_H__
 
 // Library Includes
 
 // Local Includes
 #include "entity.h"
-
+#include "Sprite.h"
+#include "PlayerBullet.h"
 // Types
 
 // Constants
 
 // Prototypes
-
-class CBrick : public CEntity
+class Player : public Entity
 {
     // Member Functions
 public:
-    CBrick();
-    virtual ~CBrick();
+    Player();
+    virtual ~Player();
 
     virtual bool Initialise();
-
-	float GetX() const;
-	float GetY() const;
 
     virtual void Draw();
     virtual void Process(float _fDeltaTick);
 
-    void SetHit(bool _b);
-    bool IsHit() const;
-	void MoveSideWays(float movementSpeed);
-	void MoveDown(float downSpeed);
 
 protected:
 
 private:
-    CBrick(const CBrick& _kr);
-    CBrick& operator= (const CBrick& _kr);
+    Player(const Player& _kr);
+    Player& operator= (const Player& _kr);
+
 
     // Member Variables
 public:
 
 protected:
-    bool m_bHit;
 
 private:
+	
 
 };
 
-
-#endif    // __BRICK_H__
-
+#endif    // __PADDLE_H__

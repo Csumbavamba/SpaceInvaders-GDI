@@ -30,12 +30,12 @@
 
 // Prototypes
 
-class CFPSCounter
+class FPSCounter
 {
 	//Member Functions
 public:
-	CFPSCounter();
-	~CFPSCounter();
+	FPSCounter();
+	~FPSCounter();
 
 	void CountFramesPerSecond(float _fDeltaTime);
 	bool Initialise();

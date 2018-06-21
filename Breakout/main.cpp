@@ -21,7 +21,6 @@
 #include "Clock.h"
 #include "utils.h"
 #include "level.h"
-#include "paddle.h"
 
 const int kiWidth = 1024;
 const int kiHeight = 720;
@@ -110,7 +109,7 @@ WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCmdline, int _i
 
 	HWND hwnd = CreateAndRegisterWindow(_hInstance, kiWidth, kiHeight, L"Breakout");
 
-	CGame& rGame = CGame::GetInstance();
+	Game& rGame = Game::GetInstance();
 	
 	GetClientRect(hwnd, &_rect);
 
@@ -134,7 +133,7 @@ WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCmdline, int _i
 		}
 	}
 
-	CGame::DestroyInstance();
+	Game::DestroyInstance();
 
 	return (static_cast<int>(msg.wParam));
 }

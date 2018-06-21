@@ -27,14 +27,14 @@
 // Constants
 
 // Prototypes
-class CSprite;
+class Sprite;
 
-class CBackGround : public CEntity
+class BackGround : public Entity
 {
 	// Member Functions
 public:
-	CBackGround();
-	virtual ~CBackGround();
+	BackGround();
+	virtual ~BackGround();
 
 	virtual bool Initialise();
 
@@ -45,8 +45,8 @@ public:
 protected:
 
 private:
-	CBackGround(const CBackGround& _kr);
-	CBackGround& operator= (const CBackGround& _kr);
+	BackGround(const BackGround& _kr);
+	BackGround& operator= (const BackGround& _kr);
 
 	// Member Variables
 public:

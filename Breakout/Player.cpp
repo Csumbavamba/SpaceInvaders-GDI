@@ -19,7 +19,7 @@
 #include "utils.h"
 
 // This Include
-#include "Paddle.h"
+#include "Player.h"
 
 // Static Variables
 
@@ -27,32 +27,32 @@
 
 // Implementation
 
-CPaddle::CPaddle()
+Player::Player()
 {
 
 }
 
-CPaddle::~CPaddle()
+Player::~Player()
 {
 
 }
 
 bool
-CPaddle::Initialise()
+Player::Initialise()
 {
-    VALIDATE(CEntity::Initialise(IDB_PLAYERSPRITE, IDB_PLAYERMASK));
+    VALIDATE(Entity::Initialise(IDB_PLAYERSPRITE, IDB_PLAYERMASK));
 
     return (true);
 }
 
 void
-CPaddle::Draw()
+Player::Draw()
 {
-    CEntity::Draw();
+    Entity::Draw();
 }
 
 void
-CPaddle::Process(float _fDeltaTick)
+Player::Process(float _fDeltaTick)
 {
 	
 	float fHalfPaddleW = static_cast<float>(m_pSprite->GetWidth() / 2.0);
@@ -76,6 +76,6 @@ CPaddle::Process(float _fDeltaTick)
 		m_fX = 1009-fHalfPaddleW;
 	}
 	
-	CEntity::Process(_fDeltaTick);
+	Entity::Process(_fDeltaTick);
 }
 

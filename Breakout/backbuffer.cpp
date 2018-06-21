@@ -25,7 +25,7 @@
 
 // Implementation
 
-backBuffer::backBuffer()
+BackBuffer::BackBuffer()
 : m_hWnd(0)
 , m_hDC(0)
 , m_hSurface(0)
@@ -36,7 +36,7 @@ backBuffer::backBuffer()
 
 }
 
-backBuffer::~backBuffer()
+BackBuffer::~BackBuffer()
 {
     SelectObject(m_hDC, m_hOldObject);
 
@@ -45,7 +45,7 @@ backBuffer::~backBuffer()
 }
 
 bool
-backBuffer::Initialise(HWND _hWnd, int _iWidth, int _iHeight)
+BackBuffer::Initialise(HWND _hWnd, int _iWidth, int _iHeight)
 {
     m_hWnd = _hWnd;
 
@@ -73,7 +73,7 @@ backBuffer::Initialise(HWND _hWnd, int _iWidth, int _iHeight)
 }
 
 void
-backBuffer::Clear()
+BackBuffer::Clear()
 {
     HBRUSH hOldBrush = static_cast<HBRUSH>(SelectObject(GetBFDC(), GetStockObject(LTGRAY_BRUSH)));
 
@@ -83,25 +83,25 @@ backBuffer::Clear()
 }
 
 HDC
-backBuffer::GetBFDC() const
+BackBuffer::GetBFDC() const
 {
     return (m_hDC);
 }
 
 int 
-backBuffer::GetWidth() const
+BackBuffer::GetWidth() const
 {
     return (m_iWidth);
 }
 
 int 
-backBuffer::GetHeight() const
+BackBuffer::GetHeight() const
 {
     return (m_iHeight);
 }
 
 void 
-backBuffer::Present()
+BackBuffer::Present()
 {
     HDC hWndDC = ::GetDC(m_hWnd);
 
