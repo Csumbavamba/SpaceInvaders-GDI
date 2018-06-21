@@ -39,6 +39,7 @@
 Alien::Alien()
 : isHit(false)
 , alienScore(0)
+, shootSpeed(1)
 {
 	moveSpeed = 0.5f;
 }
@@ -155,6 +156,28 @@ void Alien::ChangeAlienDirection()
 
 }
 
+void Alien::SetAlienSpeed(float modifier, float originalSpeed)
+{
+	moveSpeed = modifier * originalSpeed;
+}
+
+void Alien::SetAlienShootSpeed(float modifier, float originalSpeed)
+{
+	shootSpeed = modifier * originalSpeed;
+}
+
+float Alien::GetAlienSpeed() const
+{
+	return moveSpeed;
+}
+
+float Alien::GetAlienShootSpeed() const
+{
+	return shootSpeed;
+}
+
+void
+Alien::SetHit(bool _b)
 /***********************
 * name of the function: SetHit - Sets isHit boolean via bool _b
 * @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
@@ -209,6 +232,7 @@ void Alien::Shoot()
 {
 	bullet = new AlienBullet();
 	bullet->Initialise(m_fX, m_fY);
+	bullet->SetShootSpeed(shootSpeed);
 }
 
 /***********************

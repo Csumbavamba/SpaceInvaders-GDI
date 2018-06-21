@@ -29,9 +29,11 @@ public:
 	virtual void Process(float deltaTick);
 
 	float GetRadius() const;
+	void SetShootSpeed(float shootSpeedModifier);
 
 private:
 	const float velocityY = 500.0f;
 	bool isDestroyed = false;
+	float shootSpeedModifier = 1;
 };
 

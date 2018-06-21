@@ -50,6 +50,11 @@ public:
     virtual void Draw();
     virtual void Process(float _fDeltaTick);
 
+	void SetAlienMovementModifier(float movementModifier);
+	void SetAlienBulletModifier(float bulletModifier);
+	void UpdateDifficulty();
+	void ResetToDefault();
+
     Player* GetPaddle() const;
 
     int GetSpaceInvaderScore() const;
@@ -131,6 +136,11 @@ protected:
 	int barriersRemaining;
     std::string m_strScore;
 	std::string playerlives;
+
+	// Should be received externally
+	float moveSpeedMultiplier;
+	float bulletSpeedMultiplier;
+
 
 private:
 

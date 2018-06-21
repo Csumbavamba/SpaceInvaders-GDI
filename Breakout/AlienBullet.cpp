@@ -79,7 +79,7 @@ void AlienBullet::Process(float deltaTick)
 {
 	if (!isDestroyed)
 	{
-		m_fY += velocityY * deltaTick;
+		m_fY += velocityY * deltaTick * shootSpeedModifier;
 
 		Entity::Process(deltaTick);
 	}
@@ -95,4 +95,9 @@ void AlienBullet::Process(float deltaTick)
 float AlienBullet::GetRadius() const
 {
 	return (GetWidth() / 2.0f);
+}
+
+void AlienBullet::SetShootSpeed(float shootSpeedModifier)
+{
+	this->shootSpeedModifier = shootSpeedModifier;
 }

@@ -81,6 +81,7 @@ protected:
 	static Game* s_pGame;
 
 private:
+	bool isPaused = false;
 
 };
 
