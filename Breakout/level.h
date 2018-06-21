@@ -35,6 +35,8 @@ class Barrier;
 class FPSCounter;
 class BackGround;
 class AlienBullet;
+class MotherShip;
+class MotherShipBullet;
 
 class Level
 {
@@ -50,15 +52,16 @@ public:
 
     Player* GetPaddle() const;
 
-    int GetBricksRemaining() const;
+    int GetSpaceInvaderScore() const;
 
 protected:
-    void ProcessBallWallCollision();
-	void ProcessPaddleWallCollison();
-    void ProcessShipBulletAlienCollision();
-    void ProcessCheckForWin();
-    void ProcessBallBounds();
+    void CheckShipBulletWallCollision();
+    void CheckShipBulletAlienCollision();
+    void CheckForWin();
+    void CheckBulletBounds();
 	void CheckAlienBulletCollisions();
+	void CheckShipBulletMotherShipCollisions();
+	void CheckMotherShipWallCollision();
 	bool IsPlayerDead();
 
     void UpdateScoreText();
@@ -75,8 +78,13 @@ protected:
 	void MoveAliens();
 	void MakeAliensShoot();
 	Alien * GetRandomAlien();
-    void SetBricksRemaining(int _i);
+    void SetSpaceInvaderScore(int _i);
 	void SetBarriersRemaining(int _i);
+
+	// MotherShip
+	void SpawnMotherShip();
+	void MakeMotherShipShoot();
+	void DestroyMotherShip();
 
 private:
     Level(const Level& _kr);
@@ -89,25 +97,32 @@ protected:
 	BackGround* m_pBackground;
     PlayerBullet* bullet = nullptr;
     Player* player = nullptr;
+	FPSCounter* m_fpsCounter;
+	MotherShip * motherShip = nullptr;
+
     std::vector<Alien*> aliens;
 	std::vector<Barrier*> barriers;
-	FPSCounter* m_fpsCounter;
+	std::vector<Player*> shipLives;
 	std::vector<AlienBullet*> alienBullets;
+	std::vector<MotherShipBullet*> motherShipBullets;
+	
+	Alien * largestXAlien = nullptr;
+	Alien * smallestXAlien = nullptr;
 
 	bool isShooting = false;
 	bool canShoot = true;
 	int alienShootDelay = 300;
+	int motherShipShootDelay = 150;
 	int hitPoints = 3;
-
-	Alien * largestXAlien = nullptr;
-	Alien * smallestXAlien = nullptr;
 
     int width;
     int height;
 	int barrierX;
 	int barrierY;
 
-    int aliensRemaining;
+    int spaceInvadersScore;
+	bool motherShipCanSpawn;
+	bool motherShipAlive;
 	int barriersRemaining;
     std::string m_strScore;
 

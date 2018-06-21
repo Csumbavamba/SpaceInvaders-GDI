@@ -51,6 +51,8 @@ public:
 	void MoveDown();
 	void Shoot();
 	AlienBullet * GetBullet() const;
+	void SetAlienScore(int _AlienValue);
+	int GetAlienScore();
 
 protected:
 
@@ -64,8 +66,9 @@ public:
 protected:
     bool isHit;
 	float moveSpeed;
-	Sprite* m_pSprite;
+	Sprite* sprite = nullptr;
 	AlienBullet * bullet = nullptr;
+	int alienScore;
 
 
 private:
