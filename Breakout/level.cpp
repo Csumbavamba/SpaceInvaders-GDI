@@ -281,12 +281,13 @@ Level::Draw()
 	if (motherShip->IsHit() == false)
 	{
 		motherShip->Draw();
-		if (!motherShipBullets.empty())
+	}
+
+	if (!motherShipBullets.empty())
+	{
+		for (MotherShipBullet * bullet : motherShipBullets)
 		{
-			for (MotherShipBullet * bullet : motherShipBullets)
-			{
-				bullet->Draw();
-			}
+			bullet->Draw();
 		}
 	}
 	
@@ -353,13 +354,13 @@ Level::Process(float _fDeltaTick)
 		// Check for collisions
 		CheckShipBulletMotherShipCollisions();
 		CheckMotherShipWallCollision();
+	}
 
-		if (!motherShipBullets.empty())
+	if (!motherShipBullets.empty())
+	{
+		for (MotherShipBullet * bullet : motherShipBullets)
 		{
-			for (MotherShipBullet * bullet : motherShipBullets)
-			{
-				bullet->Process(_fDeltaTick);
-			}
+			bullet->Process(_fDeltaTick);
 		}
 	}
 
@@ -740,9 +741,6 @@ void Level::MakeMotherShipShoot()
 void Level::DestroyMotherShip()
 {
 	motherShip->SetHit(true);
-	//delete motherShip;
-	//motherShip = 0;
-	// motherShip = new MotherShip();
 	motherShipCanSpawn = false;
 	motherShipAlive = false;
 }
