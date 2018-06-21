@@ -50,7 +50,7 @@ public:
 
     Player* GetPaddle() const;
 
-    int GetBricksRemaining() const;
+    int GetSpaceInvaderScore() const;
 
 protected:
     void ProcessBallWallCollision();
@@ -75,7 +75,7 @@ protected:
 	void MoveAliens();
 	void MakeAliensShoot();
 	Alien * GetRandomAlien();
-    void SetBricksRemaining(int _i);
+    void SetSpaceInvaderScore(int _i);
 	void SetBarriersRemaining(int _i);
 
 private:
@@ -107,7 +107,7 @@ protected:
 	int barrierX;
 	int barrierY;
 
-    int aliensRemaining;
+    int spaceInvadersScore;
 	int barriersRemaining;
     std::string m_strScore;
 
