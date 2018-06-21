@@ -79,6 +79,7 @@ protected:
 	
 	Alien * GetAlienWithLargestX();
 	Alien * GetAlienWithSmallestX();
+	Alien * GetAlienClosestToBottom();
 	void RemoveAlienFromVector(Alien * alien);
 	void RemoveBarrierFromVector(Barrier* barrier);
 	void RemoveAlienBulletFromVector(AlienBullet * alienBullet);
@@ -119,6 +120,7 @@ protected:
 	
 	Alien * largestXAlien = nullptr;
 	Alien * smallestXAlien = nullptr;
+	Alien * alienClosestToBottom = nullptr;
 
 	bool isShooting = false;
 	bool canShoot = true;
@@ -128,8 +130,8 @@ protected:
 
     int width;
     int height;
-	int barrierX;
-	int barrierY;
+	float barrierX;
+	float barrierY;
 
     int spaceInvadersScore;
 	bool motherShipCanSpawn;
