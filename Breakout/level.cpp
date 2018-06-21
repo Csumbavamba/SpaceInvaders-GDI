@@ -303,6 +303,7 @@ Level::Draw()
 
     DrawScore();
 	DrawFPS();
+	DrawLives();
 }
 
 void
@@ -417,7 +418,7 @@ Level::Process(float _fDeltaTick)
     CheckForWin();
 	
 
-    
+	UpdatesLives();
 	
    
     
@@ -627,6 +628,7 @@ void Level::CheckAlienBulletCollisions()
 				delete alienBullet;
 				alienBullet = nullptr;
 				hitPoints--;
+				UpdatesLives();
 				PlaySound(MAKEINTRESOURCE(IDR_WAVE_PLAYERHIT), 0, SND_RESOURCE | SND_ASYNC);
 				// Check if Game is Lost
 				if (IsPlayerDead())
@@ -662,13 +664,17 @@ void Level::CheckShipBulletMotherShipCollisions()
 			//Hit the front side of the brick...
 			// bullet->SetY((motherShipY + motherShipHeight / 2.0f) + bulletRadius);
 			/* m_pBall->SetVelocityY(m_pBall->GetVelocityY() * -1);*/
+			
 			motherShip->SetHit(true);
 
 			// TODO make a better respawn for bullet
 			canShoot = true;
 			motherShipCanSpawn = true;
 
+			spaceInvadersScore = spaceInvadersScore + 1000;
 			DestroyMotherShip();
+			UpdateScoreText();
+			
 
 		}
 	}
@@ -717,6 +723,16 @@ void Level::SetBarriersRemaining(int _i)
 	barriersRemaining - _i;
 }
 
+void Level::SetPlayerLives(int _i)
+{
+	hitPoints = _i;
+}
+
+int Level::GetPlayerLives()
+{
+	return hitPoints;
+}
+
 // Mothership functions
 void Level::SpawnMotherShip()
 {
@@ -757,6 +773,17 @@ Level::DrawScore()
     TextOutA(hdc, kiX, kiY, m_strScore.c_str(), static_cast<int>(m_strScore.size()));
 }
 
+void Level::DrawLives()
+{
+	HDC hdc = Game::GetInstance().GetBackBuffer()->GetBFDC();
+
+	const int lifeX = 450;
+	const int lifeY = height - 14;
+	SetBkMode(hdc, OPAQUE);
+
+	TextOutA(hdc, lifeX, lifeY, playerlives.c_str(), static_cast<int>(playerlives.size()));
+}
+
 
 
 void 
@@ -765,6 +792,13 @@ Level::UpdateScoreText()
     m_strScore = "Score: ";
 
     m_strScore += ToString(GetSpaceInvaderScore());
+}
+
+void Level::UpdatesLives()
+{
+	playerlives = "Ship HitPoints: ";
+
+	playerlives += ToString(GetPlayerLives());
 }
 
 
