@@ -17,17 +17,33 @@
 #include "utils.h"
 #include "entity.h"
 
-
+/***********************
+* name of the function: AlienBullet (Constructor)
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
 AlienBullet::AlienBullet()
 {
 }
 
-
+/***********************
+* name of the function: ~AlienBullet (Destructor) - Sets isDestroyed to true
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
 AlienBullet::~AlienBullet()
 {
 	isDestroyed = true;
 }
 
+/***********************
+* name of the function: Initialise - Validates, sets and initiliases AlienBullet objects
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: float positionX, positionY - Location to initialize the AlienBullet
+* @return: Boolean - If successful
+********************/
 bool AlienBullet::Initialise(float positionX, float positionY)
 {
 	VALIDATE(Entity::Initialise(IDB_BULLETSPRITE, IDB_BULLETMASK));
@@ -38,6 +54,12 @@ bool AlienBullet::Initialise(float positionX, float positionY)
 	return true;
 }
 
+/***********************
+* name of the function: Draw - Draws the AleinBullet via Entity Draw function
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
 void AlienBullet::Draw()
 {
 	if (!isDestroyed)
@@ -47,6 +69,12 @@ void AlienBullet::Draw()
 	
 }
 
+/***********************
+* name of the function: Process - Processes and updates the AlienBullet object
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: float deltaTick - Takes in the process time of the whole game to synchronize the processing of the AlienBullet
+* @return: None
+********************/
 void AlienBullet::Process(float deltaTick)
 {
 	if (!isDestroyed)
@@ -58,6 +86,12 @@ void AlienBullet::Process(float deltaTick)
 	
 }
 
+/***********************
+* name of the function: GetRadius - Returns the radius of the AlienBullet for collisions
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: float (GetWidth() / 2.0f) - Returns radius via width calculation
+********************/
 float AlienBullet::GetRadius() const
 {
 	return (GetWidth() / 2.0f);

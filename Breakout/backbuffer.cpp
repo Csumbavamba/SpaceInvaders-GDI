@@ -25,6 +25,12 @@
 
 // Implementation
 
+/***********************
+* name of the function: BackBuffer (Constructor)
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: Default values of hwnd, HDC, hSurface, hOldObject, iWidth and iHeight
+* @return: None
+********************/
 BackBuffer::BackBuffer()
 : m_hWnd(0)
 , m_hDC(0)
@@ -36,6 +42,12 @@ BackBuffer::BackBuffer()
 
 }
 
+/***********************
+* name of the function: ~BackBuffer (Destructor)
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
 BackBuffer::~BackBuffer()
 {
     SelectObject(m_hDC, m_hOldObject);
@@ -44,8 +56,13 @@ BackBuffer::~BackBuffer()
     DeleteObject(m_hDC);
 }
 
-bool
-BackBuffer::Initialise(HWND _hWnd, int _iWidth, int _iHeight)
+/***********************
+* name of the function: Initialise - Initialises the 
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
+bool BackBuffer::Initialise(HWND _hWnd, int _iWidth, int _iHeight)
 {
     m_hWnd = _hWnd;
 
