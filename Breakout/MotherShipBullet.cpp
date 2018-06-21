@@ -46,7 +46,7 @@ MotherShipBullet::~MotherShipBullet()
 ********************/
 bool MotherShipBullet::Initialise(float positionX, float positionY)
 {
-	VALIDATE(Entity::Initialise(IDB_BULLETSPRITE, IDB_BULLETMASK));
+	VALIDATE(Entity::Initialise(IDB_MOTHERSHIPBULLETSPRITE, IDB_MOTHERSHIPBULLETMASK));
 
 	m_fX = positionX;
 	m_fY = positionY;

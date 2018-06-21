@@ -51,7 +51,12 @@
 #define CHEAT_BOUNCE_ON_BACK_WALL
 
 
-
+/***********************
+* name of the function: Level (Constructor)
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
 Level::Level()
 : spaceInvadersScore(0)
 , player(0)
@@ -67,6 +72,12 @@ Level::Level()
 
 }
 
+/***********************
+* name of the function: Level (Destructor)
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
 Level::~Level()
 {
     while (aliens.size() > 0)
@@ -133,8 +144,13 @@ Level::~Level()
 
 }
 
-bool
-Level::Initialise(int _iWidth, int _iHeight)
+/***********************
+* name of the function: Initialise
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: int _iWidth, int _iHeight
+* @return: boolean
+********************/
+bool Level::Initialise(int _iWidth, int _iHeight)
 {
 	PlaySound(MAKEINTRESOURCE(IDR_WAVE_VICTORYSOUND), NULL, SND_RESOURCE | SND_ASYNC);
 
@@ -258,8 +274,13 @@ Level::Initialise(int _iWidth, int _iHeight)
     return (true);
 }
 
-void
-Level::Draw()
+/***********************
+* name of the function: Draw
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
+void Level::Draw()
 {
 	m_pBackground->Draw();
 	for (unsigned int i = 0; i < aliens.size(); ++i)
@@ -308,8 +329,13 @@ Level::Draw()
 	DrawLives();
 }
 
-void
-Level::Process(float _fDeltaTick)
+/***********************
+* name of the function: Process
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: float _fDeltaTick
+* @return: None
+********************/
+void Level::Process(float _fDeltaTick)
 {
 	m_pBackground->Process(_fDeltaTick);
 	
@@ -345,6 +371,7 @@ Level::Process(float _fDeltaTick)
 	CheckAlienBulletCollisions();
 	
 	
+	
 
 	if (motherShipAlive == true)
 	{
@@ -364,6 +391,7 @@ Level::Process(float _fDeltaTick)
 		for (MotherShipBullet * bullet : motherShipBullets)
 		{
 			bullet->Process(_fDeltaTick);
+			CheckMotherShipBulletCollision();
 		}
 	}
 
@@ -427,16 +455,34 @@ Level::Process(float _fDeltaTick)
 	m_fpsCounter->CountFramesPerSecond(_fDeltaTick);
 }
 
+/***********************
+* name of the function: SetAlienMovementModifier
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: float movementModifier
+* @return: None
+********************/
 void Level::SetAlienMovementModifier(float movementModifier)
 {
 	this->moveSpeedMultiplier = movementModifier;
 }
 
+/***********************
+* name of the function: SetAlienBullerModifier
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: float bulletModifier
+* @return: None
+********************/
 void Level::SetAlienBulletModifier(float bulletModifier)
 {
 	this->bulletSpeedMultiplier = bulletModifier;
 }
 
+/***********************
+* name of the function: UpdateDifficulty
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
 void Level::UpdateDifficulty()
 {
 	for (Alien * alien : aliens)
@@ -446,6 +492,12 @@ void Level::UpdateDifficulty()
 	}
 }
 
+/***********************
+* name of the function: ResetToDefault
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
 void Level::ResetToDefault()
 {
 	for (Alien * alien : aliens)
@@ -455,14 +507,24 @@ void Level::ResetToDefault()
 	}
 }
 
-Player* 
-Level::GetPlayer() const
+/***********************
+* name of the function: GetPlayer
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: Player*
+********************/
+Player* Level::GetPlayer() const
 {
     return (player);
 }
 
-void 
-Level::CheckShipBulletWallCollision()
+/***********************
+* name of the function: CheckShipBulletWallCollision
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
+void Level::CheckShipBulletWallCollision()
 {
 	float fBallX = bullet->GetX();
 	float fBallY = bullet->GetY();
@@ -488,8 +550,13 @@ Level::CheckShipBulletWallCollision()
 
 }
 
-void
-Level::CheckShipBulletAlienCollision()
+/***********************
+* name of the function: CheckShipBulletAlienCollision
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
+void Level::CheckShipBulletAlienCollision()
 {
     for (unsigned int i = 0; i < aliens.size(); ++i)
     {
@@ -537,8 +604,13 @@ Level::CheckShipBulletAlienCollision()
 	alienClosestToBottom = GetAlienClosestToBottom();
 }
 
-void
-Level::CheckForWin()
+/***********************
+* name of the function: CheckForWin
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
+void Level::CheckForWin()
 {
     for (unsigned int i = 0; i < aliens.size(); ++i)
     {
@@ -552,8 +624,13 @@ Level::CheckForWin()
 
 }
 
-void
-Level::CheckBulletBounds()
+/***********************
+* name of the function: CheckBulletBounds
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
+void Level::CheckBulletBounds()
 {
 	if (bullet->GetX() < 0)
     {
@@ -576,6 +653,12 @@ Level::CheckBulletBounds()
     }
 }
 
+/***********************
+* name of the function: CheckAlienBulletCollision
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
 void Level::CheckAlienBulletCollisions()
 {
 	if (!alienBullets.empty())
@@ -672,6 +755,74 @@ void Level::CheckAlienBulletCollisions()
 	}
 }
 
+/***********************
+* name of the function: CheckMotherShipBulletCollision
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
+void Level::CheckMotherShipBulletCollision()
+{
+	if (!motherShipBullets.empty())
+	{
+		// Collision with bottom wall
+		for (MotherShipBullet * motherBullet : motherShipBullets)
+		{
+			// Colliding with the bottom edge of screen
+			if ((motherBullet->GetY() + motherBullet->GetHeight() / 2) > height)
+			{
+				RemoveMotherShipBulletFromVector(motherBullet);
+				delete motherBullet;
+				motherBullet = nullptr;
+				return;
+			}
+
+			// Player Collision
+			// Bullet dimensions
+			float bulletTop = motherBullet->GetY() - motherBullet->GetRadius();
+			float bulletBottom = motherBullet->GetY() + motherBullet->GetRadius();
+			float bulletRight = motherBullet->GetX() + motherBullet->GetRadius();
+			float bulletLeft = motherBullet->GetX() - motherBullet->GetRadius();
+
+			// Player dimensions
+			float playerTop = player->GetY() - (player->GetHeight() / 2);
+			float playerBottom = player->GetY() + (player->GetHeight() / 2);
+			float playerRight = player->GetX() + player->GetWidth() / 2;
+			float playerLeft = player->GetX() - player->GetWidth() / 2;
+
+
+			// Bullet Collision with the player
+			if ((bulletBottom > playerTop) &&
+				(bulletTop < playerBottom) &&
+				(bulletRight > playerLeft) &&
+				(bulletLeft < playerRight))
+			{
+				// Decrease HP
+				RemoveMotherShipBulletFromVector(motherBullet);
+				delete motherBullet;
+				motherBullet = nullptr;
+				hitPoints--;
+				UpdatesLives();
+				PlaySound(MAKEINTRESOURCE(IDR_WAVE_PLAYERHIT), 0, SND_RESOURCE | SND_ASYNC);
+				// Check if Game is Lost
+				if (IsPlayerDead())
+				{
+					PlaySound(MAKEINTRESOURCE(IDR_WAVE_GAMEOVERSOUND), 0, SND_RESOURCE | SND_ASYNC);
+					Game::GetInstance().GameOverLost();
+				}
+			}
+		}
+
+
+	}
+}
+
+/***********************
+* name of the function: CheckShipBulletMotherShipCollisions
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
 void Level::CheckShipBulletMotherShipCollisions()
 {
 	if (!motherShip->IsHit() && motherShipAlive)
@@ -713,6 +864,12 @@ void Level::CheckShipBulletMotherShipCollisions()
 	}
 }
 
+/***********************
+* name of the function: CheckMotherShipWallCollision
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
 void Level::CheckMotherShipWallCollision()
 {
 	if (motherShipAlive)
@@ -730,6 +887,12 @@ void Level::CheckMotherShipWallCollision()
 	
 }
 
+/***********************
+* name of the function: IsPlayerDead
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: boolean
+********************/
 bool Level::IsPlayerDead()
 {
 	if (hitPoints <= 0)
@@ -737,6 +900,12 @@ bool Level::IsPlayerDead()
 	return false;
 }
 
+/***********************
+* name of the function: CheckForLoseCondition
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
 void Level::CheckForLoseCondition()
 {
 	Alien * bottomAlien = GetAlienClosestToBottom(); // Get smallest alien
@@ -748,36 +917,70 @@ void Level::CheckForLoseCondition()
 	}
 }
 
-int 
-Level::GetSpaceInvaderScore() const
+/***********************
+* name of the function: GetSpaceInvaderScore
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: int spaceInvaderScore
+********************/
+int Level::GetSpaceInvaderScore() const
 {
     return (spaceInvadersScore);
 }
 
-
-void 
-Level::SetSpaceInvaderScore(int _i)
+/***********************
+* name of the function: SetSpaceInvaderScore
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: int _i
+* @return: None
+********************/
+void Level::SetSpaceInvaderScore(int _i)
 {
     spaceInvadersScore += _i;
     UpdateScoreText();
 }
 
+/***********************
+* name of the function: SetBarriersRemaining
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: int _i
+* @return: None
+********************/
 void Level::SetBarriersRemaining(int _i)
 {
 	barriersRemaining -= _i;
 }
 
+/***********************
+* name of the function: SetPlayerLives
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: int _i
+* @return: None
+********************/
 void Level::SetPlayerLives(int _i)
 {
 	hitPoints = _i;
 }
 
+/***********************
+* name of the function: GetPlayerLives
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: int hitPoints
+********************/
 int Level::GetPlayerLives()
 {
 	return hitPoints;
 }
 
+
 // Mothership functions
+/***********************
+* name of the function: SpawnMotherShip
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
 void Level::SpawnMotherShip()
 {
 	// if (aliens.size() % 7 == 0)
@@ -788,6 +991,12 @@ void Level::SpawnMotherShip()
 	}
 }
 
+/***********************
+* name of the function: MakeMotherShipShoot
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
 void Level::MakeMotherShipShoot()
 {
 	if (motherShipShootDelay == 0)
@@ -798,6 +1007,12 @@ void Level::MakeMotherShipShoot()
 	}
 }
 
+/***********************
+* name of the function: DestroyMotherShip
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
 void Level::DestroyMotherShip()
 {
 	motherShip->SetHit(true);
@@ -805,8 +1020,13 @@ void Level::DestroyMotherShip()
 	motherShipAlive = false;
 }
 
-void
-Level::DrawScore()
+/***********************
+* name of the function: DrawScore
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
+void Level::DrawScore()
 {
     HDC hdc = Game::GetInstance().GetBackBuffer()->GetBFDC();
 
@@ -817,6 +1037,12 @@ Level::DrawScore()
     TextOutA(hdc, kiX, kiY, m_strScore.c_str(), static_cast<int>(m_strScore.size()));
 }
 
+/***********************
+* name of the function: DrawLives
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
 void Level::DrawLives()
 {
 	HDC hdc = Game::GetInstance().GetBackBuffer()->GetBFDC();
@@ -829,15 +1055,25 @@ void Level::DrawLives()
 }
 
 
-
-void 
-Level::UpdateScoreText()
+/***********************
+* name of the function: UpdateScoreText
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
+void Level::UpdateScoreText()
 {
     m_strScore = "Score: ";
 
     m_strScore += ToString(GetSpaceInvaderScore());
 }
 
+/***********************
+* name of the function: UpdatesLives
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
 void Level::UpdatesLives()
 {
 	playerlives = "Ship HitPoints: ";
@@ -845,9 +1081,13 @@ void Level::UpdatesLives()
 	playerlives += ToString(GetPlayerLives());
 }
 
-
-void 
-Level::DrawFPS()
+/***********************
+* name of the function: DrawFPS
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
+void Level::DrawFPS()
 {
 	HDC hdc = Game::GetInstance().GetBackBuffer()->GetBFDC(); 
 
@@ -855,6 +1095,12 @@ Level::DrawFPS()
 
 }
 
+/***********************
+* name of the function: MoveAliens
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
 void Level::MoveAliens()
 {
 	// If they hit the right wall
@@ -885,6 +1131,12 @@ void Level::MoveAliens()
 	}
 }
 
+/***********************
+* name of the function: GetAlienWithLargestX
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: Alien* largestXAlien
+********************/
 Alien * Level::GetAlienWithLargestX()
 {
 	for (Alien * alien : aliens)
@@ -898,6 +1150,12 @@ Alien * Level::GetAlienWithLargestX()
 	return largestXAlien;
 }
 
+/***********************
+* name of the function: GetAlienWithSmallestX
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: Alien* smallestXAlien
+********************/
 Alien * Level::GetAlienWithSmallestX()
 {
 	for (Alien * alien : aliens)
@@ -911,6 +1169,12 @@ Alien * Level::GetAlienWithSmallestX()
 	return smallestXAlien;
 }
 
+/***********************
+* name of the function: GetAlienClosestToBottom
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: Alien* alienClosestToBottom
+********************/
 Alien * Level::GetAlienClosestToBottom()
 {
 	for (Alien * alien : aliens)
@@ -924,21 +1188,56 @@ Alien * Level::GetAlienClosestToBottom()
 	return alienClosestToBottom;
 }
 
+/***********************
+* name of the function: RemoveAlienFromVector
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: Alien* alien
+* @return: None
+********************/
 void Level::RemoveAlienFromVector(Alien * alien)
 {
 	aliens.erase(std::remove(aliens.begin(), aliens.end(), alien), aliens.end());
 }
 
+/***********************
+* name of the function: RemoveBarrierFromVector
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: Barrier* barrier
+* @return: None
+********************/
 void Level::RemoveBarrierFromVector(Barrier * barrier)
 {
 	barriers.erase(std::remove(barriers.begin(), barriers.end(), barrier), barriers.end());
 }
 
+/***********************
+* name of the function: RemoveAlienBulletFromVector
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: AlienBullet* alienBullet
+* @return: None
+********************/
 void Level::RemoveAlienBulletFromVector(AlienBullet * alienBullet)
 {
 	alienBullets.erase(std::remove(alienBullets.begin(), alienBullets.end(), alienBullet), alienBullets.end());
 }
 
+/***********************
+* name of the function: RemoveMotherShipBulletFromVector
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: MotherShipBullet* bullet
+* @return: None
+********************/
+void Level::RemoveMotherShipBulletFromVector(MotherShipBullet * bullet)
+{
+	motherShipBullets.erase(std::remove(motherShipBullets.begin(), motherShipBullets.end(), bullet), motherShipBullets.end());
+}
+
+/***********************
+* name of the function: MakeAlienShoot
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
 void Level::MakeAliensShoot()
 {
 	// Select the next enemy to shoot and then make him Shoot
@@ -954,6 +1253,12 @@ void Level::MakeAliensShoot()
 	}
 }
 
+/***********************
+* name of the function: GetRandomAlien
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: Alien* randomAlien
+********************/
 Alien * Level::GetRandomAlien()
 {
 	Alien * randomAlien = nullptr;
