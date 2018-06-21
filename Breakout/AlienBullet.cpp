@@ -1,3 +1,17 @@
+//
+// Bachelor of Software Engineering
+// Media Design School
+// Auckland
+// New Zealand
+//
+// (c) 2018 Media Design School.
+//
+// File Name	: AlienBullet.cpp
+// Description	: Contains the Alien Bullet behavior and entity code
+// Author		: Thomas Sheppard | Varun Naval | Zsombor Pirok
+// Mail			: thomas.she7816@mediadesignschool.com | varun.nav7759@mediadesignschool.com | zsombor.pir7707@mediadesignschool.com
+//
+
 #include "AlienBullet.h"
 #include "resource.h"
 #include "utils.h"

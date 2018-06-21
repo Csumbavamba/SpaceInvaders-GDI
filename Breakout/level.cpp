@@ -667,6 +667,8 @@ void Level::CheckShipBulletMotherShipCollisions()
 			canShoot = true;
 			motherShipCanSpawn = true;
 
+			PlaySound(MAKEINTRESOURCE(IDR_WAVE_BOSSHIT), 0, SND_RESOURCE | SND_ASYNC);
+
 			DestroyMotherShip();
 
 		}
