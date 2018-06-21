@@ -70,7 +70,9 @@ protected:
 	bool IsPlayerDead();
 
     void UpdateScoreText();
+	void UpdatesLives();
     void DrawScore();
+	void DrawLives();
 	void DrawFPS();
 
 	
@@ -85,6 +87,9 @@ protected:
 	Alien * GetRandomAlien();
     void SetSpaceInvaderScore(int _i);
 	void SetBarriersRemaining(int _i);
+
+	void SetPlayerLives(int _i);
+	int GetPlayerLives();
 
 	// MotherShip
 	void SpawnMotherShip();
@@ -130,6 +135,7 @@ protected:
 	bool motherShipAlive;
 	int barriersRemaining;
     std::string m_strScore;
+	std::string playerlives;
 
 	// Should be received externally
 	float moveSpeedMultiplier;
