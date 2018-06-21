@@ -281,12 +281,13 @@ Level::Draw()
 	if (motherShip->IsHit() == false)
 	{
 		motherShip->Draw();
-		if (!motherShipBullets.empty())
+	}
+
+	if (!motherShipBullets.empty())
+	{
+		for (MotherShipBullet * bullet : motherShipBullets)
 		{
-			for (MotherShipBullet * bullet : motherShipBullets)
-			{
-				bullet->Draw();
-			}
+			bullet->Draw();
 		}
 	}
 	
@@ -302,6 +303,7 @@ Level::Draw()
 
     DrawScore();
 	DrawFPS();
+	DrawLives();
 }
 
 void
@@ -353,13 +355,13 @@ Level::Process(float _fDeltaTick)
 		// Check for collisions
 		CheckShipBulletMotherShipCollisions();
 		CheckMotherShipWallCollision();
+	}
 
-		if (!motherShipBullets.empty())
+	if (!motherShipBullets.empty())
+	{
+		for (MotherShipBullet * bullet : motherShipBullets)
 		{
-			for (MotherShipBullet * bullet : motherShipBullets)
-			{
-				bullet->Process(_fDeltaTick);
-			}
+			bullet->Process(_fDeltaTick);
 		}
 	}
 
@@ -416,7 +418,7 @@ Level::Process(float _fDeltaTick)
     CheckForWin();
 	
 
-    
+	UpdatesLives();
 	
    
     
@@ -626,6 +628,7 @@ void Level::CheckAlienBulletCollisions()
 				delete alienBullet;
 				alienBullet = nullptr;
 				hitPoints--;
+				UpdatesLives();
 				PlaySound(MAKEINTRESOURCE(IDR_WAVE_PLAYERHIT), 0, SND_RESOURCE | SND_ASYNC);
 				// Check if Game is Lost
 				if (IsPlayerDead())
@@ -661,6 +664,7 @@ void Level::CheckShipBulletMotherShipCollisions()
 			//Hit the front side of the brick...
 			// bullet->SetY((motherShipY + motherShipHeight / 2.0f) + bulletRadius);
 			/* m_pBall->SetVelocityY(m_pBall->GetVelocityY() * -1);*/
+			
 			motherShip->SetHit(true);
 
 			// TODO make a better respawn for bullet
@@ -669,7 +673,10 @@ void Level::CheckShipBulletMotherShipCollisions()
 
 			PlaySound(MAKEINTRESOURCE(IDR_WAVE_BOSSHIT), 0, SND_RESOURCE | SND_ASYNC);
 
+			spaceInvadersScore = spaceInvadersScore + 1000;
 			DestroyMotherShip();
+			UpdateScoreText();
+			
 
 		}
 	}
@@ -718,6 +725,16 @@ void Level::SetBarriersRemaining(int _i)
 	barriersRemaining - _i;
 }
 
+void Level::SetPlayerLives(int _i)
+{
+	hitPoints = _i;
+}
+
+int Level::GetPlayerLives()
+{
+	return hitPoints;
+}
+
 // Mothership functions
 void Level::SpawnMotherShip()
 {
@@ -742,9 +759,6 @@ void Level::MakeMotherShipShoot()
 void Level::DestroyMotherShip()
 {
 	motherShip->SetHit(true);
-	//delete motherShip;
-	//motherShip = 0;
-	// motherShip = new MotherShip();
 	motherShipCanSpawn = false;
 	motherShipAlive = false;
 }
@@ -761,6 +775,17 @@ Level::DrawScore()
     TextOutA(hdc, kiX, kiY, m_strScore.c_str(), static_cast<int>(m_strScore.size()));
 }
 
+void Level::DrawLives()
+{
+	HDC hdc = Game::GetInstance().GetBackBuffer()->GetBFDC();
+
+	const int lifeX = 450;
+	const int lifeY = height - 14;
+	SetBkMode(hdc, OPAQUE);
+
+	TextOutA(hdc, lifeX, lifeY, playerlives.c_str(), static_cast<int>(playerlives.size()));
+}
+
 
 
 void 
@@ -769,6 +794,13 @@ Level::UpdateScoreText()
     m_strScore = "Score: ";
 
     m_strScore += ToString(GetSpaceInvaderScore());
+}
+
+void Level::UpdatesLives()
+{
+	playerlives = "Ship HitPoints: ";
+
+	playerlives += ToString(GetPlayerLives());
 }
 
 
