@@ -55,7 +55,7 @@ public:
 	void UpdateDifficulty();
 	void ResetToDefault();
 
-    Player* GetPaddle() const;
+    Player* GetPlayer() const;
 
     int GetSpaceInvaderScore() const;
 
@@ -68,6 +68,7 @@ protected:
 	void CheckShipBulletMotherShipCollisions();
 	void CheckMotherShipWallCollision();
 	bool IsPlayerDead();
+	void CheckForLoseCondition();
 
     void UpdateScoreText();
 	void UpdatesLives();

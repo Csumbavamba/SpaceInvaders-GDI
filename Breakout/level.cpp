@@ -454,7 +454,7 @@ void Level::ResetToDefault()
 }
 
 Player* 
-Level::GetPaddle() const
+Level::GetPlayer() const
 {
     return (player);
 }
@@ -732,6 +732,13 @@ bool Level::IsPlayerDead()
 	if (hitPoints <= 0)
 		return true;
 	return false;
+}
+
+void Level::CheckForLoseCondition()
+{
+	Alien * bottomAlien = nullptr; // Get smallest alien
+
+	// If player is dead Check for bottom part
 }
 
 int 

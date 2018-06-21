@@ -176,8 +176,6 @@ float Alien::GetAlienShootSpeed() const
 	return shootSpeed;
 }
 
-void
-Alien::SetHit(bool _b)
 /***********************
 * name of the function: SetHit - Sets isHit boolean via bool _b
 * @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
