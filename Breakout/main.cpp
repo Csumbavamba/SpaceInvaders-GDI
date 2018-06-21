@@ -21,12 +21,78 @@
 #include "Clock.h"
 #include "utils.h"
 #include "level.h"
+#include "resource.h"
 
 const int kiWidth = 1024;
 const int kiHeight = 720;
 
+float moveSpeedMultiplier = 1;
+float bulletSpeedMultiplier = 1;
+
+HINSTANCE hInstance;
 
 #define WINDOW_CLASS_NAME L"BSENGGFRAMEWORK"
+
+BOOL CALLBACK
+DialogProc(HWND _hWnd, UINT _uiMsg, WPARAM _wParam, LPARAM _lParam)
+{
+	switch (_uiMsg)
+	{
+	case WM_COMMAND:
+	{
+		switch (LOWORD(_wParam))
+		{
+		case IDC_APPLY_CHANGES:
+		{
+			moveSpeedMultiplier = ReadFromEditBox(_hWnd, IDC_ALIEN_SPEED);
+			bulletSpeedMultiplier = ReadFromEditBox(_hWnd, IDC_ALIEN_BULLET_SPEED);
+
+			Game::GetInstance().GetLevel()->SetAlienBulletModifier(bulletSpeedMultiplier);
+			Game::GetInstance().GetLevel()->SetAlienMovementModifier(moveSpeedMultiplier);
+
+			Game::GetInstance().GetLevel()->UpdateDifficulty();
+
+			EndDialog(_hWnd, 0);
+
+			return TRUE;
+			break;
+		}
+		case IDC_DEFAULT_SETTINGS:
+		{
+			moveSpeedMultiplier = 1;
+			bulletSpeedMultiplier = 1;
+
+			Game::GetInstance().GetLevel()->ResetToDefault();
+
+			// Get this value to the Game
+			EndDialog(_hWnd, 0);
+
+			return TRUE;
+			break;
+		}
+		case IDC_CANCEL:
+		{
+			EndDialog(_hWnd, 0);
+			return TRUE;
+			break;
+		}
+	
+		}
+
+
+		return TRUE;
+	}
+
+	case WM_CLOSE:
+	{
+		EndDialog(_hWnd, 0);
+		return TRUE;
+		break;
+	}
+	}
+
+	return FALSE;
+}
 
 LRESULT CALLBACK
 WindowProc(HWND _hWnd, UINT _uiMsg, WPARAM _wParam, LPARAM _lParam)
@@ -40,6 +106,19 @@ WindowProc(HWND _hWnd, UINT _uiMsg, WPARAM _wParam, LPARAM _lParam)
 		return (0);
 	}
 		break;
+
+	case WM_KEYDOWN:
+	{
+		if (_wParam == VK_ESCAPE)
+		{
+			ShowCursor(true);
+			DialogBox(hInstance,MAKEINTRESOURCE(IDD_DIALOG1), _hWnd, (DLGPROC)DialogProc);
+			
+		}
+		return (0);
+	}
+	break;
+
 	case WM_DESTROY:
 	{
 		PostQuitMessage(0);
@@ -105,6 +184,8 @@ WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCmdline, int _i
 	MSG msg;
 	RECT _rect;
 	ZeroMemory(&msg, sizeof(MSG));
+
+	hInstance = _hInstance;
 
 
 	HWND hwnd = CreateAndRegisterWindow(_hInstance, kiWidth, kiHeight, L"Breakout");
