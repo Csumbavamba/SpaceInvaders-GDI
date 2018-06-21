@@ -238,9 +238,11 @@ Level::Initialise(int _iWidth, int _iHeight)
 		{
 			largestXAlien = alien;
 			smallestXAlien = alien;
+			alienClosestToBottom = alien;
 
 			largestXAlien = GetAlienWithLargestX();
 			smallestXAlien = GetAlienWithSmallestX();
+			alienClosestToBottom = GetAlienClosestToBottom();
 		}
     }
 
@@ -311,7 +313,7 @@ Level::Process(float _fDeltaTick)
 {
 	m_pBackground->Process(_fDeltaTick);
 	
-
+	CheckForLoseCondition();
 	
 
 	for (unsigned int i = 0; i < aliens.size(); ++i)
@@ -532,6 +534,7 @@ Level::CheckShipBulletAlienCollision()
     }
 	largestXAlien = GetAlienWithLargestX();
 	smallestXAlien = GetAlienWithSmallestX();
+	alienClosestToBottom = GetAlienClosestToBottom();
 }
 
 void
@@ -736,9 +739,13 @@ bool Level::IsPlayerDead()
 
 void Level::CheckForLoseCondition()
 {
-	Alien * bottomAlien = nullptr; // Get smallest alien
+	Alien * bottomAlien = GetAlienClosestToBottom(); // Get smallest alien
 
-	// If player is dead Check for bottom part
+	if (IsPlayerDead() || bottomAlien->GetY() + bottomAlien->GetHeight() / 2 > height - 60)
+	{
+		PlaySound(MAKEINTRESOURCE(IDR_WAVE_GAMEOVERSOUND), 0, SND_RESOURCE | SND_ASYNC);
+		Game::GetInstance().GameOverLost();
+	}
 }
 
 int 
@@ -757,7 +764,7 @@ Level::SetSpaceInvaderScore(int _i)
 
 void Level::SetBarriersRemaining(int _i)
 {
-	barriersRemaining - _i;
+	barriersRemaining -= _i;
 }
 
 void Level::SetPlayerLives(int _i)
@@ -902,6 +909,19 @@ Alien * Level::GetAlienWithSmallestX()
 	}
 
 	return smallestXAlien;
+}
+
+Alien * Level::GetAlienClosestToBottom()
+{
+	for (Alien * alien : aliens)
+	{
+		if (alien->GetY() > alienClosestToBottom->GetY())
+		{
+			alienClosestToBottom = alien;
+		}
+	}
+
+	return alienClosestToBottom;
 }
 
 void Level::RemoveAlienFromVector(Alien * alien)
