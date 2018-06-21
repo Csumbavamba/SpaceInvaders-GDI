@@ -104,6 +104,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -187,6 +188,7 @@
     <Image Include="Sprites\Alien3Sprite.bmp" />
     <Image Include="Sprites\Background.bmp" />
     <Image Include="Sprites\BackgroundMask.bmp" />
+    <Image Include="Sprites\BackgroundSpaceMask.bmp" />
     <Image Include="Sprites\BackgroundSpaceSprite.bmp" />
     <Image Include="Sprites\BallMask.bmp" />
     <Image Include="Sprites\BallSprite.bmp" />
@@ -204,6 +206,21 @@
     <Image Include="Sprites\PaddleSprite.bmp" />
     <Image Include="Sprites\PlayerMask.bmp" />
     <Image Include="Sprites\PlayerSprite.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="sprites\sound1.bin" />
+    <None Include="sprites\sound2.bin" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="audio\AlienDeath.wav" />
+    <Media Include="audio\BackgroundMusic.wav" />
+    <Media Include="audio\BarrierHit.wav" />
+    <Media Include="audio\BonusAlienDeath.wav" />
+    <Media Include="audio\BossHit.wav" />
+    <Media Include="audio\GameOverSound.wav" />
+    <Media Include="audio\PlayerDeath.wav" />
+    <Media Include="audio\VictorySound.wav" />
+    <Media Include="audio\VictorySoundExtreme.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

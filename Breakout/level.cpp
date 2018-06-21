@@ -28,11 +28,16 @@
 #include "Barrier.h"
 #include "MotherShip.h"
 #include "MotherShipBullet.h"
+#include "resource.h"
 
 #include <vector>
 #include <algorithm>
 #include <time.h>
 #include <cstdlib>
+#include <iostream>
+#include <tchar.h>
+#include <conio.h>
+
 
 // This Include
 #include "Level.h"
@@ -45,8 +50,10 @@
 
 #define CHEAT_BOUNCE_ON_BACK_WALL
 
+
+
 Level::Level()
-: aliensRemaining(0)
+: spaceInvadersScore(0)
 , player(0)
 , bullet(0)
 , width(0)
@@ -129,6 +136,8 @@ Level::~Level()
 bool
 Level::Initialise(int _iWidth, int _iHeight)
 {
+	PlaySound(MAKEINTRESOURCE(IDR_WAVE_VICTORYSOUND), NULL, SND_RESOURCE | SND_ASYNC);
+
     width = _iWidth;
     height = _iHeight;
 
@@ -161,11 +170,12 @@ Level::Initialise(int _iWidth, int _iHeight)
 	/*m_pBall = new CBall();
 	VALIDATE(m_pBall->Initialise(fBallVelY, m_pPaddle));*/
 
-    const int kiNumBricks = 33;
+    const int numberOfAliens = 33;
     const int kiStartX = 200;
     const int kiGap = 10;
 
 	const int numberOfBarriers = 4;
+	const int numberOfPlayerLives = 3;
 
     int iCurrentX = kiStartX;
     int iCurrentY = 50;
@@ -178,6 +188,7 @@ Level::Initialise(int _iWidth, int _iHeight)
 
 		barrier->SetX(barrierX);
 		barrier->SetY(barrierY);
+		barrier->SetBarrierLife(3);
 
 		VALIDATE(barrier->Initialise());
 		
@@ -186,10 +197,24 @@ Level::Initialise(int _iWidth, int _iHeight)
 		barriers.push_back(barrier);
 	}
 
-    for (int i = 0; i < kiNumBricks; ++i)
+	for (int i = 0; i < numberOfPlayerLives; ++i)
+	{
+		//Player* shipLife = new Player();
+
+		//shipLife->SetX = (i * 100);
+		//shipLife->SetY(height - 50);
+
+		//VALIDATE(shipLife->Initialise());
+
+		//shipLives.push_back(shipLife);
+
+	}
+
+    for (int i = 0; i < numberOfAliens; ++i)
     {
         Alien* alien = new Alien();
         VALIDATE(alien->Initialise(i));
+		alien->SetAlienScore(i);
 
 		
 
@@ -223,7 +248,8 @@ Level::Initialise(int _iWidth, int _iHeight)
 	motherShip->Initialise();
 	motherShip->SetHit(true);
 	
-    SetBricksRemaining(kiNumBricks);
+
+    SetSpaceInvaderScore(0);
 	m_fpsCounter = new FPSCounter();
 	VALIDATE(m_fpsCounter->Initialise());
 
@@ -240,6 +266,7 @@ Level::Draw()
 			aliens[i]->Draw();
     }
 
+	//for (unsigned int i = 0; i < playerLives.size(); ++i)
     player->Draw();
 	for (unsigned int i = 0; i < barriers.size(); ++i)
 	{
@@ -281,6 +308,8 @@ void
 Level::Process(float _fDeltaTick)
 {
 	m_pBackground->Process(_fDeltaTick);
+	
+
 	
 
 	for (unsigned int i = 0; i < aliens.size(); ++i)
@@ -445,6 +474,10 @@ Level::CheckShipBulletAlienCollision()
             float fBrickH = aliens[i]->GetHeight();
             float fBrickW = aliens[i]->GetWidth();
 
+			Alien* alienPointer = aliens[i];
+
+			int alienScore = alienPointer->GetAlienScore();
+
             if ((fBallX + fBallR > fBrickX - fBrickW / 2) &&
                 (fBallX - fBallR < fBrickX + fBrickW / 2) &&
                 (fBallY + fBallR > fBrickY - fBrickH / 2) &&
@@ -460,8 +493,9 @@ Level::CheckShipBulletAlienCollision()
 				motherShipCanSpawn = true;
 				
 
-				SetBricksRemaining(GetBricksRemaining() - 1);
+				SetSpaceInvaderScore(alienScore);
 				RemoveAlienFromVector(aliens[i]);
+				PlaySound(MAKEINTRESOURCE(IDR_WAVE_ALIENHIT), 0, SND_RESOURCE | SND_ASYNC);
 				
             }
         }
@@ -480,8 +514,9 @@ Level::CheckForWin()
             return;
         }
     }
-
+	PlaySound(MAKEINTRESOURCE(IDR_WAVE_VICTORYSOUNDEXTREME), 0, SND_RESOURCE | SND_ASYNC);
     Game::GetInstance().GameOverWon();
+
 }
 
 void
@@ -503,7 +538,8 @@ Level::CheckBulletBounds()
     else if (aliens.back()->GetY() > height - 200)
     {
         Game::GetInstance().GameOverLost();
-        //m_pBall->SetY(static_cast<float>(m_iHeight));
+		PlaySound(MAKEINTRESOURCE(IDR_WAVE_GAMEOVERSOUND), 0, SND_RESOURCE | SND_ASYNC);
+        //m_pBall->SetY(static_cast<float>(m_iHeight));PlaySound(MAKEINTRESOURCE(IDR_WAVE_PLAYERHIT), 0, SND_RESOURCE | SND_ASYNC);
     }
 }
 
@@ -517,7 +553,7 @@ void Level::CheckAlienBulletCollisions()
 			float bulletHalfHeight = alienBullet->GetHeight() / 2;
 
 
-			// Colliding with the bottom wall
+			// Colliding with the bottom edge of screen
 			if ((alienBullet->GetY() + alienBullet->GetHeight() / 2) > height)
 			{
 				RemoveAlienBulletFromVector(alienBullet);
@@ -525,7 +561,6 @@ void Level::CheckAlienBulletCollisions()
 				alienBullet = nullptr;
 				return;
 			}
-
 
 			// Bullet dimensions
 			float bulletTop = alienBullet->GetY() - alienBullet->GetRadius();
@@ -539,6 +574,46 @@ void Level::CheckAlienBulletCollisions()
 			float playerRight = player->GetX() + player->GetWidth() / 2;
 			float playerLeft = player->GetX() - player->GetWidth() / 2;
 
+			for (Barrier * barrier : barriers)
+			{
+				// Player dimensions
+				float barrierTop = barrier->GetY() - (barrier->GetHeight() / 2);
+				float barrierBottom = barrier->GetY() + (barrier->GetHeight() / 2);
+				float barrierRight = barrier->GetX() + barrier->GetWidth() / 2;
+				float barrierLeft = barrier->GetX() - barrier->GetWidth() / 2;
+
+				
+
+				if ((bulletBottom > barrierTop) &&
+					(bulletTop < barrierBottom) &&
+					(bulletRight > barrierLeft) &&
+					(bulletLeft < barrierRight))
+				{
+					PlaySound(MAKEINTRESOURCE(IDR_WAVE_BARRIERHIT), 0, SND_RESOURCE | SND_ASYNC);
+					RemoveAlienBulletFromVector(alienBullet);
+					delete alienBullet;
+					barrier->BarrierLooseLife();
+					if ((barrier->GetBarrierLife()) <= 0)
+					{
+						RemoveBarrierFromVector(barrier);
+						delete barrier;
+					}
+
+
+
+				}
+				/*if (alienBullet->GetY() + alienBullet->GetRadius() >= barrier->GetY())
+				{
+					if (alienBullet->GetX() + alienBullet->GetRadius() >= barrier->GetX() + barrier->GetRadius() &&
+						alienBullet->GetX() + alienBullet->GetRadius() <= barrier->GetX() + barrier->GetRadius() + 40)
+					{
+						RemoveAlienBulletFromVector(alienBullet);
+						delete alienBullet;
+						return;
+					}
+
+				}*/
+			}
 
 			// Bullet Collision with the player
 			if ((bulletBottom > playerTop) &&
@@ -551,9 +626,11 @@ void Level::CheckAlienBulletCollisions()
 				delete alienBullet;
 				alienBullet = nullptr;
 				hitPoints--;
+				PlaySound(MAKEINTRESOURCE(IDR_WAVE_PLAYERHIT), 0, SND_RESOURCE | SND_ASYNC);
 				// Check if Game is Lost
 				if (IsPlayerDead())
 				{
+					PlaySound(MAKEINTRESOURCE(IDR_WAVE_GAMEOVERSOUND), 0, SND_RESOURCE | SND_ASYNC);
 					Game::GetInstance().GameOverLost();
 				}
 			}
@@ -621,16 +698,16 @@ bool Level::IsPlayerDead()
 }
 
 int 
-Level::GetBricksRemaining() const
+Level::GetSpaceInvaderScore() const
 {
-    return (aliensRemaining);
+    return (spaceInvadersScore);
 }
 
 
 void 
-Level::SetBricksRemaining(int _i)
+Level::SetSpaceInvaderScore(int _i)
 {
-    aliensRemaining = _i;
+    spaceInvadersScore += _i;
     UpdateScoreText();
 }
 
@@ -677,7 +754,7 @@ Level::DrawScore()
 
     const int kiX = 0;
     const int kiY = height - 14;
-	SetBkMode(hdc, TRANSPARENT);
+	SetBkMode(hdc, OPAQUE);
     
     TextOutA(hdc, kiX, kiY, m_strScore.c_str(), static_cast<int>(m_strScore.size()));
 }
@@ -687,9 +764,9 @@ Level::DrawScore()
 void 
 Level::UpdateScoreText()
 {
-    m_strScore = "Aliens Remaining: ";
+    m_strScore = "Score: ";
 
-    m_strScore += ToString(GetBricksRemaining());
+    m_strScore += ToString(GetSpaceInvaderScore());
 }
 
 

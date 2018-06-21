@@ -52,7 +52,7 @@ public:
 
     Player* GetPaddle() const;
 
-    int GetBricksRemaining() const;
+    int GetSpaceInvaderScore() const;
 
 protected:
     void CheckShipBulletWallCollision();
@@ -78,7 +78,7 @@ protected:
 	void MoveAliens();
 	void MakeAliensShoot();
 	Alien * GetRandomAlien();
-    void SetBricksRemaining(int _i);
+    void SetSpaceInvaderScore(int _i);
 	void SetBarriersRemaining(int _i);
 
 	// MotherShip
@@ -102,6 +102,8 @@ protected:
 
     std::vector<Alien*> aliens;
 	std::vector<Barrier*> barriers;
+	std::vector<Player*> shipLives;
+	FPSCounter* m_fpsCounter;
 	std::vector<AlienBullet*> alienBullets;
 	std::vector<MotherShipBullet*> motherShipBullets;
 	
@@ -119,10 +121,9 @@ protected:
 	int barrierX;
 	int barrierY;
 
-	bool motherShipAlive;
+    int spaceInvadersScore;
 	bool motherShipCanSpawn;
-
-    int aliensRemaining;
+	bool motherShipAlive;
 	int barriersRemaining;
     std::string m_strScore;
 

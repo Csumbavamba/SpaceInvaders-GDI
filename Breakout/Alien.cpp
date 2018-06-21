@@ -31,6 +31,7 @@
 
 Alien::Alien()
 : isHit(false)
+, alienScore(0)
 {
 	moveSpeed = 0.5f;
 }
@@ -139,5 +140,28 @@ void Alien::Shoot()
 AlienBullet * Alien::GetBullet() const
 {
 	return bullet;
+}
+
+void Alien::SetAlienScore(int _AlienValue)
+{
+	if (_AlienValue <= 11)
+	{
+		alienScore = 500;
+	}
+
+	if (_AlienValue <= 21 && _AlienValue > 11)
+	{
+		alienScore = 350;
+	}
+
+	if (_AlienValue > 21)
+	{
+		alienScore = 200;
+	}
+}
+
+int Alien::GetAlienScore()
+{
+	return alienScore;
 }
 

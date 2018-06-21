@@ -192,11 +192,51 @@
     <Image Include="Sprites\BarricadeMask.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Sprites\BackgroundSpaceMask.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
     <Image Include="Sprites\MotherShipMask.bmp">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Sprites\MotherShipSprite.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="sprites\sound1.bin">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="sprites\sound2.bin">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="audio\AlienDeath.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="audio\BackgroundMusic.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="audio\BarrierHit.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="audio\BonusAlienDeath.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="audio\BossHit.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="audio\GameOverSound.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="audio\PlayerDeath.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="audio\VictorySound.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="audio\VictorySoundExtreme.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
   </ItemGroup>
 </Project>

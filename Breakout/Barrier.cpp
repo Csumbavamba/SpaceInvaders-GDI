@@ -8,7 +8,7 @@ Barrier::Barrier()
 {
 	int posX = 0;
 	int posY = 0;
-	int barrierHealth = 5;
+	int barrierHealth = 3;
 	static int maxBarrierHealth = 5;
 	bool isDestroyed = false;
 
@@ -25,15 +25,15 @@ bool Barrier::Initialise()
 	return (true);	
 }
 
-int Barrier::GetX() const
-{
-	return posX;
-}
-
-int Barrier::GetY() const
-{
-	return posY;
-}
+//int Barrier::GetX() const
+//{
+//	return posX;
+//}
+//
+//int Barrier::GetY() const
+//{
+//	return posY;
+//}
 
 void Barrier::Draw()
 {
@@ -59,6 +59,27 @@ void Barrier::UpdateSprite(int _health)
 {
 
 }
+
+float Barrier::GetRadius() const
+{
+	return (GetWidth() / 2.0f);
+}
+
+void Barrier::BarrierLooseLife()
+{
+	barrierHealth = barrierHealth - 1;
+}
+
+int Barrier::GetBarrierLife()
+{
+	return barrierHealth;
+}
+
+void Barrier::SetBarrierLife(int _barrierLife)
+{
+	barrierHealth = _barrierLife;
+}
+
 
 //void Barrier::SetX(int _x)
 //{
