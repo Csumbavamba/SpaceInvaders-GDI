@@ -18,19 +18,35 @@
 #include "utils.h"
 
 
-
+/***********************
+* name of the function: MotherShipBullet (Constructor)
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
 MotherShipBullet::MotherShipBullet()
 {
 }
 
-
+/***********************
+* name of the function: ~MotherShipBullet (Destructor)
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
 MotherShipBullet::~MotherShipBullet()
 {
 }
 
+/***********************
+* name of the function: Initialise
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: float positionX, float positionY
+* @return: boolean
+********************/
 bool MotherShipBullet::Initialise(float positionX, float positionY)
 {
-	VALIDATE(Entity::Initialise(IDB_BULLETSPRITE, IDB_BULLETMASK));
+	VALIDATE(Entity::Initialise(IDB_MOTHERSHIPBULLETSPRITE, IDB_MOTHERSHIPBULLETMASK));
 
 	m_fX = positionX;
 	m_fY = positionY;

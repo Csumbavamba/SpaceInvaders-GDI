@@ -57,7 +57,7 @@ BackBuffer::~BackBuffer()
 }
 
 /***********************
-* name of the function: Initialise - Initialises the 
+* name of the function: Initialise - Initialises the backbuffer for the canvas
 * @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
 * @parameter: None
 * @return: None
@@ -89,8 +89,13 @@ bool BackBuffer::Initialise(HWND _hWnd, int _iWidth, int _iHeight)
     return (true);
 }
 
-void
-BackBuffer::Clear()
+/***********************
+* name of the function: Clear - Clears the canvas
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
+void BackBuffer::Clear()
 {
     HBRUSH hOldBrush = static_cast<HBRUSH>(SelectObject(GetBFDC(), GetStockObject(LTGRAY_BRUSH)));
 
@@ -99,26 +104,46 @@ BackBuffer::Clear()
     SelectObject(GetBFDC(), hOldBrush);
 }
 
-HDC
-BackBuffer::GetBFDC() const
+/***********************
+* name of the function: GetBFDC - Returns the HDC
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: HDC
+********************/
+HDC BackBuffer::GetBFDC() const
 {
     return (m_hDC);
 }
 
-int 
-BackBuffer::GetWidth() const
+/***********************
+* name of the function: GetWidth - Returns width of backbuffer
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: int width
+********************/
+int BackBuffer::GetWidth() const
 {
     return (m_iWidth);
 }
 
-int 
-BackBuffer::GetHeight() const
+/***********************
+* name of the function: GetHeight - Returns hieght of backbuffer
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: in height
+********************/
+int BackBuffer::GetHeight() const
 {
     return (m_iHeight);
 }
 
-void 
-BackBuffer::Present()
+/***********************
+* name of the function: Present
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
+void BackBuffer::Present()
 {
     HDC hWndDC = ::GetDC(m_hWnd);
 

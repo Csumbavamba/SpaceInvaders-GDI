@@ -65,6 +65,7 @@ protected:
     void CheckForWin();
     void CheckBulletBounds();
 	void CheckAlienBulletCollisions();
+	void CheckMotherShipBulletCollision();
 	void CheckShipBulletMotherShipCollisions();
 	void CheckMotherShipWallCollision();
 	bool IsPlayerDead();
@@ -83,6 +84,7 @@ protected:
 	void RemoveAlienFromVector(Alien * alien);
 	void RemoveBarrierFromVector(Barrier* barrier);
 	void RemoveAlienBulletFromVector(AlienBullet * alienBullet);
+	void RemoveMotherShipBulletFromVector(MotherShipBullet * bullet);
 
 	void MoveAliens();
 	void MakeAliensShoot();
