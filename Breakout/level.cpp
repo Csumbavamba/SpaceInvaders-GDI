@@ -142,6 +142,7 @@ Level::Initialise(int _iWidth, int _iHeight)
     const int kiGap = 10;
 
 	const int numberOfBarriers = 4;
+	const int numberOfPlayerLives = 3;
 
     int iCurrentX = kiStartX;
     int iCurrentY = 50;
@@ -161,6 +162,19 @@ Level::Initialise(int _iWidth, int _iHeight)
 		
 
 		barriers.push_back(barrier);
+	}
+
+	for (int i = 0; i < numberOfPlayerLives; ++i)
+	{
+		//Player* shipLife = new Player();
+
+		//shipLife->SetX = (i * 100);
+		//shipLife->SetY(height - 50);
+
+		//VALIDATE(shipLife->Initialise());
+
+		//shipLives.push_back(shipLife);
+
 	}
 
     for (int i = 0; i < numberOfAliens; ++i)
@@ -216,6 +230,7 @@ Level::Draw()
 			aliens[i]->Draw();
     }
 
+	//for (unsigned int i = 0; i < playerLives.size(); ++i)
     player->Draw();
 	for (unsigned int i = 0; i < barriers.size(); ++i)
 	{
