@@ -369,6 +369,7 @@ void Level::Process(float _fDeltaTick)
 	alienShootDelay--;
 	MakeAliensShoot();
 	CheckAlienBulletCollisions();
+	CheckMotherShipBulletCollision();
 	
 	
 	
@@ -391,7 +392,7 @@ void Level::Process(float _fDeltaTick)
 		for (MotherShipBullet * bullet : motherShipBullets)
 		{
 			bullet->Process(_fDeltaTick);
-			CheckMotherShipBulletCollision();
+			
 		}
 	}
 
