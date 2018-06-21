@@ -22,12 +22,14 @@
 // Local Includes
 #include "entity.h"
 #include "Sprite.h"
-#include "PlayerBullet.h"
 // Types
 
 // Constants
 
 // Prototypes
+
+class PlayerBullet;
+
 class Player : public Entity
 {
     // Member Functions
@@ -39,6 +41,9 @@ public:
 
     virtual void Draw();
     virtual void Process(float _fDeltaTick);
+
+	void Shoot();
+	PlayerBullet * GetPlayerBullet() const;
 
 
 protected:
@@ -54,6 +59,8 @@ public:
 protected:
 
 private:
+	PlayerBullet * bullet = nullptr;
+
 	
 
 };

@@ -57,6 +57,12 @@
     <ClCompile Include="Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MotherShip.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MotherShipBullet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="backbuffer.h">
@@ -102,6 +108,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MotherShip.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MotherShipBullet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -183,6 +195,12 @@
     <Image Include="Sprites\BackgroundSpaceMask.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Sprites\MotherShipMask.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Sprites\MotherShipSprite.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="sprites\sound1.bin">
@@ -218,6 +236,9 @@
       <Filter>Resource Files</Filter>
     </Media>
     <Media Include="audio\VictorySoundExtreme.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="audio\VictorySoundSubtle.wav">
       <Filter>Resource Files</Filter>
     </Media>
   </ItemGroup>
