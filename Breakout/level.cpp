@@ -51,7 +51,7 @@
 
 
 Level::Level()
-: aliensRemaining(0)
+: spaceInvadersScore(0)
 , player(0)
 , bullet(0)
 , width(0)
@@ -137,7 +137,7 @@ Level::Initialise(int _iWidth, int _iHeight)
 	/*m_pBall = new CBall();
 	VALIDATE(m_pBall->Initialise(fBallVelY, m_pPaddle));*/
 
-    const int kiNumBricks = 33;
+    const int numberOfAliens = 33;
     const int kiStartX = 200;
     const int kiGap = 10;
 
@@ -163,10 +163,11 @@ Level::Initialise(int _iWidth, int _iHeight)
 		barriers.push_back(barrier);
 	}
 
-    for (int i = 0; i < kiNumBricks; ++i)
+    for (int i = 0; i < numberOfAliens; ++i)
     {
         Alien* alien = new Alien();
         VALIDATE(alien->Initialise(i));
+		alien->SetAlienScore(i);
 
 		
 
@@ -198,7 +199,7 @@ Level::Initialise(int _iWidth, int _iHeight)
 
 	
 
-    SetBricksRemaining(kiNumBricks);
+    SetSpaceInvaderScore(0);
 	m_fpsCounter = new FPSCounter();
 	VALIDATE(m_fpsCounter->Initialise());
 
@@ -379,6 +380,10 @@ Level::ProcessShipBulletAlienCollision()
             float fBrickH = aliens[i]->GetHeight();
             float fBrickW = aliens[i]->GetWidth();
 
+			Alien* alienPointer = aliens[i];
+
+			int alienScore = alienPointer->GetAlienScore();
+
             if ((fBallX + fBallR > fBrickX - fBrickW / 2) &&
                 (fBallX - fBallR < fBrickX + fBrickW / 2) &&
                 (fBallY + fBallR > fBrickY - fBrickH / 2) &&
@@ -391,9 +396,10 @@ Level::ProcessShipBulletAlienCollision()
 
 				// TODO make a better respawn for bullet
 				canShoot = true;
+				//Alien * alien = alien[i];
 				
 
-				SetBricksRemaining(GetBricksRemaining() - 1);
+				SetSpaceInvaderScore(alienScore);
 				RemoveAlienFromVector(aliens[i]);
 				PlaySound(MAKEINTRESOURCE(IDR_WAVE_ALIENHIT), 0, SND_RESOURCE | SND_ASYNC);
 				
@@ -544,16 +550,16 @@ bool Level::IsPlayerDead()
 }
 
 int 
-Level::GetBricksRemaining() const
+Level::GetSpaceInvaderScore() const
 {
-    return (aliensRemaining);
+    return (spaceInvadersScore);
 }
 
 
 void 
-Level::SetBricksRemaining(int _i)
+Level::SetSpaceInvaderScore(int _i)
 {
-    aliensRemaining = _i;
+    spaceInvadersScore += _i;
     UpdateScoreText();
 }
 
@@ -569,7 +575,7 @@ Level::DrawScore()
 
     const int kiX = 0;
     const int kiY = height - 14;
-	SetBkMode(hdc, TRANSPARENT);
+	SetBkMode(hdc, OPAQUE);
     
     TextOutA(hdc, kiX, kiY, m_strScore.c_str(), static_cast<int>(m_strScore.size()));
 }
@@ -579,9 +585,9 @@ Level::DrawScore()
 void 
 Level::UpdateScoreText()
 {
-    m_strScore = "Aliens Remaining: ";
+    m_strScore = "Score: ";
 
-    m_strScore += ToString(GetBricksRemaining());
+    m_strScore += ToString(GetSpaceInvaderScore());
 }
 
 
