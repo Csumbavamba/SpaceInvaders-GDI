@@ -214,6 +214,7 @@
     <Media Include="audio\GameOverSound.wav" />
     <Media Include="audio\PlayerDeath.wav" />
     <Media Include="audio\VictorySound.wav" />
+    <Media Include="audio\VictorySoundExtreme.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

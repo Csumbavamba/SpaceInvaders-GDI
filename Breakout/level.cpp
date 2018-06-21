@@ -103,6 +103,8 @@ Level::~Level()
 bool
 Level::Initialise(int _iWidth, int _iHeight)
 {
+	PlaySound(MAKEINTRESOURCE(IDR_WAVE_VICTORYSOUND), NULL, SND_RESOURCE | SND_ASYNC);
+
     width = _iWidth;
     height = _iHeight;
 
@@ -243,7 +245,7 @@ Level::Process(float _fDeltaTick)
 {
 	m_pBackground->Process(_fDeltaTick);
 
-	PlaySound(MAKEINTRESOURCE(IDR_WAVE_BACKGROUNDMUSIC), 0, SND_RESOURCE | SND_ASYNC);
+	
 
 	for (unsigned int i = 0; i < aliens.size(); ++i)
 	{
@@ -412,7 +414,7 @@ Level::ProcessCheckForWin()
             return;
         }
     }
-	PlaySound(MAKEINTRESOURCE(IDR_WAVE_VICTORYSOUND), 0, SND_RESOURCE | SND_ASYNC);
+	PlaySound(MAKEINTRESOURCE(IDR_WAVE_VICTORYSOUNDEXTREME), 0, SND_RESOURCE | SND_ASYNC);
     Game::GetInstance().GameOverWon();
 
 }
