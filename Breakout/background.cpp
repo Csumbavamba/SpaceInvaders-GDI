@@ -42,7 +42,7 @@ BackGround::~BackGround()
 bool
 BackGround::Initialise()
 {
-	VALIDATE(Entity::Initialise(IDB_BACKGROUND, IDB_BACKGROUNDMASK));
+	VALIDATE(Entity::Initialise(IDB_BACKGROUNDSPACESPRITE, IDB_BACKGROUNDSPACEMASK));
 
 	return (true);
 }

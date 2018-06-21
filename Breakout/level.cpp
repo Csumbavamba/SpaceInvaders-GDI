@@ -26,11 +26,16 @@
 #include "background.h"
 #include "sprite.h"
 #include "Barrier.h"
+#include "resource.h"
 
 #include <vector>
 #include <algorithm>
 #include <time.h>
 #include <cstdlib>
+#include <iostream>
+#include <tchar.h>
+#include <conio.h>
+
 
 // This Include
 #include "Level.h"
@@ -42,6 +47,8 @@
 // Implementation
 
 #define CHEAT_BOUNCE_ON_BACK_WALL
+
+
 
 Level::Level()
 : aliensRemaining(0)
@@ -96,6 +103,8 @@ Level::~Level()
 bool
 Level::Initialise(int _iWidth, int _iHeight)
 {
+	PlaySound(MAKEINTRESOURCE(IDR_WAVE_VICTORYSOUND), NULL, SND_RESOURCE | SND_ASYNC);
+
     width = _iWidth;
     height = _iHeight;
 
@@ -235,6 +244,8 @@ void
 Level::Process(float _fDeltaTick)
 {
 	m_pBackground->Process(_fDeltaTick);
+
+	
 
 	for (unsigned int i = 0; i < aliens.size(); ++i)
 	{
@@ -384,6 +395,7 @@ Level::ProcessShipBulletAlienCollision()
 
 				SetBricksRemaining(GetBricksRemaining() - 1);
 				RemoveAlienFromVector(aliens[i]);
+				PlaySound(MAKEINTRESOURCE(IDR_WAVE_ALIENHIT), 0, SND_RESOURCE | SND_ASYNC);
 				
             }
         }
@@ -402,8 +414,9 @@ Level::ProcessCheckForWin()
             return;
         }
     }
-
+	PlaySound(MAKEINTRESOURCE(IDR_WAVE_VICTORYSOUNDEXTREME), 0, SND_RESOURCE | SND_ASYNC);
     Game::GetInstance().GameOverWon();
+
 }
 
 void
@@ -425,7 +438,8 @@ Level::ProcessBallBounds()
     else if (aliens.back()->GetY() > height - 200)
     {
         Game::GetInstance().GameOverLost();
-        //m_pBall->SetY(static_cast<float>(m_iHeight));
+		PlaySound(MAKEINTRESOURCE(IDR_WAVE_GAMEOVERSOUND), 0, SND_RESOURCE | SND_ASYNC);
+        //m_pBall->SetY(static_cast<float>(m_iHeight));PlaySound(MAKEINTRESOURCE(IDR_WAVE_PLAYERHIT), 0, SND_RESOURCE | SND_ASYNC);
     }
 }
 
@@ -474,6 +488,7 @@ void Level::CheckAlienBulletCollisions()
 					(bulletRight > barrierLeft) &&
 					(bulletLeft < barrierRight))
 				{
+					PlaySound(MAKEINTRESOURCE(IDR_WAVE_BARRIERHIT), 0, SND_RESOURCE | SND_ASYNC);
 					RemoveAlienBulletFromVector(alienBullet);
 					delete alienBullet;
 					barrier->BarrierLooseLife();
@@ -509,9 +524,11 @@ void Level::CheckAlienBulletCollisions()
 				RemoveAlienBulletFromVector(alienBullet);
 				delete alienBullet;
 				hitPoints--;
+				PlaySound(MAKEINTRESOURCE(IDR_WAVE_PLAYERHIT), 0, SND_RESOURCE | SND_ASYNC);
 				// Check if Game is Lost
 				if (IsPlayerDead())
 				{
+					PlaySound(MAKEINTRESOURCE(IDR_WAVE_GAMEOVERSOUND), 0, SND_RESOURCE | SND_ASYNC);
 					Game::GetInstance().GameOverLost();
 				}
 			}
