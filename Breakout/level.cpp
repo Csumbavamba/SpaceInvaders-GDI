@@ -424,6 +424,34 @@ Level::Process(float _fDeltaTick)
 	m_fpsCounter->CountFramesPerSecond(_fDeltaTick);
 }
 
+void Level::SetAlienMovementModifier(float movementModifier)
+{
+	this->moveSpeedMultiplier = movementModifier;
+}
+
+void Level::SetAlienBulletModifier(float bulletModifier)
+{
+	this->bulletSpeedMultiplier = bulletModifier;
+}
+
+void Level::UpdateDifficulty()
+{
+	for (Alien * alien : aliens)
+	{
+		alien->SetAlienSpeed(moveSpeedMultiplier, alien->GetAlienSpeed());
+		alien->SetAlienShootSpeed(bulletSpeedMultiplier, alien->GetAlienShootSpeed());
+	}
+}
+
+void Level::ResetToDefault()
+{
+	for (Alien * alien : aliens)
+	{
+		alien->SetAlienSpeed(1, 0.5f);
+		alien->SetAlienShootSpeed(1, 1);
+	}
+}
+
 Player* 
 Level::GetPaddle() const
 {

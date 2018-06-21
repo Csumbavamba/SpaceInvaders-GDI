@@ -45,6 +45,11 @@ public:
     virtual void Process(float _fDeltaTick);
 	void ChangeAlienDirection();
 
+	void SetAlienSpeed(float modifier, float originalSpeed);
+	void SetAlienShootSpeed(float modifier, float originalSpeed);
+	float GetAlienSpeed() const;
+	float GetAlienShootSpeed() const;
+
     void SetHit(bool _b);
     bool IsHit() const;
 	void MoveSideWays();
@@ -66,6 +71,7 @@ public:
 protected:
     bool isHit;
 	float moveSpeed;
+	float shootSpeed;
 	Sprite* sprite = nullptr;
 	AlienBullet * bullet = nullptr;
 	int alienScore;
