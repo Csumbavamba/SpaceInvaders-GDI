@@ -29,6 +29,13 @@
 
 // Implementation
 
+
+/***********************  
+* name of the function: Alien (Constructor)
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok  
+* @parameter: isHit(false) - Assumes the alien is not hit, alienScore(0) - Constructs the alien with a score value of 0  
+* @return: None  
+********************/
 Alien::Alien()
 : isHit(false)
 , alienScore(0)
@@ -36,12 +43,23 @@ Alien::Alien()
 	moveSpeed = 0.5f;
 }
 
+/***********************
+* name of the function: ~Alien (Destructor)
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
 Alien::~Alien()
 {
 }
 
-bool
-Alien::Initialise(int _alienCount)
+/***********************
+* name of the function: Initialise
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: Index of the alien being spawned via _alienCount
+* @return: Boolean (True or False)
+********************/
+bool Alien::Initialise(int _alienCount)
 {
 	if (_alienCount < 11)
 	{
@@ -61,18 +79,35 @@ Alien::Initialise(int _alienCount)
     return (true);
 }
 
+/***********************
+* name of the function: GetX()
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: float m_fX (Returns the x coordinate of the alien)
+********************/
 float Alien::GetX() const
 {
 	return m_fX;
 }
 
+/***********************
+* name of the function: GetY()
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: float m_fY (Returns the y coordinate of the alien)
+********************/
 float Alien::GetY() const
 {
 	return m_fY;
 }
 
-void
-Alien::Draw()
+/***********************
+* name of the function: Draw() - Draws the alien via the Entity class
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
+void Alien::Draw()
 {
     if (!isHit)
     {
@@ -80,8 +115,13 @@ Alien::Draw()
     }
 }
 
-void
-Alien::Process(float _fDeltaTick)
+/***********************
+* name of the function: Process() - Acts as the updater of the alien for every frame via the Entity class
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: float _fDeltaTick - _fDeltaTick acts as the per frame updater
+* @return: None
+********************/
+void Alien::Process(float _fDeltaTick)
 {
     if (!isHit)
     {
