@@ -238,5 +238,8 @@
     <Media Include="audio\VictorySoundExtreme.wav">
       <Filter>Resource Files</Filter>
     </Media>
+    <Media Include="audio\VictorySoundSubtle.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
   </ItemGroup>
 </Project>

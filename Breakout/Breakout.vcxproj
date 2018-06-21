@@ -221,6 +221,7 @@
     <Media Include="audio\PlayerDeath.wav" />
     <Media Include="audio\VictorySound.wav" />
     <Media Include="audio\VictorySoundExtreme.wav" />
+    <Media Include="audio\VictorySoundSubtle.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
