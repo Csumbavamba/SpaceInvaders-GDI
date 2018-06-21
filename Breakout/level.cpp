@@ -6,10 +6,10 @@
 //
 // (c) 2018 Media Design School.
 //
-// File Name	: 
-// Description	: 
-// Author		: Your Name
-// Mail			: your.name@mediadesign.school.nz
+// File Name	: level.cpp
+// Description	: Contains code for the level framework of the game where all the entities work on
+// Author		: Thomas Sheppard | Varun Naval | Zsombor Pirok
+// Mail			: thomas.she7816@mediadesignschool.com | varun.nav7759@mediadesignschool.com | zsombor.pir7707@mediadesignschool.com
 //
 
 // Library Includes
@@ -454,7 +454,7 @@ void Level::ResetToDefault()
 }
 
 Player* 
-Level::GetPaddle() const
+Level::GetPlayer() const
 {
     return (player);
 }
@@ -699,6 +699,8 @@ void Level::CheckShipBulletMotherShipCollisions()
 			canShoot = true;
 			motherShipCanSpawn = true;
 
+			PlaySound(MAKEINTRESOURCE(IDR_WAVE_BOSSHIT), 0, SND_RESOURCE | SND_ASYNC);
+
 			spaceInvadersScore = spaceInvadersScore + 1000;
 			DestroyMotherShip();
 			UpdateScoreText();
@@ -730,6 +732,13 @@ bool Level::IsPlayerDead()
 	if (hitPoints <= 0)
 		return true;
 	return false;
+}
+
+void Level::CheckForLoseCondition()
+{
+	Alien * bottomAlien = nullptr; // Get smallest alien
+
+	// If player is dead Check for bottom part
 }
 
 int 

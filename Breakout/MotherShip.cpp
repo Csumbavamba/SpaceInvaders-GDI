@@ -1,3 +1,17 @@
+//
+// Bachelor of Software Engineering
+// Media Design School
+// Auckland
+// New Zealand
+//
+// (c) 2018 Media Design School.
+//
+// File Name	: MotherShip.cpp
+// Description	: Contains behaviour code of the MotherShip entity in the game
+// Author		: Thomas Sheppard | Varun Naval | Zsombor Pirok
+// Mail			: thomas.she7816@mediadesignschool.com | varun.nav7759@mediadesignschool.com | zsombor.pir7707@mediadesignschool.com
+//
+
 #include "MotherShip.h"
 #include "MotherShipBullet.h"
 #include "resource.h"

@@ -4,12 +4,12 @@
 // Auckland
 // New Zealand
 //
-// (c) 2018 Media Design School
+// (c) 2018 Media Design School.
 //
-// File Name	: 
-// Description	: 
-// Author		: Your Name
-// Mail			: your.name@mediadesign.school.nz
+// File Name	: sprite.h
+// Description	: Contains the definitions for the member functions, variables and objects in sprite.cpp
+// Author		: Thomas Sheppard | Varun Naval | Zsombor Pirok
+// Mail			: thomas.she7816@mediadesignschool.com | varun.nav7759@mediadesignschool.com | zsombor.pir7707@mediadesignschool.com
 //
 
 #pragma once

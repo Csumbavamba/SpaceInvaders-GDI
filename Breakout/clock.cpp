@@ -6,10 +6,10 @@
 //
 // (c) 2018 Media Design School.
 //
-// File Name	: 
-// Description	: 
-// Author		: Your Name
-// Mail			: your.name@mediadesign.school.nz
+// File Name	: clock.cpp
+// Description	: Contains code for the clock which runs throughout the game for updating and processing every frame
+// Author		: Thomas Sheppard | Varun Naval | Zsombor Pirok
+// Mail			: thomas.she7816@mediadesignschool.com | varun.nav7759@mediadesignschool.com | zsombor.pir7707@mediadesignschool.com
 //
 
 // Library Includes
