@@ -42,7 +42,8 @@ Sprite::~Sprite()
 
 	// TODO only allow deletion if existing
 	DeleteObject(m_hSprite);
-	DeleteObject(m_hMask);
+	DeleteObject(m_hMask);	
+	
     
 
     --s_iRefCount;

@@ -20,6 +20,8 @@
 
 // This Include
 #include "Player.h"
+#include "PlayerBullet.h"
+#include "entity.h"
 
 // Static Variables
 
@@ -34,7 +36,6 @@ Player::Player()
 
 Player::~Player()
 {
-
 }
 
 bool
@@ -77,5 +78,16 @@ Player::Process(float _fDeltaTick)
 	}
 	
 	Entity::Process(_fDeltaTick);
+}
+
+void Player::Shoot()
+{
+	bullet = new PlayerBullet();
+	bullet->Initialise(this);
+}
+
+PlayerBullet * Player::GetPlayerBullet() const
+{
+	return bullet;
 }
 
