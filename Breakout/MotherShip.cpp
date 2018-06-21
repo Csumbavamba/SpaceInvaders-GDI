@@ -55,10 +55,6 @@ void MotherShip::Process(float deltaTick)
 	{
 		Entity::Process(deltaTick);
 	}
-	else
-	{
-		delete this;
-	}
 }
 
 void MotherShip::SetHit(bool isHit)

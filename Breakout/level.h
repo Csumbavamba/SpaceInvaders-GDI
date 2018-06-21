@@ -55,13 +55,13 @@ public:
     int GetBricksRemaining() const;
 
 protected:
-    void ProcessBallWallCollision();
-	// void ProcessPaddleWallCollison();
-    void ProcessShipBulletAlienCollision();
-    void ProcessCheckForWin();
-    void ProcessBallBounds();
+    void CheckShipBulletWallCollision();
+    void CheckShipBulletAlienCollision();
+    void CheckForWin();
+    void CheckBulletBounds();
 	void CheckAlienBulletCollisions();
 	void CheckShipBulletMotherShipCollisions();
+	void CheckMotherShipWallCollision();
 	bool IsPlayerDead();
 
     void UpdateScoreText();
@@ -119,7 +119,8 @@ protected:
 	int barrierX;
 	int barrierY;
 
-	bool mothershipAlive;
+	bool motherShipAlive;
+	bool motherShipCanSpawn;
 
     int aliensRemaining;
 	int barriersRemaining;

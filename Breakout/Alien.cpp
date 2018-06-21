@@ -32,12 +32,11 @@
 Alien::Alien()
 : isHit(false)
 {
-	moveSpeed = 1.0f;
+	moveSpeed = 0.5f;
 }
 
 Alien::~Alien()
 {
-
 }
 
 bool
@@ -97,13 +96,13 @@ void Alien::ChangeAlienDirection()
 {
 	if (moveSpeed < 0)
 	{
-		moveSpeed = 0.5f;
+		moveSpeed = -moveSpeed;
 		//m_pSprite->updateSprite(IDB_BULLETSPRITE, IDB_BULLETMASK);
 	}
 
 	else
 	{
-		moveSpeed = -0.5f;
+		moveSpeed = -moveSpeed;
 	}
 
 

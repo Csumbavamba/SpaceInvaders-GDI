@@ -54,7 +54,8 @@ Level::Level()
 , m_fpsCounter(0)
 ,barrierX(0)
 ,barrierY(700)
-, mothershipAlive(false)
+, motherShipAlive(false)
+, motherShipCanSpawn(true)
 {
 
 }
@@ -79,10 +80,15 @@ Level::~Level()
 		barriers.pop_back();
 
 		delete pBarrier;
+		pBarrier = 0;
 	}
 
-	delete motherShip;
-	motherShip = 0;
+	if (motherShip)
+	{
+		delete motherShip;
+		motherShip = 0;
+	}
+	
 
 	// Delete alien bullets
 	while (alienBullets.size() > 0)
@@ -92,16 +98,18 @@ Level::~Level()
 		alienBullets.pop_back();
 
 		delete bullet;
+		bullet = 0;
 	}
 
 	// Delete mothership bullet
 	while (motherShipBullets.size() > 0)
 	{
-		MotherShipBullet * bullet = motherShipBullets[motherShipBullets.size() - 1];
+		MotherShipBullet * motherBullet = motherShipBullets[motherShipBullets.size() - 1];
 
 		motherShipBullets.pop_back();
 
-		delete bullet;
+		delete motherBullet;
+		motherBullet = 0;
 	}
 
 	if (bullet != nullptr)
@@ -139,6 +147,7 @@ Level::Initialise(int _iWidth, int _iHeight)
     player = new Player();
     VALIDATE(player->Initialise());
 
+	bullet = player->GetPlayerBullet();
 	
 
 
@@ -148,7 +157,6 @@ Level::Initialise(int _iWidth, int _iHeight)
     player->SetY(_iHeight - ( 1.5f * player->GetHeight()));
 
 
-	bullet = new PlayerBullet();
 
 	/*m_pBall = new CBall();
 	VALIDATE(m_pBall->Initialise(fBallVelY, m_pPaddle));*/
@@ -212,6 +220,8 @@ Level::Initialise(int _iWidth, int _iHeight)
     }
 
 	motherShip = new MotherShip();
+	motherShip->Initialise();
+	motherShip->SetHit(true);
 	
     SetBricksRemaining(kiNumBricks);
 	m_fpsCounter = new FPSCounter();
@@ -291,10 +301,9 @@ Level::Process(float _fDeltaTick)
 		// If the brick with the highest X value reaches the wall turn back
 
 	}
-	if (aliens.size() % 7 == 0 && (mothershipAlive == false))
+	if (aliens.size() % 7 == 0 && (motherShipAlive == false) && motherShipCanSpawn)
 	{
 		SpawnMotherShip();
-		mothershipAlive = true;
 	}
 
 	MoveAliens();
@@ -304,13 +313,17 @@ Level::Process(float _fDeltaTick)
 	
 	
 
-	if (mothershipAlive == true)
+	if (motherShipAlive == true)
 	{
+		// Do actions
 		motherShip->Process(_fDeltaTick);
 		motherShip->MoveSideWays();
 		motherShipShootDelay--;
 		MakeMotherShipShoot();
+
+		// Check for collisions
 		CheckShipBulletMotherShipCollisions();
+		CheckMotherShipWallCollision();
 
 		if (!motherShipBullets.empty())
 		{
@@ -346,6 +359,8 @@ Level::Process(float _fDeltaTick)
 
 	if (isShooting && canShoot == true)
 	{
+		player->Shoot();
+		bullet = player->GetPlayerBullet();
 		bullet->Initialise(player);
 		canShoot = false;
 		isShooting = false;
@@ -354,11 +369,11 @@ Level::Process(float _fDeltaTick)
 	if (bullet != nullptr && !canShoot)
 		bullet->Process(_fDeltaTick);
 	if (bullet != nullptr && !canShoot)
-		ProcessBallWallCollision();
+		CheckShipBulletWallCollision();
 	if (bullet != nullptr && !canShoot)
-		ProcessShipBulletAlienCollision();
+		CheckShipBulletAlienCollision();
 	if (bullet != nullptr && !canShoot)
-		ProcessBallBounds();
+		CheckBulletBounds();
 
 	
 
@@ -369,7 +384,7 @@ Level::Process(float _fDeltaTick)
 	
 
 
-    ProcessCheckForWin();
+    CheckForWin();
 	
 
     
@@ -386,7 +401,7 @@ Level::GetPaddle() const
 }
 
 void 
-Level::ProcessBallWallCollision()
+Level::CheckShipBulletWallCollision()
 {
 	float fBallX = bullet->GetX();
 	float fBallY = bullet->GetY();
@@ -413,7 +428,7 @@ Level::ProcessBallWallCollision()
 }
 
 void
-Level::ProcessShipBulletAlienCollision()
+Level::CheckShipBulletAlienCollision()
 {
     for (unsigned int i = 0; i < aliens.size(); ++i)
     {
@@ -442,6 +457,7 @@ Level::ProcessShipBulletAlienCollision()
 
 				// TODO make a better respawn for bullet
 				canShoot = true;
+				motherShipCanSpawn = true;
 				
 
 				SetBricksRemaining(GetBricksRemaining() - 1);
@@ -455,7 +471,7 @@ Level::ProcessShipBulletAlienCollision()
 }
 
 void
-Level::ProcessCheckForWin()
+Level::CheckForWin()
 {
     for (unsigned int i = 0; i < aliens.size(); ++i)
     {
@@ -469,7 +485,7 @@ Level::ProcessCheckForWin()
 }
 
 void
-Level::ProcessBallBounds()
+Level::CheckBulletBounds()
 {
 	if (bullet->GetX() < 0)
     {
@@ -506,6 +522,7 @@ void Level::CheckAlienBulletCollisions()
 			{
 				RemoveAlienBulletFromVector(alienBullet);
 				delete alienBullet;
+				alienBullet = nullptr;
 				return;
 			}
 
@@ -532,6 +549,7 @@ void Level::CheckAlienBulletCollisions()
 				// Decrease HP
 				RemoveAlienBulletFromVector(alienBullet);
 				delete alienBullet;
+				alienBullet = nullptr;
 				hitPoints--;
 				// Check if Game is Lost
 				if (IsPlayerDead())
@@ -545,7 +563,7 @@ void Level::CheckAlienBulletCollisions()
 
 void Level::CheckShipBulletMotherShipCollisions()
 {
-	if (!motherShip->IsHit() && mothershipAlive)
+	if (!motherShip->IsHit() && motherShipAlive)
 	{
 		float bulletRadius = bullet->GetRadius();
 
@@ -570,11 +588,29 @@ void Level::CheckShipBulletMotherShipCollisions()
 
 			// TODO make a better respawn for bullet
 			canShoot = true;
+			motherShipCanSpawn = true;
 
 			DestroyMotherShip();
 
 		}
 	}
+}
+
+void Level::CheckMotherShipWallCollision()
+{
+	if (motherShipAlive)
+	{
+		float shipX = motherShip->GetX();
+		float shipWidth = motherShip->GetWidth();
+
+		float shipHalfWidth = shipWidth / 2;
+
+		if (shipX > width) //represents the situation when the mothership has hit the right wall
+		{
+			DestroyMotherShip();
+		}
+	}
+	
 }
 
 bool Level::IsPlayerDead()
@@ -610,6 +646,7 @@ void Level::SpawnMotherShip()
 	if (true)
 	{
 		motherShip->Initialise();
+		motherShipAlive = true;
 	}
 }
 
@@ -626,9 +663,11 @@ void Level::MakeMotherShipShoot()
 void Level::DestroyMotherShip()
 {
 	motherShip->SetHit(true);
-	delete motherShip;
-	mothershipAlive = false;
-	motherShip = new MotherShip();
+	//delete motherShip;
+	//motherShip = 0;
+	// motherShip = new MotherShip();
+	motherShipCanSpawn = false;
+	motherShipAlive = false;
 }
 
 void
