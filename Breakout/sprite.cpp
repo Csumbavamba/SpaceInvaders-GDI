@@ -30,6 +30,12 @@ int Sprite::s_iRefCount = 0;
 
 // Implementation
 
+/***********************
+* name of the function: Sprite (Constructor)
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
 Sprite::Sprite()
 : m_iX(0)
 , m_iY(0)
@@ -37,6 +43,12 @@ Sprite::Sprite()
     ++s_iRefCount;
 }
 
+/***********************
+* name of the function: ~Sprite (Destructor)
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
 Sprite::~Sprite()
 {
 
@@ -55,8 +67,13 @@ Sprite::~Sprite()
     }
 }
 
-bool
-Sprite::Initialise(int _iSpriteResourceID, int _iMaskResourceID)
+/***********************
+* name of the function: Initialise
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: int _iSpriteResourceID, int _iMaskResourceID
+* @return: boolean
+********************/
+bool Sprite::Initialise(int _iSpriteResourceID, int _iMaskResourceID)
 {
     HINSTANCE hInstance = Game::GetInstance().GetAppInstance();
 
@@ -76,27 +93,13 @@ Sprite::Initialise(int _iSpriteResourceID, int _iMaskResourceID)
     return (true);
 }
 
-
-void Sprite::updateSprite(int _iSpriteResourceID, int _iMaskResourceID)
-{
-	//HINSTANCE hInstance = CGame::GetInstance().GetAppInstance();
-
-	//if (!s_hSharedSpriteDC)
-	//{
-	//	s_hSharedSpriteDC = CreateCompatibleDC(NULL);
-	//}
-
-	//m_hSprite = LoadBitmap(hInstance, MAKEINTRESOURCE(_iSpriteResourceID));
-	////VALIDATE(m_hSprite);
-	//m_hMask = LoadBitmap(hInstance, MAKEINTRESOURCE(_iMaskResourceID));
-	////VALIDATE(m_hMask);
-
-	//GetObject(m_hSprite, sizeof(BITMAP), &m_bitmapSprite);
-	//GetObject(m_hMask, sizeof(BITMAP), &m_bitmapMask);
-}
-
-void
-Sprite::Draw()
+/***********************
+* name of the function: Draw
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
+void Sprite::Draw()
 {
     int iW = GetWidth();
     int iH = GetHeight();
@@ -117,57 +120,102 @@ Sprite::Draw()
     SelectObject(s_hSharedSpriteDC, hOldObj);
 }
 
-void
-Sprite::Process(float _fDeltaTick)
+/***********************
+* name of the function: Process
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: float _fDeltaTick
+* @return: None
+********************/
+void Sprite::Process(float _fDeltaTick)
 {
 
 }
 
-int
-Sprite::GetWidth() const
+/***********************
+* name of the function: GetWidth
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: int m_bitmapSprite.bmWidth
+********************/
+int Sprite::GetWidth() const
 {
     return (m_bitmapSprite.bmWidth);
 }
 
-int
-Sprite::GetHeight() const
+/***********************
+* name of the function: GetHeight
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: int m_bitmapSprite.bmHeight
+********************/
+int Sprite::GetHeight() const
 {
     return (m_bitmapSprite.bmHeight);
 }
 
-int 
-Sprite::GetX() const
+/***********************
+* name of the function: GetX
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: int m_iX
+********************/
+int Sprite::GetX() const
 {
     return (m_iX);
 }
 
-int 
-Sprite::GetY() const
+/***********************
+* name of the function: GetY
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: int m_iY
+********************/
+int Sprite::GetY() const
 {
     return (m_iY);
 }
 
-void 
-Sprite::SetX(int _i)
+/***********************
+* name of the function: SetX
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: int _i
+* @return: None
+********************/
+void Sprite::SetX(int _i)
 {
     m_iX = _i;
 }
 
-void 
-Sprite::SetY(int _i)
+/***********************
+* name of the function: SetY
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: int _i
+* @return: None
+********************/
+void Sprite::SetY(int _i)
 {
     m_iY = _i;
 }
 
-void 
-Sprite::TranslateRelative(int _iX, int _iY)
+/***********************
+* name of the function: TranslateReceive
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: int _iX, int _iY
+* @return: None
+********************/
+void Sprite::TranslateRelative(int _iX, int _iY)
 {
     m_iX += _iX;
     m_iY += _iY;
 }
 
-void 
-Sprite::TranslateAbsolute(int _iX, int _iY)
+/***********************
+* name of the function: TranslateAbsolute
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: int _iX, int _iY
+* @return: None
+********************/
+void Sprite::TranslateAbsolute(int _iX, int _iY)
 {
     m_iX = _iX;
     m_iY = _iY;

@@ -30,6 +30,12 @@ Game* Game::s_pGame = 0;
 
 // Implementation
 
+/***********************
+* name of the function: Game (Constructor)
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
 Game::Game()
 	: m_pLevel(0)
 	, m_pClock(0)
@@ -40,6 +46,12 @@ Game::Game()
 
 }
 
+/***********************
+* name of the function: ~Game (Destructor)
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
 Game::~Game()
 {
 	delete m_pLevel;
@@ -52,8 +64,13 @@ Game::~Game()
 	m_pClock = 0;
 }
 
-bool
-Game::Initialise(HINSTANCE _hInstance, HWND _hWnd, int _iWidth, int _iHeight)
+/***********************
+* name of the function: Initialise
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: HINSTANCE, HWND, int, int
+* @return: boolean
+********************/
+bool Game::Initialise(HINSTANCE _hInstance, HWND _hWnd, int _iWidth, int _iHeight)
 {
 	m_hApplicationInstance = _hInstance;
 	m_hMainWindow = _hWnd;
@@ -73,8 +90,13 @@ Game::Initialise(HINSTANCE _hInstance, HWND _hWnd, int _iWidth, int _iHeight)
 	return (true);
 }
 
-void
-Game::Draw()
+/***********************
+* name of the function: Draw
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
+void Game::Draw()
 {
 	m_pBackBuffer->Clear();
 
@@ -83,14 +105,24 @@ Game::Draw()
 	m_pBackBuffer->Present();
 }
 
-void
-Game::Process(float _fDeltaTick)
+/***********************
+* name of the function: Process
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: _fDeltaTick
+* @return: None
+********************/
+void Game::Process(float _fDeltaTick)
 {
 	m_pLevel->Process(_fDeltaTick);
 }
 
-void
-Game::ExecuteOneFrame()
+/***********************
+* name of the function: ExecuteOneFrame
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
+void Game::ExecuteOneFrame()
 {
 	float fDT = m_pClock->GetDeltaTick();
 
@@ -102,8 +134,13 @@ Game::ExecuteOneFrame()
 	Sleep(1);
 }
 
-Game&
-Game::GetInstance()
+/***********************
+* name of the function: GetInstance
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: Game&
+********************/
+Game& Game::GetInstance()
 {
 	if (s_pGame == 0)
 	{
@@ -113,47 +150,82 @@ Game::GetInstance()
 	return (*s_pGame);
 }
 
-void
-Game::GameOverWon()
+/***********************
+* name of the function: GameOverWon
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
+void Game::GameOverWon()
 {
 	MessageBox(m_hMainWindow, L"Winner!", L"Game Over", MB_OK);
 	PostQuitMessage(0);
 }
 
-void
-Game::GameOverLost()
+/***********************
+* name of the function: GameOverLost
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
+void Game::GameOverLost()
 {
 	MessageBox(m_hMainWindow, L"Loser!", L"Game Over", MB_OK);
 	PostQuitMessage(0);
 }
 
-void
-Game::DestroyInstance()
+/***********************
+* name of the function: DestroyInstance
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
+void Game::DestroyInstance()
 {
 	delete s_pGame;
 	s_pGame = 0;
 }
 
-BackBuffer*
-Game::GetBackBuffer()
+/***********************
+* name of the function: GetBackBuffer
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: BackBuffer*
+********************/
+BackBuffer* Game::GetBackBuffer()
 {
 	return (m_pBackBuffer);
 }
 
-Level*
-Game::GetLevel()
+/***********************
+* name of the function: GetLevel
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: Level*
+********************/
+Level* Game::GetLevel()
 {
 	return (m_pLevel);
 }
 
-HINSTANCE
-Game::GetAppInstance()
+/***********************
+* name of the function: GetAppInstance
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: HINSTANCE
+********************/
+HINSTANCE Game::GetAppInstance()
 {
 	return (m_hApplicationInstance);
 }
 
-HWND
-Game::GetWindow()
+/***********************
+* name of the function: GetWindow
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: HWND
+********************/
+HWND Game::GetWindow()
 {
 	return (m_hMainWindow);
 }

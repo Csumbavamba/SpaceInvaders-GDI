@@ -24,6 +24,12 @@
 
 // Implementation
 
+/***********************
+* name of the function: Clock (Constructor)
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
 Clock::Clock()
 : m_fTimeElapsed(0.0)
 , m_fDeltaTime(0.0)
@@ -33,13 +39,24 @@ Clock::Clock()
 
 }
 
+/***********************
+* name of the function: ~Clock (Destructor)
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
 Clock::~Clock()
 {
 
 }
 
-bool
-Clock::Initialise()
+/***********************
+* name of the function: Initialise
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: boolean
+********************/
+bool Clock::Initialise()
 {
 	__int64 _TimerFrequency, _currTime;
 	QueryPerformanceFrequency((LARGE_INTEGER*)&_TimerFrequency);
@@ -52,8 +69,13 @@ Clock::Initialise()
 	return (true);
 }
 
-void
-Clock::Process()
+/***********************
+* name of the function: Process
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
+void Clock::Process()
 {
 	//Get the time this frame.
 
@@ -102,8 +124,13 @@ Clock::Process()
 //	return (float)(m_fDeltaTime / 1000.0f);
 //}
 
-float
-Clock::GetDeltaTick()
+/***********************
+* name of the function: GetDeltaTick
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: float
+********************/
+float Clock::GetDeltaTick()
 {
 	return static_cast<float>(m_fDeltaTime);
 }

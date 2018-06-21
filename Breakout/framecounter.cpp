@@ -22,7 +22,12 @@
 
 // Static Function Prototypes
 
-
+/***********************
+* name of the function: FPSCounter (Constrtuctor)
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
 FPSCounter::FPSCounter()
 	:m_fTimeElapsed(0.0f)
 	, m_iFrameCount(0)
@@ -31,21 +36,35 @@ FPSCounter::FPSCounter()
 
 }
 
+/***********************
+* name of the function: FPSCounter (Destructor)
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
 FPSCounter::~FPSCounter()
 {
 
 }
 
-
-bool
-FPSCounter::Initialise()
+/***********************
+* name of the function: Initialise
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: boolean
+********************/
+bool FPSCounter::Initialise()
 {
 	return (true);
 }
 
-
-void 
-FPSCounter::CountFramesPerSecond(float _fDeltaTime)
+/***********************
+* name of the function: CountFramesPerSecond
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: _fDeltaTime
+* @return: None
+********************/
+void FPSCounter::CountFramesPerSecond(float _fDeltaTime)
 {
 	++m_iFrameCount;
 
@@ -60,6 +79,12 @@ FPSCounter::CountFramesPerSecond(float _fDeltaTime)
 	UpdateFPSText();
 }
 
+/***********************
+* name of the function: UpdateFPSText
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
 void FPSCounter::UpdateFPSText()
 {
 	m_strFPS = L"FPS: ";
@@ -68,7 +93,12 @@ void FPSCounter::UpdateFPSText()
 	m_strFPS += wstrTemp;
 }
 
-
+/***********************
+* name of the function: DrawFPSText
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: HDC, int, int
+* @return: None
+********************/
 void FPSCounter::DrawFPSText(HDC _hdc, int _iWidth, int _iHeight)
 {
 	const int kiX = _iWidth - 70;

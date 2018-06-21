@@ -29,32 +29,59 @@
 
 // Implementation
 
+/***********************
+* name of the function: Background (Constructor)
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
 BackGround::BackGround()
 {
 
 }
 
+/***********************
+* name of the function: ~Background (Destructor)
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
 BackGround::~BackGround()
 {
 
 }
 
-bool
-BackGround::Initialise()
+/***********************
+* name of the function: Initialise - Initialises the background
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: Boolean for if the intialise works or not
+********************/
+bool BackGround::Initialise()
 {
 	VALIDATE(Entity::Initialise(IDB_BACKGROUNDSPACESPRITE, IDB_BACKGROUNDSPACEMASK));
 
 	return (true);
 }
 
-void
-BackGround::Draw()
+/***********************
+* name of the function: Draw - Draws the background via Entity Draw
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: None
+* @return: None
+********************/
+void BackGround::Draw()
 {
 	Entity::Draw();
 }
 
-void
-BackGround::Process(float _fDeltaTick)
+/***********************
+* name of the function: Process
+* @author: Thomas Sheppard | Varun Naval | Zsombor Pirok
+* @parameter: float _fDeltaTick
+* @return: None
+********************/
+void BackGround::Process(float _fDeltaTick)
 {
 	Entity::Process(_fDeltaTick);
 }
